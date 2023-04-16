@@ -17,6 +17,11 @@ Ship >> initializeWithPosition: aPosition [
 	position := aPosition.
 ]
 
+{ #category : #validation }
+Ship >> isValid [
+	^true.
+]
+
 { #category : #accessing }
 Ship >> move: anInteger [
 	position := position + anInteger.
