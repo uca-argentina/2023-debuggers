@@ -4,8 +4,16 @@ Class {
 	#instVars : [
 		'position'
 	],
+	#classInstVars : [
+		'position'
+	],
 	#category : #'IngSoft2-Model'
 }
+
+{ #category : #initialization }
+Ship class >> initializeWithPosition: aPosition [  
+	position := aPosition.
+]
 
 { #category : #'instance creation' }
 Ship class >> withPosition: aPosition [

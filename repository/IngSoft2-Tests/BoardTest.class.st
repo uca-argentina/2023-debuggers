@@ -7,7 +7,6 @@ Class {
 { #category : #tests }
 BoardTest >> test005ABoardWithOneShipCanTellMeItsShipsPosition [
 
-	
 	| aShip aBoard |
 	
 	aShip := Ship withPosition: 5.
