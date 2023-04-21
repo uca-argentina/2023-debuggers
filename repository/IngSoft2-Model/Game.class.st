@@ -17,6 +17,15 @@ Game class >> with: aShip and: aBoard [
 	^((self new) initializeWith: aShip and: aBoard).
 ]
 
+{ #category : #'as yet unclassified' }
+Game >> hasAWinner [
+
+	^ (ships
+		  detect: [ :aShip | aShip isWinner: board ]
+		  ifFound: [true]
+		  ifNone: [false]).
+]
+
 { #category : #initialization }
 Game >> initializeWith: aShip and: aBoard [ 
 	ships := aShip.
@@ -35,12 +44,25 @@ Game >> isStarted [
 
 { #category : #playing }
 Game >> play [
-	self winner isNil ifFalse: [ Error signal: 'No se puede seguir jugando'].
-	ships do: [ :aShip | aShip move: 7].
+
+	self validatePlay.
+	[ self hasAWinner ] whileFalse: [ self playARound ]
+]
+
+{ #category : #playing }
+Game >> playARound [
+
+	^ ships do: [ :aShip | aShip move: 7 ]
+]
+
+{ #category : #playing }
+Game >> validatePlay [
+
+	self hasAWinner ifTrue: [ Error signal: 'No se puede seguir jugando' ]
 ]
 
 { #category : #'as yet unclassified' }
 Game >> winner [
-	^(ships detect: [ :aShip | aShip isWinner:  board]
-		ifNone: nil).
+
+	^ ships detect: [ :aShip | aShip isWinner: board ]
 ]

@@ -4,6 +4,16 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
+{ #category : #asserting }
+GameTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMessage [
+
+	self
+		should: anErrorBlock
+		raise: anExceptionClass
+		withExceptionDo: [ :error | 
+		self assert: error messageText equals: anErrorMessage ]
+]
+
 { #category : #tests }
 GameTest >> test001AGameCanStartWithASingleShipAndABoard [
 	
@@ -28,20 +38,19 @@ GameTest >> test002AGameCanStartWithManyShipsAndABoard [
 ]
 
 { #category : #tests }
-GameTest >> test003AGameCanStartWithASingleShipAndABoardAndCanBePlayed [
+GameTest >> test003AGameCanStartWithASingleShipAndABoardAndCanPlayARound [
 	
 	| aShip aBoard aGame |
 	aShip := Ship withPosition: 3.
 	aBoard := 10.
-	aGame := Game with: aShip and: aBoard.
-	aShip move: 7.
-	"aGame play."
+	aGame := Game with: (OrderedCollection with: aShip) and: aBoard.
+	aGame playARound.
 	
-	self assert: aShip position == 10.
+	self assert: aShip position equals: 10.
 ]
 
 { #category : #tests }
-GameTest >> test004AGameCanStartWithManyShipsAndABoardAndCanBePlayed [
+GameTest >> test004AGameCanStartWithManyShipsAndABoardAndCanPlayARound [
 	
 	| aShip1 aBoard aGame aShip2 aShip3 aCollectionOfShips |
 	
@@ -51,11 +60,11 @@ GameTest >> test004AGameCanStartWithManyShipsAndABoardAndCanBePlayed [
 	aCollectionOfShips := OrderedCollection with: aShip1 with: aShip2 with: aShip3.
 	aBoard := 10.
 	aGame := Game with: aCollectionOfShips and: aBoard.
-	aGame play.
+	aGame playARound.
 	
-	self assert: aShip1 position == 10.
-	self assert: aShip2 position == 9.
-	self assert: aShip3 position == 8.
+	self assert: aShip1 position equals: 10.
+	self assert: aShip2 position equals: 9.
+	self assert: aShip3 position equals: 8.
 ]
 
 { #category : #tests }
@@ -71,7 +80,7 @@ GameTest >> test005AGameCanTellTheWinner [
 	aGame := Game with: aCollectionOfShips and: aBoard.
 	aGame play.
 	
-	self assert: aGame winner == aShip1.
+	self assert: aGame winner equals: aShip1.
 ]
 
 { #category : #tests }
@@ -88,4 +97,22 @@ GameTest >> test006AGameWithAWinnerCanNoLongerBePlayed [
 	aGame play.
 	
 	self should: [aGame play] raise: Error withMessage: 'No se puede seguir jugando'.
+]
+
+{ #category : #tests }
+GameTest >> test007AGameCanStartWithManyShipsAndABoardAndCanBePlayedMultipleRoundsUntilItHasAWinner [
+	
+	| aShip1 aBoard aGame aShip2 aShip3 aCollectionOfShips |
+	
+	aShip1 := Ship withPosition: 3.
+	aShip2 := Ship withPosition: 2.
+	aShip3 := Ship withPosition: 1.
+	aCollectionOfShips := OrderedCollection with: aShip1 with: aShip2 with: aShip3.
+	aBoard := 24.
+	aGame := Game with: aCollectionOfShips and: aBoard.
+	aGame play.
+	
+	self assert: aShip1 position equals: 24.
+	self assert: aShip2 position equals: 23.
+	self assert: aShip3 position equals: 22.
 ]
