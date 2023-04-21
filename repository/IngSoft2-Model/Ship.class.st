@@ -30,6 +30,11 @@ Ship >> isValid [
 	^true.
 ]
 
+{ #category : #testing }
+Ship >> isWinner: aFinalSquare [ 
+	^ position == aFinalSquare.
+]
+
 { #category : #accessing }
 Ship >> move: anInteger [
 	position := position + anInteger.

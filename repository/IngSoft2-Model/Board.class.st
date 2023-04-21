@@ -42,5 +42,5 @@ Board >> shipPositions [
 
 { #category : #'as yet unclassified' }
 Board >> winner [
-	^(ships detect: [ :aShip | aShip position == squares last]).
+	^(ships detect: [ :aShip | aShip position == squares last ]).
 ]
