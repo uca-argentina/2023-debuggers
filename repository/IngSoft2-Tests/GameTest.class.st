@@ -96,7 +96,7 @@ GameTest >> test006AGameWithAWinnerCanNoLongerBePlayed [
 	aGame := Game with: aCollectionOfShips and: aBoard.
 	aGame play.
 	
-	self should: [aGame play] raise: Error withMessage: 'No se puede seguir jugando'.
+	self should: [aGame play] raise: Error withMessage: 'Unable to play, Game has already finished'.
 ]
 
 { #category : #tests }
@@ -151,4 +151,18 @@ GameTest >> test009AGameCanOnlyHaveASingleWinner [
 	self assert: aGame winner equals: aShip1.
 	self deny: aGame winner equals: aShip2.
 	self deny: aGame winner equals: aShip3.
+]
+
+{ #category : #tests }
+GameTest >> test010AGameWithManyShipsCanTellMeItsShipsPositions [
+	
+	| aShip1 aBoard aGame aShip2 aShip3 aCollectionOfShips |
+	aShip1 := Ship withPosition: 3.
+	aShip2 := Ship withPosition: 2.
+	aShip3 := Ship withPosition: 1.
+	aCollectionOfShips := OrderedCollection with: aShip1 with: aShip2 with: aShip3.
+	aBoard := 10.
+	aGame := Game with: aCollectionOfShips and: aBoard.
+	
+	self assert: aGame shipPositions equals: (#(3 2 1) asOrderedCollection).
 ]

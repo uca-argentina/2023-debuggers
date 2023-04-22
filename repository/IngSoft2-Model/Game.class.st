@@ -52,10 +52,16 @@ Game >> playARound [
 	^ ships do: [ :aShip | aShip move: 7 in: board]
 ]
 
+{ #category : #'as yet unclassified' }
+Game >> shipPositions [
+
+	^ships collect: [ :aShip | aShip position ].
+]
+
 { #category : #playing }
 Game >> validatePlay [
 
-	self hasAWinner ifTrue: [ Error signal: 'No se puede seguir jugando' ]
+	self hasAWinner ifTrue: [ Error signal: 'Unable to play, Game has already finished' ]
 ]
 
 { #category : #'as yet unclassified' }
