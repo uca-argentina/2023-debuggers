@@ -20,10 +20,7 @@ Game class >> with: aShip and: aBoard [
 { #category : #'as yet unclassified' }
 Game >> hasAWinner [
 
-	^ (ships
-		  detect: [ :aShip | aShip isWinner: board ]
-		  ifFound: [true]
-		  ifNone: [false]).
+	^ ships anySatisfy: [ :aShip | aShip isWinner: board ]. 
 ]
 
 { #category : #initialization }
@@ -52,7 +49,7 @@ Game >> play [
 { #category : #playing }
 Game >> playARound [
 
-	^ ships do: [ :aShip | aShip move: 7 ]
+	^ ships do: [ :aShip | aShip move: 7 in: board]
 ]
 
 { #category : #playing }

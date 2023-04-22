@@ -100,7 +100,7 @@ GameTest >> test006AGameWithAWinnerCanNoLongerBePlayed [
 ]
 
 { #category : #tests }
-GameTest >> test007AGameCanStartWithManyShipsAndABoardAndCanBePlayedMultipleRoundsUntilItHasAWinner [
+GameTest >> test007AGameCanBePlayedMultipleRoundsUntilItHasAWinner [
 	
 	| aShip1 aBoard aGame aShip2 aShip3 aCollectionOfShips |
 	
@@ -115,4 +115,40 @@ GameTest >> test007AGameCanStartWithManyShipsAndABoardAndCanBePlayedMultipleRoun
 	self assert: aShip1 position equals: 24.
 	self assert: aShip2 position equals: 23.
 	self assert: aShip3 position equals: 22.
+]
+
+{ #category : #tests }
+GameTest >> test008AGameCanBePlayedAndItsShipsWontGetPastTheLastSquareWhenMoving [
+	
+	| aShip1 aBoard aGame aShip2 aShip3 aCollectionOfShips |
+	
+	aShip1 := Ship withPosition: 5.
+	aShip2 := Ship withPosition: 2.
+	aShip3 := Ship withPosition: 1.
+	aCollectionOfShips := OrderedCollection with: aShip1 with: aShip2 with: aShip3.
+	aBoard := 24.
+	aGame := Game with: aCollectionOfShips and: aBoard.
+	aGame play.
+	
+	self assert: aShip1 position equals: 24.
+	self assert: aShip2 position equals: 23.
+	self assert: aShip3 position equals: 22.
+]
+
+{ #category : #tests }
+GameTest >> test009AGameCanOnlyHaveASingleWinner [
+	
+	| aShip1 aBoard aGame aShip2 aShip3 aCollectionOfShips |
+	
+	aShip1 := Ship withPosition: 3.
+	aShip2 := Ship withPosition: 3.
+	aShip3 := Ship withPosition: 3.
+	aCollectionOfShips := OrderedCollection with: aShip1 with: aShip2 with: aShip3.
+	aBoard := 10.
+	aGame := Game with: aCollectionOfShips and: aBoard.
+	aGame play.
+	
+	self assert: aGame winner equals: aShip1.
+	self deny: aGame winner equals: aShip2.
+	self deny: aGame winner equals: aShip3.
 ]

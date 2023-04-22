@@ -36,8 +36,18 @@ Ship >> isWinner: aFinalSquare [
 ]
 
 { #category : #accessing }
-Ship >> move: anInteger [
-	position := position + anInteger.
+Ship >> move: anAmountOfSteps [
+	position := position + anAmountOfSteps.
+]
+
+{ #category : #accessing }
+Ship >> move: anAmountOfSquares in: squares [
+
+	| destination |
+	destination := position + anAmountOfSquares.
+	(destination > squares)
+		ifTrue: [ self move: (squares - position) ]
+		ifFalse: [ self move: anAmountOfSquares ]
 ]
 
 { #category : #accessing }
