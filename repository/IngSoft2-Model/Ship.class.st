@@ -10,19 +10,29 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
+{ #category : #'instance creation' }
+Ship class >> atZero [
+	^((self new) initializeAtZero) .
+]
+
 { #category : #initialization }
 Ship class >> initializeWithPosition: aPosition [  
-	position := aPosition.
+	position := aPosition .
 ]
 
 { #category : #'instance creation' }
 Ship class >> withPosition: aPosition [
-	^((self new) initializeWithPosition: aPosition).
+	^((self new) initializeWithPosition: aPosition ) .
 ]
 
-{ #category : #intialization }
+{ #category : #initialization }
+Ship >> initializeAtZero [
+	position := 0.
+]
+
+{ #category : #initialization }
 Ship >> initializeWithPosition: aPosition [  
-	position := aPosition.
+	position := aPosition. 
 ]
 
 { #category : #validation }
@@ -37,7 +47,10 @@ Ship >> isWinner: aFinalSquare [
 
 { #category : #accessing }
 Ship >> move: anAmountOfSteps [
-	position := position + anAmountOfSteps.
+
+	anAmountOfSteps < 0 ifFalse: [ 
+		position := position + anAmountOfSteps ]
+	ifTrue:[position := 0].
 ]
 
 { #category : #accessing }
