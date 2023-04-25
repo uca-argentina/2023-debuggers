@@ -22,7 +22,7 @@ Die >> initalizeWith: anAmountOfFaces [
 	faces:=anAmountOfFaces.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'dice rolling' }
 Die >> throw [
 	^faces atRandom.
 ]

@@ -2,32 +2,26 @@ Class {
 	#name : #Ship,
 	#superclass : #Object,
 	#instVars : [
-		'position'
+		'position',
+		'name'
 	],
 	#classInstVars : [
-		'position'
+		'position',
+		'nameList'
 	],
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #initialization }
-Ship class >> initializeWithPosition: aPosition [  
-	position := aPosition.
-]
-
 { #category : #'instance creation' }
-Ship class >> withPosition: aPosition [
-	^((self new) initializeWithPosition: aPosition).
+Ship class >> with: aName [
+
+	^((self new) intializeWith: aName).
 ]
 
-{ #category : #intialization }
-Ship >> initializeWithPosition: aPosition [  
-	position := aPosition.
-]
-
-{ #category : #validation }
-Ship >> isValid [
-	^true.
+{ #category : #initialize }
+Ship >> intializeWith: aName [ 
+	name := aName.
+	position := 0.
 ]
 
 { #category : #testing }
@@ -37,7 +31,8 @@ Ship >> isWinner: aFinalSquare [
 
 { #category : #accessing }
 Ship >> move: anAmountOfSteps [
-	position := position + anAmountOfSteps.
+
+		position := position + anAmountOfSteps.
 ]
 
 { #category : #accessing }
@@ -45,9 +40,17 @@ Ship >> move: anAmountOfSquares in: squares [
 
 	| destination |
 	destination := position + anAmountOfSquares.
-	(destination > squares)
-		ifTrue: [ self move: (squares - position) ]
-		ifFalse: [ self move: anAmountOfSquares ]
+	destination > squares
+		ifTrue: [ self move: squares - position ]
+		ifFalse: [ 
+			destination < 0
+				ifTrue: [ self move: position negated ]
+				ifFalse: [ self move: anAmountOfSquares ] ]
+]
+
+{ #category : #accessing }
+Ship >> name [
+	^ name.
 ]
 
 { #category : #accessing }

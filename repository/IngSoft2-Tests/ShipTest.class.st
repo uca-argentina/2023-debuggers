@@ -5,45 +5,43 @@ Class {
 }
 
 { #category : #tests }
-ShipTest >> test001AShipCreatedWithPositionCanTellMeItsOwnPosition [
-
-	| aShip |
-	
-	aShip := Ship withPosition: 3.
-	
-	self assert: aShip position equals: 3
-]
-
-{ #category : #tests }
-ShipTest >> test002AShipCreatedWithADifferentPositionCanTellMeItsOwnPosition [
-
-	| aShip |
-	
-	aShip := Ship withPosition: 5.
-	
-	self assert: aShip position equals: 5
-]
-
-{ #category : #tests }
-ShipTest >> test003AShipCanMoveFowardTwoSteps [
+ShipTest >> test001AShipCanMoveFowardTwoSteps [
 
 	| aShip anAmountOfSteps |
-	
-	anAmountOfSteps := 2. 
-	aShip := Ship withPosition: 5.
+	anAmountOfSteps := 2.
+	aShip := Ship with: 'PlayerOne'.
 	aShip move: anAmountOfSteps.
-	
-	self assert: aShip position equals: 7
+
+	self assert: aShip position equals: 2
 ]
 
 { #category : #tests }
-ShipTest >> test004AShipCanMoveBackwardsFourSteps [
+ShipTest >> test002AShipCanMoveBackwardsFourSteps [
 
-	| aShip anAmountOfSteps |
-	
-	anAmountOfSteps := -4. 
-	aShip := Ship withPosition: 5.
-	aShip move: anAmountOfSteps.
-	
-	self assert: aShip position equals: 1
+	| aShip anAmountOfSteps1  anAmountOfSteps2 |
+	anAmountOfSteps1 := -4.
+	anAmountOfSteps2 := 6.
+	aShip := Ship with: 'PlayerOne'.
+	aShip move: anAmountOfSteps2.
+	aShip move: anAmountOfSteps1.
+
+	self assert: aShip position equals: 2.
+]
+
+{ #category : #tests }
+ShipTest >> test003AShipWillAlwaysBeCreatedWithPositionAtZeroCanTellMeItsOwnPosition [
+
+	| aShip |
+	aShip := Ship with: 'PlayerOne'.
+
+	self assert: aShip position equals: 0
+]
+
+{ #category : #tests }
+ShipTest >> test004AShipCanBeCreatedWithAName [
+
+	| aShip |
+	aShip := Ship with: 'PlayerOne'.
+
+	self assert: aShip name equals: 'PlayerOne'.
 ]
