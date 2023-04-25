@@ -19,9 +19,16 @@ Game class >> checkForDuplicated: aCollectionOfShips [
 	aCollectionOfShips do: [ :aShip | ((aCollectionOfShips select: [:anotherShip | anotherShip name == aShip name]) size >= 2) ifTrue:[Error signal: 'Ship alredy exits with that name']].
 ]
 
+{ #category : #'as yet unclassified' }
+Game class >> checkSquares: anAmountOfSquares [
+	
+	(anAmountOfSquares <= 0) ifTrue: [ Error signal: 'Amount of squares should have no squares or less' ]
+]
+
 { #category : #'instance creation' }
 Game class >> with: someShips and: anAmountOfSquares uses: someDice [ 
 	self checkForDuplicated: someShips.
+	self checkSquares: anAmountOfSquares.
 	^((self new) initializeWith: someShips and: anAmountOfSquares uses: someDice).
 ]
 
@@ -65,8 +72,11 @@ Game >> shipPositions [
 
 { #category : #playing }
 Game >> throwDice [
-	
-	^ dice sum: [ :aDie | aDie throw].
+
+	| result |
+	result := 0.
+	dice do: [ :aDie | result := result + aDie throw ].
+	^ result
 ]
 
 { #category : #playing }

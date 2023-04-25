@@ -18,12 +18,14 @@ ShipTest >> test001AShipCanMoveFowardTwoSteps [
 { #category : #tests }
 ShipTest >> test002AShipCanMoveBackwardsFourSteps [
 
-	| aShip anAmountOfSteps |
-	anAmountOfSteps := -4.
+	| aShip anAmountOfSteps1  anAmountOfSteps2 |
+	anAmountOfSteps1 := -4.
+	anAmountOfSteps2 := 6.
 	aShip := Ship with: 'PlayerOne'.
-	aShip move: anAmountOfSteps.
+	aShip move: anAmountOfSteps2.
+	aShip move: anAmountOfSteps1.
 
-	self assert: aShip position equals: 0
+	self assert: aShip position equals: 2.
 ]
 
 { #category : #tests }
