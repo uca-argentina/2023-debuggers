@@ -2,10 +2,12 @@ Class {
 	#name : #Ship,
 	#superclass : #Object,
 	#instVars : [
-		'position'
+		'position',
+		'name'
 	],
 	#classInstVars : [
-		'position'
+		'position',
+		'nameList'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -15,14 +17,16 @@ Ship class >> atZero [
 	^((self new) initializeAtZero) .
 ]
 
-{ #category : #initialization }
-Ship class >> initializeWithPosition: aPosition [  
-	position := aPosition .
+{ #category : #'instance creation' }
+Ship class >> label: aName [
+	self checkForDuplicated: aName.
+	^((self new) intializeWithLabel: aName).
 ]
 
 { #category : #'instance creation' }
-Ship class >> withPosition: aPosition [
-	^((self new) initializeWithPosition: aPosition ) .
+Ship class >> with: aName [
+
+	^((self new) intializeWith: aName).
 ]
 
 { #category : #initialization }
@@ -30,14 +34,15 @@ Ship >> initializeAtZero [
 	position := 0.
 ]
 
-{ #category : #initialization }
-Ship >> initializeWithPosition: aPosition [  
-	position := aPosition. 
+{ #category : #initialize }
+Ship >> intializeWith: aName [ 
+	name := aName.
+	position := 0.
 ]
 
-{ #category : #validation }
-Ship >> isValid [
-	^true.
+{ #category : #initialize }
+Ship >> intializeWithLabel: aName [ 
+	name := aName.
 ]
 
 { #category : #testing }
@@ -61,6 +66,11 @@ Ship >> move: anAmountOfSquares in: squares [
 	(destination > squares)
 		ifTrue: [ self move: (squares - position) ]
 		ifFalse: [ self move: anAmountOfSquares ]
+]
+
+{ #category : #accessing }
+Ship >> name [
+	^ name.
 ]
 
 { #category : #accessing }

@@ -13,13 +13,15 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'instance creation' }
-Game class >> with: someShips and: anAmountOfSquares [ 
-	^((self new) initializeWith: someShips and: anAmountOfSquares).
+{ #category : #'as yet unclassified' }
+Game class >> checkForDuplicated: aCollectionOfShips [
+	
+	aCollectionOfShips do: [ :aShip | ((aCollectionOfShips select: [:anotherShip | anotherShip name == aShip name]) size >= 2) ifTrue:[Error signal: 'Ship alredy exits with that name']].
 ]
 
 { #category : #'instance creation' }
 Game class >> with: someShips and: anAmountOfSquares uses: someDice [ 
+	self checkForDuplicated: someShips.
 	^((self new) initializeWith: someShips and: anAmountOfSquares uses: someDice).
 ]
 
@@ -30,26 +32,10 @@ Game >> hasAWinner [
 ]
 
 { #category : #initialization }
-Game >> initializeWith: someShips and: anAmountOfSquares [ 
-	ships := someShips.
-	board := anAmountOfSquares.
-]
-
-{ #category : #initialization }
 Game >> initializeWith: someShips and: anAmountOfSquares uses: someDice [
 	ships := someShips.
 	board := anAmountOfSquares.
 	dice 	:= someDice. 
-]
-
-{ #category : #testing }
-Game >> isFinished [
-	^ true.
-]
-
-{ #category : #initialization }
-Game >> isStarted [
-	^true.
 ]
 
 { #category : #playing }

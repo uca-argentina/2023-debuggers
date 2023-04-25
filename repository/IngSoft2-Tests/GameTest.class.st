@@ -15,36 +15,10 @@ GameTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMes
 ]
 
 { #category : #tests }
-GameTest >> test001AGameCanStartWithASingleShipAndABoard [
-
-	| aShip aBoard aGame |
-	aShip := Ship atZero.
-	aBoard := 10.
-	aGame := Game with: aShip and: aBoard.
-	self assert: aGame isStarted
-]
-
-{ #category : #tests }
-GameTest >> test002AGameCanStartWithManyShipsAndABoard [
-
-	| aShip1 anAmountofSquares aGame aShip2 aShip3 aCollectionOfShips |
-	aShip1 := Ship atZero.
-	aShip2 := Ship atZero.
-	aShip3 := Ship atZero.
-	aCollectionOfShips := OrderedCollection
-		                      with: aShip1
-		                      with: aShip2
-		                      with: aShip3.
-	anAmountofSquares := 10.
-	aGame := Game with: aCollectionOfShips and: anAmountofSquares.
-	self assert: aGame isStarted
-]
-
-{ #category : #tests }
-GameTest >> test003AGameCanStartWithASingleShipAndABoardAndCanPlayARound [
+GameTest >> test001AGameCanStartWithASingleShipAndABoardAndCanPlayARound [
 
 	| aShip anAmountofSquares aGame die1 die2 dice |
-	aShip := Ship atZero.
+	aShip := Ship with: 'Mafalda'.
 	anAmountofSquares := 10.
 	die1 := LoadedDie with: #( 7 ).
 	die2 := LoadedDie with: #( 7 ).
@@ -59,12 +33,12 @@ GameTest >> test003AGameCanStartWithASingleShipAndABoardAndCanPlayARound [
 ]
 
 { #category : #tests }
-GameTest >> test004AGameCanStartWithManyShipsAndABoardAndCanPlayARound [
+GameTest >> test002AGameCanStartWithManyShipsAndABoardAndCanPlayARound [
 
 	| aShip1 anAmountofSquares aGame aShip2 aShip3 aCollectionOfShips die1 die2 dice |
-	aShip1 := Ship atZero.
-	aShip2 := Ship atZero.
-	aShip3 := Ship atZero.
+	aShip1 := Ship with: 'Mafalda'.
+	aShip2 := Ship with: 'Juan'.
+	aShip3 := Ship with: 'Martin'.
 	aCollectionOfShips := OrderedCollection
 		                      with: aShip1
 		                      with: aShip2
@@ -85,12 +59,12 @@ GameTest >> test004AGameCanStartWithManyShipsAndABoardAndCanPlayARound [
 ]
 
 { #category : #tests }
-GameTest >> test005AGameCanTellTheWinner [
+GameTest >> test003AGameCanTellTheWinner [
 
 	| aShip1 anAmountofSquares aGame aShip2 aShip3 aCollectionOfShips die1 die2 dice |
-	aShip1 := Ship atZero.
-	aShip2 := Ship atZero.
-	aShip3 := Ship atZero.
+	aShip1 := Ship with: 'Mafalda'.
+	aShip2 := Ship with: 'Juan'.
+	aShip3 := Ship with: 'Martin'.
 	aCollectionOfShips := OrderedCollection
 		                      with: aShip1
 		                      with: aShip2
@@ -109,12 +83,12 @@ GameTest >> test005AGameCanTellTheWinner [
 ]
 
 { #category : #tests }
-GameTest >> test006AGameWithAWinnerCanNoLongerBePlayed [
+GameTest >> test004AGameWithAWinnerCanNoLongerBePlayed [
 
 	| aShip1 anAmountofSquares aGame aShip2 aShip3 aCollectionOfShips die1 die2 dice |
-	aShip1 := Ship atZero.
-	aShip2 := Ship atZero.
-	aShip3 := Ship atZero.
+	aShip1 := Ship with: 'Mafalda'.
+	aShip2 := Ship with: 'Juan'.
+	aShip3 := Ship with: 'Martin'.
 	aCollectionOfShips := OrderedCollection
 		                      with: aShip1
 		                      with: aShip2
@@ -136,12 +110,12 @@ GameTest >> test006AGameWithAWinnerCanNoLongerBePlayed [
 ]
 
 { #category : #tests }
-GameTest >> test007AGameCanBePlayedMultipleRoundsUntilItHasAWinner [
+GameTest >> test005AGameCanBePlayedMultipleRoundsUntilItHasAWinner [
 
 	| aShip1 anAmountofSquares aGame aShip2 aShip3 aCollectionOfShips die1 die2 dice |
-	aShip1 := Ship atZero.
-	aShip2 := Ship atZero.
-	aShip3 := Ship atZero.
+	aShip1 := Ship with: 'Mafalda'.
+	aShip2 := Ship with: 'Juan'.
+	aShip3 := Ship with: 'Martin'.
 	aCollectionOfShips := OrderedCollection
 		                      with: aShip1
 		                      with: aShip2
@@ -162,12 +136,12 @@ GameTest >> test007AGameCanBePlayedMultipleRoundsUntilItHasAWinner [
 ]
 
 { #category : #tests }
-GameTest >> test008AGameCanBePlayedAndItsShipsWontGetPastTheLastSquareWhenMoving [
+GameTest >> test006AGameCanBePlayedAndItsShipsWontGetPastTheLastSquareWhenMoving [
 
 	| aShip1 anAmountofSquares aGame aShip2 aShip3 aCollectionOfShips die1 die2 dice |
-	aShip1 := Ship atZero.
-	aShip2 := Ship atZero.
-	aShip3 := Ship atZero.
+	aShip1 := Ship with: 'Mafalda'.
+	aShip2 := Ship with: 'Juan'.
+	aShip3 := Ship with: 'Martin'.
 	aCollectionOfShips := OrderedCollection
 		                      with: aShip1
 		                      with: aShip2
@@ -188,12 +162,12 @@ GameTest >> test008AGameCanBePlayedAndItsShipsWontGetPastTheLastSquareWhenMoving
 ]
 
 { #category : #tests }
-GameTest >> test009AGameCanOnlyHaveASingleWinner [
+GameTest >> test007AGameCanOnlyHaveASingleWinner [
 
 	| aShip1 anAmountofSquares aGame aShip2 aShip3 aCollectionOfShips die1 die2 dice |
-	aShip1 := Ship atZero.
-	aShip2 := Ship atZero.
-	aShip3 := Ship atZero.
+	aShip1 := Ship with: 'Mafalda'.
+	aShip2 := Ship with: 'Juan'.
+	aShip3 := Ship with: 'Martin'.
 	aCollectionOfShips := OrderedCollection
 		                      with: aShip1
 		                      with: aShip2
@@ -214,12 +188,12 @@ GameTest >> test009AGameCanOnlyHaveASingleWinner [
 ]
 
 { #category : #tests }
-GameTest >> test010AGameWithManyShipsCanTellMeItsShipsPositions [
+GameTest >> test008AGameWithManyShipsCanTellMeItsShipsPositions [
 
 	| aShip1 anAmountofSquares aGame aShip2 aShip3 aCollectionOfShips die1 die2 dice |
-	aShip1 := Ship atZero.
-	aShip2 := Ship atZero.
-	aShip3 := Ship atZero.
+	aShip1 := Ship with: 'Mafalda'.
+	aShip2 := Ship with: 'Juan'.
+	aShip3 := Ship with: 'Martin'.
 	aCollectionOfShips := OrderedCollection
 		                      with: aShip1
 		                      with: aShip2
@@ -239,12 +213,12 @@ GameTest >> test010AGameWithManyShipsCanTellMeItsShipsPositions [
 ]
 
 { #category : #tests }
-GameTest >> test011AGameCanThrowADie [
+GameTest >> test009AGameCanThrowADie [
 
 	| aShip1 anAmountofSquares aGame dice die1 aCollectionOfShips aShip2 aShip3 |
-	aShip1 := Ship atZero.
-	aShip2 := Ship atZero.
-	aShip3 := Ship atZero.
+	aShip1 := Ship with: 'Mafalda'.
+	aShip2 := Ship with: 'Juan'.
+	aShip3 := Ship with: 'Martin'.
 	aCollectionOfShips := OrderedCollection
 		                      with: aShip1
 		                      with: aShip2
@@ -262,12 +236,12 @@ GameTest >> test011AGameCanThrowADie [
 ]
 
 { #category : #tests }
-GameTest >> test012AGameCanThrowDice [
+GameTest >> test010AGameCanThrowDice [
 
 	| aShip1 anAmountofSquares aGame die1 die2 dice aShip2 aShip3 aCollectionOfShips |
-	aShip1 := Ship atZero.
-	aShip2 := Ship atZero.
-	aShip3 := Ship atZero.
+	aShip1 := Ship with: 'Mafalda'.
+	aShip2 := Ship with: 'Juan'.
+	aShip3 := Ship with: 'Martin'.
 	aCollectionOfShips := OrderedCollection
 		                      with: aShip1
 		                      with: aShip2
@@ -285,11 +259,27 @@ GameTest >> test012AGameCanThrowDice [
 ]
 
 { #category : #tests }
-GameTest >> test013AGameCanStartWithShipInitializedAlwaysAtPositionZeroAndABoard [
+GameTest >> test011DuplicatedShipCantBeCreated [
 
-	| aShip aBoard aGame |
-	aShip := Ship atZero.
-	aBoard := 10.
-	aGame := Game with: aShip and: aBoard.
-	self assert: aGame isStarted
+	| aShip1 aShip2 aCollectionOfShips anAmountofSquares die1 die2 dice aGame aShip3 |
+	aShip1 := Ship with: 'Mafalda'.
+	aShip2 := Ship with: 'Mafalda'.
+	aShip3 := Ship with: 'Juan'.
+	aCollectionOfShips := OrderedCollection
+		                      with: aShip1
+		                      with: aShip2
+		                      with: aShip3.
+	anAmountofSquares := 10.
+	die1 := LoadedDie with: #( 7 ).
+	die2 := LoadedDie with: #( 7 ).
+	dice := OrderedCollection with: die1 with: die2.
+
+	self
+		should: [ 
+			aGame := Game
+				         with: aCollectionOfShips
+				         and: anAmountofSquares
+				         uses: dice ]
+		raise: Error
+		withMessage: 'Ship alredy exits with that name'
 ]
