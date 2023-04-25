@@ -335,3 +335,28 @@ GameTest >> test013AGameCannotStartWithNegativeAmountOfSquares [
 		raise: Error
 		withMessage: 'Amount of squares should have no squares or less'
 ]
+
+{ #category : #tests }
+GameTest >> test014AGameCanPlayAShipsTurn [
+
+	| aShip1 aShip2 aCollectionOfShips anAmountofSquares die1 die2 dice aGame aShip3 |
+	aShip1 := Ship with: 'Mafalda'.
+	aShip2 := Ship with: 'Jose'.
+	aShip3 := Ship with: 'Juan'.
+	aCollectionOfShips := OrderedCollection
+		                      with: aShip1
+		                      with: aShip2
+		                      with: aShip3.
+	anAmountofSquares := 10.
+	die1 := LoadedDie with: #( 7 ).
+	die2 := LoadedDie with: #( 7 ).
+	dice := OrderedCollection with: die1 with: die2.
+
+	aGame := Game
+		         with: aCollectionOfShips
+		         and: anAmountofSquares
+		         uses: dice.
+	aGame playTurnOf: aShip1.
+
+	self assert: aShip1 position equals: 10.
+]

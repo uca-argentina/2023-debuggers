@@ -13,13 +13,13 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #validation }
 Game class >> checkForDuplicated: aCollectionOfShips [
 	
 	aCollectionOfShips do: [ :aShip | ((aCollectionOfShips select: [:anotherShip | anotherShip name == aShip name]) size >= 2) ifTrue:[Error signal: 'Ship alredy exits with that name']].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #validation }
 Game class >> checkSquares: anAmountOfSquares [
 	
 	(anAmountOfSquares <= 0) ifTrue: [ Error signal: 'Amount of squares should have no squares or less' ]
@@ -32,7 +32,7 @@ Game class >> with: someShips and: anAmountOfSquares uses: someDice [
 	^((self new) initializeWith: someShips and: anAmountOfSquares uses: someDice).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'game status' }
 Game >> hasAWinner [
 
 	^ ships anySatisfy: [ :aShip | aShip isWinner: board ]. 
@@ -64,7 +64,7 @@ Game >> playTurnOf: aShip [
 	(self hasAWinner) ifFalse: [ aShip move: (self throwDice) in: board ]. 
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'game status' }
 Game >> shipPositions [
 
 	^ships collect: [ :aShip | aShip position ].
@@ -85,7 +85,7 @@ Game >> validatePlay [
 	self hasAWinner ifTrue: [ Error signal: 'Unable to play, Game has already finished' ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'game status' }
 Game >> winner [
 
 	^ ships detect: [ :aShip | aShip isWinner: board ]

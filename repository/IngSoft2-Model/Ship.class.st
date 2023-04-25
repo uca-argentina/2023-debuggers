@@ -13,36 +13,15 @@ Class {
 }
 
 { #category : #'instance creation' }
-Ship class >> atZero [
-	^((self new) initializeAtZero) .
-]
-
-{ #category : #'instance creation' }
-Ship class >> label: aName [
-	self checkForDuplicated: aName.
-	^((self new) intializeWithLabel: aName).
-]
-
-{ #category : #'instance creation' }
 Ship class >> with: aName [
 
 	^((self new) intializeWith: aName).
-]
-
-{ #category : #initialization }
-Ship >> initializeAtZero [
-	position := 0.
 ]
 
 { #category : #initialize }
 Ship >> intializeWith: aName [ 
 	name := aName.
 	position := 0.
-]
-
-{ #category : #initialize }
-Ship >> intializeWithLabel: aName [ 
-	name := aName.
 ]
 
 { #category : #testing }
