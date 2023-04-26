@@ -3,8 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'ships',
-		'board',
-		'dice'
+		'dice',
+		'squares'
 	],
 	#classInstVars : [
 		'ships',
@@ -35,13 +35,13 @@ Game class >> with: someShips and: anAmountOfSquares uses: someDice [
 { #category : #'game status' }
 Game >> hasAWinner [
 
-	^ ships anySatisfy: [ :aShip | aShip isWinner: board ]. 
+	^ ships anySatisfy: [ :aShip | aShip isWinner: squares ]. 
 ]
 
 { #category : #initialization }
 Game >> initializeWith: someShips and: anAmountOfSquares uses: someDice [
 	ships := someShips.
-	board := anAmountOfSquares.
+	squares := anAmountOfSquares.
 	dice 	:= someDice. 
 ]
 
@@ -61,7 +61,7 @@ Game >> playARound [
 { #category : #playing }
 Game >> playTurnOf: aShip [
 	
-	(self hasAWinner) ifFalse: [ aShip move: (self throwDice) in: board ]. 
+	(self hasAWinner) ifFalse: [ aShip move: (self throwDice) in: squares ]. 
 ]
 
 { #category : #'game status' }
@@ -88,5 +88,5 @@ Game >> validatePlay [
 { #category : #'game status' }
 Game >> winner [
 
-	^ ships detect: [ :aShip | aShip isWinner: board ]
+	^ ships detect: [ :aShip | aShip isWinner: squares ]
 ]

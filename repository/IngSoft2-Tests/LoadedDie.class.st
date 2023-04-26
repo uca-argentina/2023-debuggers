@@ -19,14 +19,14 @@ LoadedDie >> initializeWith: aSequenceOfRolls [
 	currentRoll:=1.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'dice rolling' }
 LoadedDie >> throw [
 
 	| roll |
-	roll := faces at: currentRoll.
+	roll := (faces at: currentRoll).
 	(currentRoll == (faces size))
 		ifTrue: [ currentRoll := 1 ]
 		ifFalse: [ currentRoll := currentRoll + 1 ].
 
-	^ roll
+	^ roll.
 ]
