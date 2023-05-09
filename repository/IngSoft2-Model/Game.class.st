@@ -16,7 +16,7 @@ Class {
 { #category : #validation }
 Game class >> checkForDuplicated: aCollectionOfShips [
 	
-	aCollectionOfShips do: [ :aShip | ((aCollectionOfShips select: [:anotherShip | anotherShip name == aShip name]) size >= 2) ifTrue:[Error signal: 'Ship alredy exits with that name']].
+	aCollectionOfShips do: [ :aShip | ((aCollectionOfShips select: [:anotherShip | anotherShip name == aShip name]) size >= 2) ifTrue:[Error signal: 'Ship alredy exists with that name']].
 ]
 
 { #category : #validation }

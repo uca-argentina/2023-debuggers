@@ -281,7 +281,7 @@ GameTest >> test011DuplicatedShipCantBeCreated [
 				         and: anAmountofSquares
 				         uses: dice ]
 		raise: Error
-		withMessage: 'Ship alredy exits with that name'
+		withMessage: 'Ship alredy exists with that name'
 ]
 
 { #category : #tests }
