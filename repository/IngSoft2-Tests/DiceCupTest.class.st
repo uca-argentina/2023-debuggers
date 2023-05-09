@@ -7,6 +7,16 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
+{ #category : #asserting }
+DiceCupTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMessage [
+
+	self
+		should: anErrorBlock
+		raise: anExceptionClass
+		withExceptionDo: [ :error | 
+		self assert: error messageText equals: anErrorMessage ]
+]
+
 { #category : #tests }
 DiceCupTest >> test001ADiceCupCanThrowADie [
 	
@@ -30,4 +40,17 @@ DiceCupTest >> test002ADiceCupCanThrowDice [
 	aDiceCup := DiceCup with: dice.
 
 	self assert: aDiceCup useDiceCup equals: 14
+]
+
+{ #category : #tests }
+DiceCupTest >> test003ADiceCupCannotHaveZeroDice [
+	
+	| dice aDiceCup |
+	
+	dice := OrderedCollection new.
+
+	self
+		should: [ aDiceCup := DiceCup with: dice ]
+		raise: Error
+		withMessage: 'Unable to create dice cup without dice'
 ]
