@@ -18,6 +18,12 @@ Ship class >> with: aName [
 	^((self new) intializeWith: aName).
 ]
 
+{ #category : #comparing }
+Ship >> equals: anotherShip [
+
+	^ name == (anotherShip name)
+]
+
 { #category : #initialize }
 Ship >> intializeWith: aName [ 
 	name := aName.
@@ -25,8 +31,8 @@ Ship >> intializeWith: aName [
 ]
 
 { #category : #testing }
-Ship >> isWinner: aFinalSquare [ 
-	^ position == aFinalSquare.
+Ship >> isAt: aSquare [ 
+	^ position == aSquare.
 ]
 
 { #category : #accessing }

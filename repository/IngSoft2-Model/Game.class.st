@@ -15,8 +15,11 @@ Class {
 
 { #category : #validation }
 Game class >> checkForDuplicated: aCollectionOfShips [
-	
-	aCollectionOfShips do: [ :aShip | ((aCollectionOfShips select: [:anotherShip | anotherShip name == aShip name]) size >= 2) ifTrue:[Error signal: 'Ship alredy exists with that name']].
+
+	aCollectionOfShips do: [ :aShip | 
+		(aCollectionOfShips count: [ :anotherShip | 
+			 aShip equals: anotherShip ]) >= 2 ifTrue: [ 
+			Error signal: 'Ship already exists with that name' ] ]
 ]
 
 { #category : #validation }
@@ -32,10 +35,16 @@ Game class >> with: someShips and: anAmountOfSquares uses: aDiceCup [
 	^((self new) initializeWith: someShips and: anAmountOfSquares uses: aDiceCup).
 ]
 
+{ #category : #playing }
+Game >> checkThereIsNoWinner [
+
+	self hasAWinner ifTrue: [ Error signal: 'Unable to play, Game has already finished' ]
+]
+
 { #category : #'game status' }
 Game >> hasAWinner [
 
-	^ ships anySatisfy: [ :aShip | aShip isWinner: squares ]. 
+	^ ships anySatisfy: [ :aShip | aShip isAt: squares ]. 
 ]
 
 { #category : #initialization }
@@ -48,7 +57,7 @@ Game >> initializeWith: someShips and: anAmountOfSquares uses: aDiceCup [
 { #category : #playing }
 Game >> play [
 
-	self validatePlay.
+	self checkThereIsNoWinner.
 	[ self hasAWinner ] whileFalse: [ self playARound ]
 ]
 
@@ -77,14 +86,8 @@ Game >> useDiceCup [
 
 ]
 
-{ #category : #playing }
-Game >> validatePlay [
-
-	self hasAWinner ifTrue: [ Error signal: 'Unable to play, Game has already finished' ]
-]
-
 { #category : #'game status' }
 Game >> winner [
 
-	^ ships detect: [ :aShip | aShip isWinner: squares ]
+	^ ships detect: [ :aShip | aShip isAt: squares ]
 ]

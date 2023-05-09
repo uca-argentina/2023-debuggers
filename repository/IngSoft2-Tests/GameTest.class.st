@@ -220,7 +220,32 @@ GameTest >> test008AGameWithManyShipsCanTellMeItsShipsPositions [
 ]
 
 { #category : #tests }
-GameTest >> test011DuplicatedShipCantBeCreated [
+GameTest >> test009AGameCanUseADiceCup [
+
+	| aShip1 anAmountofSquares aGame dice die1 die2 aDiceCup aCollectionOfShips aShip2 aShip3 |
+	aShip1 := Ship with: 'Mafalda'.
+	aShip2 := Ship with: 'Juan'.
+	aShip3 := Ship with: 'Martin'.
+	aCollectionOfShips := OrderedCollection
+		                      with: aShip1
+		                      with: aShip2
+		                      with: aShip3.
+	anAmountofSquares := 10.
+	die1 := LoadedDie with: #( 7 8 ).
+	die2 := LoadedDie with: #( 7 6 ).
+	dice := OrderedCollection with: die1 with: die2.
+	aDiceCup := DiceCup with: dice.
+	aGame := Game
+		         with: aCollectionOfShips
+		         and: anAmountofSquares
+		         uses: aDiceCup.
+	aGame playARound.
+
+	self assert: aGame useDiceCup equals: 14
+]
+
+{ #category : #tests }
+GameTest >> test010DuplicatedShipCantBeCreated [
 
 	| aShip1 aShip2 aCollectionOfShips anAmountofSquares die1 die2 dice aGame aShip3 aDiceCup |
 	aShip1 := Ship with: 'Mafalda'.
@@ -243,11 +268,11 @@ GameTest >> test011DuplicatedShipCantBeCreated [
 				         and: anAmountofSquares
 				         uses: aDiceCup ]
 		raise: Error
-		withMessage: 'Ship alredy exists with that name'
+		withMessage: 'Ship already exists with that name'
 ]
 
 { #category : #tests }
-GameTest >> test013AGameCannotStartWithNegativeAmountOfSquares [
+GameTest >> test011AGameCannotStartWithNegativeAmountOfSquares [
 
 	| aShip1 aShip2 aCollectionOfShips anAmountofSquares die1 die2 dice aGame aShip3 aDiceCup |
 	aShip1 := Ship with: 'Mafalda'.
@@ -274,7 +299,7 @@ GameTest >> test013AGameCannotStartWithNegativeAmountOfSquares [
 ]
 
 { #category : #tests }
-GameTest >> test014AGameCanPlayAShipsTurn [
+GameTest >> test012AGameCanPlayAShipsTurn [
 
 	| aShip1 aShip2 aCollectionOfShips anAmountofSquares die1 die2 dice aGame aShip3 aDiceCup |
 	aShip1 := Ship with: 'Mafalda'.
@@ -297,29 +322,4 @@ GameTest >> test014AGameCanPlayAShipsTurn [
 	aGame playTurnOf: aShip1.
 
 	self assert: aShip1 position equals: 10.
-]
-
-{ #category : #tests }
-GameTest >> test015AGameCanUseADiceCup [
-
-	| aShip1 anAmountofSquares aGame dice die1 die2 aDiceCup aCollectionOfShips aShip2 aShip3 |
-	aShip1 := Ship with: 'Mafalda'.
-	aShip2 := Ship with: 'Juan'.
-	aShip3 := Ship with: 'Martin'.
-	aCollectionOfShips := OrderedCollection
-		                      with: aShip1
-		                      with: aShip2
-		                      with: aShip3.
-	anAmountofSquares := 10.
-	die1 := LoadedDie with: #( 7 8 ).
-	die2 := LoadedDie with: #( 7 6 ).
-	dice := OrderedCollection with: die1 with: die2.
-	aDiceCup := DiceCup with: dice.
-	aGame := Game
-		         with: aCollectionOfShips
-		         and: anAmountofSquares
-		         uses: aDiceCup.
-	aGame playARound.
-
-	self assert: aGame useDiceCup equals: 14
 ]

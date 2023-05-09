@@ -45,3 +45,14 @@ ShipTest >> test004AShipCanBeCreatedWithAName [
 
 	self assert: aShip name equals: 'PlayerOne'.
 ]
+
+{ #category : #tests }
+ShipTest >> test005TwoShipsAreEqualIfTheirNamesAreEqual [
+
+	| aShip1 aShip2 |
+
+	aShip1 := Ship with: 'PlayerOne'.
+	aShip2 := Ship with: 'PlayerOne'.
+	
+	self assert: (aShip1 equals: aShip2).
+]
