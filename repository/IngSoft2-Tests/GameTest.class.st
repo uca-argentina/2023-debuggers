@@ -17,16 +17,17 @@ GameTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMes
 { #category : #tests }
 GameTest >> test001AGameCanStartWithASingleShipAndABoardAndCanPlayARound [
 
-	| aShip anAmountofSquares aGame die1 die2 dice |
+	| aShip anAmountofSquares aGame die1 die2 dice aDiceCup |
 	aShip := Ship with: 'Mafalda'.
 	anAmountofSquares := 10.
 	die1 := LoadedDie with: #( 7 ).
 	die2 := LoadedDie with: #( 7 ).
 	dice := OrderedCollection with: die1 with: die2.
+	aDiceCup := DiceCup with: dice.
 	aGame := Game
 		         with: (OrderedCollection with: aShip)
 		         and: anAmountofSquares
-		         uses: dice.
+		         uses: aDiceCup.
 	aGame playARound.
 
 	self assert: aShip position equals: 10
@@ -35,7 +36,7 @@ GameTest >> test001AGameCanStartWithASingleShipAndABoardAndCanPlayARound [
 { #category : #tests }
 GameTest >> test002AGameCanStartWithManyShipsAndABoardAndCanPlayARound [
 
-	| aShip1 anAmountofSquares aGame aShip2 aShip3 aCollectionOfShips die1 die2 dice |
+	| aShip1 anAmountofSquares aGame aShip2 aShip3 aCollectionOfShips die1 die2 dice aDiceCup |
 	aShip1 := Ship with: 'Mafalda'.
 	aShip2 := Ship with: 'Juan'.
 	aShip3 := Ship with: 'Martin'.
@@ -44,13 +45,14 @@ GameTest >> test002AGameCanStartWithManyShipsAndABoardAndCanPlayARound [
 		                      with: aShip2
 		                      with: aShip3.
 	anAmountofSquares := 10.
-	die1 := LoadedDie with: #( 7 ).
-	die2 := LoadedDie with: #( 7 ).
+	die1 := LoadedDie with: #( 7 8 ).
+	die2 := LoadedDie with: #( 7 6 ).
 	dice := OrderedCollection with: die1 with: die2.
+	aDiceCup := DiceCup with: dice.
 	aGame := Game
 		         with: aCollectionOfShips
 		         and: anAmountofSquares
-		         uses: dice.
+		         uses: aDiceCup.
 	aGame playARound.
 
 	self assert: aShip1 position equals: 10.
@@ -61,7 +63,7 @@ GameTest >> test002AGameCanStartWithManyShipsAndABoardAndCanPlayARound [
 { #category : #tests }
 GameTest >> test003AGameCanTellTheWinner [
 
-	| aShip1 anAmountofSquares aGame aShip2 aShip3 aCollectionOfShips die1 die2 dice |
+	| aShip1 anAmountofSquares aGame aShip2 aShip3 aCollectionOfShips die1 die2 dice aDiceCup |
 	aShip1 := Ship with: 'Mafalda'.
 	aShip2 := Ship with: 'Juan'.
 	aShip3 := Ship with: 'Martin'.
@@ -73,10 +75,11 @@ GameTest >> test003AGameCanTellTheWinner [
 	die1 := LoadedDie with: #( 7 ).
 	die2 := LoadedDie with: #( 7 ).
 	dice := OrderedCollection with: die1 with: die2.
+	aDiceCup := DiceCup with: dice.
 	aGame := Game
 		         with: aCollectionOfShips
 		         and: anAmountofSquares
-		         uses: dice.
+		         uses: aDiceCup.
 	aGame play.
 
 	self assert: aGame winner equals: aShip1
@@ -85,7 +88,7 @@ GameTest >> test003AGameCanTellTheWinner [
 { #category : #tests }
 GameTest >> test004AGameWithAWinnerCanNoLongerBePlayed [
 
-	| aShip1 anAmountofSquares aGame aShip2 aShip3 aCollectionOfShips die1 die2 dice |
+	| aShip1 anAmountofSquares aGame aShip2 aShip3 aCollectionOfShips die1 die2 dice aDiceCup |
 	aShip1 := Ship with: 'Mafalda'.
 	aShip2 := Ship with: 'Juan'.
 	aShip3 := Ship with: 'Martin'.
@@ -97,10 +100,11 @@ GameTest >> test004AGameWithAWinnerCanNoLongerBePlayed [
 	die1 := LoadedDie with: #( 7 ).
 	die2 := LoadedDie with: #( 7 ).
 	dice := OrderedCollection with: die1 with: die2.
+	aDiceCup := DiceCup with: dice.
 	aGame := Game
 		         with: aCollectionOfShips
 		         and: anAmountofSquares
-		         uses: dice.
+		         uses: aDiceCup.
 	aGame play.
 
 	self
@@ -112,7 +116,7 @@ GameTest >> test004AGameWithAWinnerCanNoLongerBePlayed [
 { #category : #tests }
 GameTest >> test005AGameCanBePlayedMultipleRoundsUntilItHasAWinner [
 
-	| aShip1 anAmountofSquares aGame aShip2 aShip3 aCollectionOfShips die1 die2 dice |
+	| aShip1 anAmountofSquares aGame aShip2 aShip3 aCollectionOfShips die1 die2 dice aDiceCup |
 	aShip1 := Ship with: 'Mafalda'.
 	aShip2 := Ship with: 'Juan'.
 	aShip3 := Ship with: 'Martin'.
@@ -124,10 +128,11 @@ GameTest >> test005AGameCanBePlayedMultipleRoundsUntilItHasAWinner [
 	die1 := LoadedDie with: #( 7 ).
 	die2 := LoadedDie with: #( 7 ).
 	dice := OrderedCollection with: die1 with: die2.
+	aDiceCup := DiceCup with: dice.
 	aGame := Game
 		         with: aCollectionOfShips
 		         and: anAmountofSquares
-		         uses: dice.
+		         uses: aDiceCup.
 	aGame play.
 
 	self assert: aShip1 position equals: 24.
@@ -138,7 +143,7 @@ GameTest >> test005AGameCanBePlayedMultipleRoundsUntilItHasAWinner [
 { #category : #tests }
 GameTest >> test006AGameCanBePlayedAndItsShipsWontGetPastTheLastSquareWhenMoving [
 
-	| aShip1 anAmountofSquares aGame aShip2 aShip3 aCollectionOfShips die1 die2 dice |
+	| aShip1 anAmountofSquares aGame aShip2 aShip3 aCollectionOfShips die1 die2 dice aDiceCup |
 	aShip1 := Ship with: 'Mafalda'.
 	aShip2 := Ship with: 'Juan'.
 	aShip3 := Ship with: 'Martin'.
@@ -150,10 +155,11 @@ GameTest >> test006AGameCanBePlayedAndItsShipsWontGetPastTheLastSquareWhenMoving
 	die1 := LoadedDie with: #( 7 ).
 	die2 := LoadedDie with: #( 7 ).
 	dice := OrderedCollection with: die1 with: die2.
+	aDiceCup := DiceCup with: dice.
 	aGame := Game
 		         with: aCollectionOfShips
 		         and: anAmountofSquares
-		         uses: dice.
+		         uses: aDiceCup.
 	aGame play.
 
 	self assert: aShip1 position equals: 24.
@@ -164,7 +170,7 @@ GameTest >> test006AGameCanBePlayedAndItsShipsWontGetPastTheLastSquareWhenMoving
 { #category : #tests }
 GameTest >> test007AGameCanOnlyHaveASingleWinner [
 
-	| aShip1 anAmountofSquares aGame aShip2 aShip3 aCollectionOfShips die1 die2 dice |
+	| aShip1 anAmountofSquares aGame aShip2 aShip3 aCollectionOfShips die1 die2 dice aDiceCup |
 	aShip1 := Ship with: 'Mafalda'.
 	aShip2 := Ship with: 'Juan'.
 	aShip3 := Ship with: 'Martin'.
@@ -176,10 +182,11 @@ GameTest >> test007AGameCanOnlyHaveASingleWinner [
 	die1 := LoadedDie with: #( 7 ).
 	die2 := LoadedDie with: #( 7 ).
 	dice := OrderedCollection with: die1 with: die2.
+	aDiceCup := DiceCup with: dice.
 	aGame := Game
 		         with: aCollectionOfShips
 		         and: anAmountofSquares
-		         uses: dice.
+		         uses: aDiceCup.
 	aGame play.
 
 	self assert: aGame winner equals: aShip1.
@@ -213,55 +220,9 @@ GameTest >> test008AGameWithManyShipsCanTellMeItsShipsPositions [
 ]
 
 { #category : #tests }
-GameTest >> test009AGameCanThrowADie [
-
-	| aShip1 anAmountofSquares aGame dice die1 aCollectionOfShips aShip2 aShip3 |
-	aShip1 := Ship with: 'Mafalda'.
-	aShip2 := Ship with: 'Juan'.
-	aShip3 := Ship with: 'Martin'.
-	aCollectionOfShips := OrderedCollection
-		                      with: aShip1
-		                      with: aShip2
-		                      with: aShip3.
-	anAmountofSquares := 10.
-	die1 := LoadedDie with: #( 7 ).
-	dice := OrderedCollection with: die1.
-	aGame := Game
-		         with: aCollectionOfShips
-		         and: anAmountofSquares
-		         uses: dice.
-	aGame playARound.
-
-	self assert: aGame throwDice equals: 7
-]
-
-{ #category : #tests }
-GameTest >> test010AGameCanThrowDice [
-
-	| aShip1 anAmountofSquares aGame die1 die2 dice aShip2 aShip3 aCollectionOfShips |
-	aShip1 := Ship with: 'Mafalda'.
-	aShip2 := Ship with: 'Juan'.
-	aShip3 := Ship with: 'Martin'.
-	aCollectionOfShips := OrderedCollection
-		                      with: aShip1
-		                      with: aShip2
-		                      with: aShip3.
-	anAmountofSquares := 10.
-	die1 := LoadedDie with: #( 7 ).
-	die2 := LoadedDie with: #( 7 ).
-	dice := OrderedCollection with: die1 with: die2.
-	aGame := Game
-		         with: aCollectionOfShips
-		         and: anAmountofSquares
-		         uses: dice.
-
-	self assert: aGame throwDice equals: 14
-]
-
-{ #category : #tests }
 GameTest >> test011DuplicatedShipCantBeCreated [
 
-	| aShip1 aShip2 aCollectionOfShips anAmountofSquares die1 die2 dice aGame aShip3 |
+	| aShip1 aShip2 aCollectionOfShips anAmountofSquares die1 die2 dice aGame aShip3 aDiceCup |
 	aShip1 := Ship with: 'Mafalda'.
 	aShip2 := Ship with: 'Mafalda'.
 	aShip3 := Ship with: 'Juan'.
@@ -273,47 +234,22 @@ GameTest >> test011DuplicatedShipCantBeCreated [
 	die1 := LoadedDie with: #( 7 ).
 	die2 := LoadedDie with: #( 7 ).
 	dice := OrderedCollection with: die1 with: die2.
+	aDiceCup := DiceCup with: dice.
 
 	self
 		should: [ 
 			aGame := Game
 				         with: aCollectionOfShips
 				         and: anAmountofSquares
-				         uses: dice ]
+				         uses: aDiceCup ]
 		raise: Error
 		withMessage: 'Ship alredy exists with that name'
 ]
 
 { #category : #tests }
-GameTest >> test012AGameCanBePlayedAndItsShipThatMovesBackwardsWontGetPastTheFirstSquareWhenMoving [
-
-	| aShip1 aShip2 aCollectionOfShips anAmountofSquares die1 die2 dice aGame aShip3 |
-	aShip1 := Ship with: 'Mafalda'.
-	aShip2 := Ship with: 'Jose'.
-	aShip3 := Ship with: 'Juan'.
-	aCollectionOfShips := OrderedCollection
-		                      with: aShip1
-		                      with: aShip2
-		                      with: aShip3.
-	anAmountofSquares := 10.
-	die1 := LoadedDie with: #( -7 10 ).
-	die2 := LoadedDie with: #( -7 10 ).
-	dice := OrderedCollection with: die1 with: die2.
-	aGame := Game
-		         with: aCollectionOfShips
-		         and: anAmountofSquares
-		         uses: dice.
-	aGame play.
-
-	self assert: aShip1 position equals: 0.
-	self assert: aShip2 position equals: 10.
-	self assert: aShip3 position equals: 0.
-]
-
-{ #category : #tests }
 GameTest >> test013AGameCannotStartWithNegativeAmountOfSquares [
 
-	| aShip1 aShip2 aCollectionOfShips anAmountofSquares die1 die2 dice aGame aShip3 |
+	| aShip1 aShip2 aCollectionOfShips anAmountofSquares die1 die2 dice aGame aShip3 aDiceCup |
 	aShip1 := Ship with: 'Mafalda'.
 	aShip2 := Ship with: 'Jose'.
 	aShip3 := Ship with: 'Juan'.
@@ -325,13 +261,14 @@ GameTest >> test013AGameCannotStartWithNegativeAmountOfSquares [
 	die1 := LoadedDie with: #( 7 ).
 	die2 := LoadedDie with: #( 7 ).
 	dice := OrderedCollection with: die1 with: die2.
+	aDiceCup := DiceCup with: dice.
 
 	self
 		should: [ 
 			aGame := Game
 				         with: aCollectionOfShips
 				         and: anAmountofSquares
-				         uses: dice ]
+				         uses: aDiceCup ]
 		raise: Error
 		withMessage: 'Amount of squares should have no squares or less'
 ]
@@ -339,7 +276,7 @@ GameTest >> test013AGameCannotStartWithNegativeAmountOfSquares [
 { #category : #tests }
 GameTest >> test014AGameCanPlayAShipsTurn [
 
-	| aShip1 aShip2 aCollectionOfShips anAmountofSquares die1 die2 dice aGame aShip3 |
+	| aShip1 aShip2 aCollectionOfShips anAmountofSquares die1 die2 dice aGame aShip3 aDiceCup |
 	aShip1 := Ship with: 'Mafalda'.
 	aShip2 := Ship with: 'Jose'.
 	aShip3 := Ship with: 'Juan'.
@@ -351,12 +288,38 @@ GameTest >> test014AGameCanPlayAShipsTurn [
 	die1 := LoadedDie with: #( 7 ).
 	die2 := LoadedDie with: #( 7 ).
 	dice := OrderedCollection with: die1 with: die2.
+	aDiceCup := DiceCup with: dice.
 
 	aGame := Game
 		         with: aCollectionOfShips
 		         and: anAmountofSquares
-		         uses: dice.
+		         uses: aDiceCup.
 	aGame playTurnOf: aShip1.
 
 	self assert: aShip1 position equals: 10.
+]
+
+{ #category : #tests }
+GameTest >> test015AGameCanUseADiceCup [
+
+	| aShip1 anAmountofSquares aGame dice die1 die2 aDiceCup aCollectionOfShips aShip2 aShip3 |
+	aShip1 := Ship with: 'Mafalda'.
+	aShip2 := Ship with: 'Juan'.
+	aShip3 := Ship with: 'Martin'.
+	aCollectionOfShips := OrderedCollection
+		                      with: aShip1
+		                      with: aShip2
+		                      with: aShip3.
+	anAmountofSquares := 10.
+	die1 := LoadedDie with: #( 7 8 ).
+	die2 := LoadedDie with: #( 7 6 ).
+	dice := OrderedCollection with: die1 with: die2.
+	aDiceCup := DiceCup with: dice.
+	aGame := Game
+		         with: aCollectionOfShips
+		         and: anAmountofSquares
+		         uses: aDiceCup.
+	aGame playARound.
+
+	self assert: aGame useDiceCup equals: 14
 ]

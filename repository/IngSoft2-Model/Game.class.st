@@ -3,8 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'ships',
-		'dice',
-		'squares'
+		'squares',
+		'diceCup'
 	],
 	#classInstVars : [
 		'ships',
@@ -26,10 +26,10 @@ Game class >> checkSquares: anAmountOfSquares [
 ]
 
 { #category : #'instance creation' }
-Game class >> with: someShips and: anAmountOfSquares uses: someDice [ 
+Game class >> with: someShips and: anAmountOfSquares uses: aDiceCup [ 
 	self checkForDuplicated: someShips.
 	self checkSquares: anAmountOfSquares.
-	^((self new) initializeWith: someShips and: anAmountOfSquares uses: someDice).
+	^((self new) initializeWith: someShips and: anAmountOfSquares uses: aDiceCup).
 ]
 
 { #category : #'game status' }
@@ -39,10 +39,10 @@ Game >> hasAWinner [
 ]
 
 { #category : #initialization }
-Game >> initializeWith: someShips and: anAmountOfSquares uses: someDice [
+Game >> initializeWith: someShips and: anAmountOfSquares uses: aDiceCup [
 	ships := someShips.
 	squares := anAmountOfSquares.
-	dice 	:= someDice. 
+	diceCup 	:= aDiceCup. 
 ]
 
 { #category : #playing }
@@ -61,7 +61,7 @@ Game >> playARound [
 { #category : #playing }
 Game >> playTurnOf: aShip [
 	
-	(self hasAWinner) ifFalse: [ aShip move: (self throwDice) in: squares ]. 
+	(self hasAWinner) ifFalse: [ aShip move: (self useDiceCup) in: squares ]. 
 ]
 
 { #category : #'game status' }
@@ -71,12 +71,10 @@ Game >> shipPositions [
 ]
 
 { #category : #playing }
-Game >> throwDice [
+Game >> useDiceCup [
 
-	| result |
-	result := 0.
-	dice do: [ :aDie | result := result + aDie throw ].
-	^ result
+	^ diceCup useDiceCup.
+
 ]
 
 { #category : #playing }
