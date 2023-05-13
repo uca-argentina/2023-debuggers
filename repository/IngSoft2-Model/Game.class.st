@@ -70,7 +70,7 @@ Game >> playARound [
 { #category : #playing }
 Game >> playTurnOf: aShip [
 	
-	(self hasAWinner) ifFalse: [ aShip move: (self useDiceCup) in: squares ]. 
+	(self hasAWinner) ifFalse: [ aShip move: (self throw) in: squares ]. 
 ]
 
 { #category : #'game status' }
@@ -80,9 +80,9 @@ Game >> shipPositions [
 ]
 
 { #category : #playing }
-Game >> useDiceCup [
+Game >> throw [
 
-	^ diceCup useDiceCup.
+	^ diceCup throw.
 
 ]
 

@@ -26,7 +26,7 @@ DiceCupTest >> test001ADiceCupCanThrowADie [
 	dice := OrderedCollection with: die.
 	aDiceCup := DiceCup with: dice.
 
-	self assert: aDiceCup useDiceCup equals: 7
+	self assert: aDiceCup throw equals: 7
 ]
 
 { #category : #tests }
@@ -39,7 +39,7 @@ DiceCupTest >> test002ADiceCupCanThrowDice [
 	dice := OrderedCollection with: die1 with: die2.
 	aDiceCup := DiceCup with: dice.
 
-	self assert: aDiceCup useDiceCup equals: 14
+	self assert: aDiceCup throw equals: 14
 ]
 
 { #category : #tests }

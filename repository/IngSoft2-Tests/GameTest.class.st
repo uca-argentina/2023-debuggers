@@ -241,7 +241,7 @@ GameTest >> test009AGameCanUseADiceCup [
 		         uses: aDiceCup.
 	aGame playARound.
 
-	self assert: aGame useDiceCup equals: 14
+	self assert: aGame throw equals: 14
 ]
 
 { #category : #tests }

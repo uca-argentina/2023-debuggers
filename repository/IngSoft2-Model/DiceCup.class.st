@@ -27,7 +27,7 @@ DiceCup >> initializeWith: someDice [
 ]
 
 { #category : #'dice rolling' }
-DiceCup >> useDiceCup [
+DiceCup >> throw [
 
 	^ dice sumNumbers:  [ :aDie | aDie throw ].
 ]
