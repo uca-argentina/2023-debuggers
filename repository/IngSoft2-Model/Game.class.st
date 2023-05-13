@@ -4,7 +4,11 @@ Class {
 	#instVars : [
 		'ships',
 		'squares',
-		'diceCup'
+		'diceCup',
+		'currentTurn',
+		'shipPositions',
+		'shipLaps',
+		'laps'
 	],
 	#classInstVars : [
 		'ships',
@@ -23,71 +27,106 @@ Game class >> checkForDuplicated: aCollectionOfShips [
 ]
 
 { #category : #validation }
+Game class >> checkLaps: anAmountOfLaps [ 
+
+	(anAmountOfLaps <= 0) ifTrue: [ Error signal: 'Amount of laps cannot be 0 or lower' ]
+]
+
+{ #category : #validation }
 Game class >> checkSquares: anAmountOfSquares [
 	
-	(anAmountOfSquares <= 0) ifTrue: [ Error signal: 'Amount of squares should have no squares or less' ]
+	(anAmountOfSquares <= 0) ifTrue: [ Error signal: 'Amount of squares cannot be 0 or lower' ]
 ]
 
 { #category : #'instance creation' }
-Game class >> with: someShips and: anAmountOfSquares uses: aDiceCup [ 
+Game class >> with: someShips and: anAmountOfSquares and: anAmountOfLaps uses: aDiceCup [ 
 	self checkForDuplicated: someShips.
 	self checkSquares: anAmountOfSquares.
-	^((self new) initializeWith: someShips and: anAmountOfSquares uses: aDiceCup).
+	self checkLaps: anAmountOfLaps.
+	^((self new) initializeWith: someShips and: anAmountOfSquares and: anAmountOfLaps  uses: aDiceCup).
 ]
 
-{ #category : #playing }
+{ #category : #validation }
 Game >> checkThereIsNoWinner [
 
 	self hasAWinner ifTrue: [ Error signal: 'Unable to play, Game has already finished' ]
 ]
 
+{ #category : #accessing }
+Game >> currentTurn [
+	^ currentTurn
+]
+
 { #category : #'game status' }
 Game >> hasAWinner [
 
-	^ ships anySatisfy: [ :aShip | aShip isAt: squares ]. 
+	^ shipLaps anySatisfy: [ :aShipLap | aShipLap > laps ]. 
 ]
 
 { #category : #initialization }
-Game >> initializeWith: someShips and: anAmountOfSquares uses: aDiceCup [
+Game >> initializeWith: someShips and: anAmountOfSquares and: anAmountOfLaps uses: aDiceCup [
 	ships := someShips.
 	squares := anAmountOfSquares.
-	diceCup 	:= aDiceCup. 
+	laps := anAmountOfLaps.
+	diceCup 	:= aDiceCup.
+	currentTurn := 1.
+	shipPositions := OrderedCollection new.
+	ships do: [ :aShip | shipPositions add: 1 ].
+	shipLaps := shipPositions copy.
 ]
 
 { #category : #playing }
-Game >> play [
+Game >> playTurn [
 
 	self checkThereIsNoWinner.
-	[ self hasAWinner ] whileFalse: [ self playARound ]
+	self updatePosition.
+	self updateTurn
 ]
 
-{ #category : #playing }
-Game >> playARound [
-
-	ships do: [ :aShip | self playTurnOf: aShip].
+{ #category : #accessing }
+Game >> shipLaps [
+	^ shipLaps
 ]
 
-{ #category : #playing }
-Game >> playTurnOf: aShip [
-	
-	(self hasAWinner) ifFalse: [ aShip move: (self useDiceCup) in: squares ]. 
-]
-
-{ #category : #'game status' }
+{ #category : #accessing }
 Game >> shipPositions [
 
-	^ships collect: [ :aShip | aShip position ].
+	^ shipPositions.
 ]
 
 { #category : #playing }
-Game >> useDiceCup [
+Game >> throw [
 
-	^ diceCup useDiceCup.
+	^ diceCup throw.
 
+]
+
+{ #category : #playing }
+Game >> updatePosition [
+
+	| turnShipPosition destination turnShipLap |
+	
+	turnShipPosition := shipPositions at: currentTurn.
+	turnShipLap := shipLaps at: currentTurn.
+	destination := turnShipPosition + diceCup throw.
+	[ destination > squares ] whileTrue: [ 
+		destination := destination - squares.
+		shipLaps at: currentTurn put: turnShipLap + 1 ].
+	shipPositions at: currentTurn put: destination
+]
+
+{ #category : #playing }
+Game >> updateTurn [
+
+	currentTurn := currentTurn = shipPositions size
+		               ifFalse: [ currentTurn + 1 ]
+		               ifTrue: [ 1 ]
 ]
 
 { #category : #'game status' }
 Game >> winner [
 
-	^ ships detect: [ :aShip | aShip isAt: squares ]
+	shipLaps do: [ :aShipLap | 
+		aShipLap > laps ifTrue: [ ^ ships at: (shipLaps indexOf: aShipLap) ] ].
+	^ (Ship with: 'Nadie Gano')
 ]

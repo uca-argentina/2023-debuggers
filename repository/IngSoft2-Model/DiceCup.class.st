@@ -7,7 +7,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #validation }
 DiceCup class >> checkAmountOfDice: someDice [
 	
 	(someDice isEmpty) ifTrue: [ 
@@ -27,7 +27,7 @@ DiceCup >> initializeWith: someDice [
 ]
 
 { #category : #'dice rolling' }
-DiceCup >> useDiceCup [
+DiceCup >> throw [
 
 	^ dice sumNumbers:  [ :aDie | aDie throw ].
 ]

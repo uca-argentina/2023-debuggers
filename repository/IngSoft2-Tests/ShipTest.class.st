@@ -5,40 +5,7 @@ Class {
 }
 
 { #category : #tests }
-ShipTest >> test001AShipCanMoveFowardTwoSteps [
-
-	| aShip anAmountOfSteps |
-	anAmountOfSteps := 2.
-	aShip := Ship with: 'PlayerOne'.
-	aShip move: anAmountOfSteps.
-
-	self assert: aShip position equals: 2
-]
-
-{ #category : #tests }
-ShipTest >> test002AShipCanMoveBackwardsFourSteps [
-
-	| aShip anAmountOfSteps1  anAmountOfSteps2 |
-	anAmountOfSteps1 := -4.
-	anAmountOfSteps2 := 6.
-	aShip := Ship with: 'PlayerOne'.
-	aShip move: anAmountOfSteps2.
-	aShip move: anAmountOfSteps1.
-
-	self assert: aShip position equals: 2.
-]
-
-{ #category : #tests }
-ShipTest >> test003AShipWillAlwaysBeCreatedWithPositionAtZeroCanTellMeItsOwnPosition [
-
-	| aShip |
-	aShip := Ship with: 'PlayerOne'.
-
-	self assert: aShip position equals: 0
-]
-
-{ #category : #tests }
-ShipTest >> test004AShipCanBeCreatedWithAName [
+ShipTest >> test001AShipCanBeCreatedWithAName [
 
 	| aShip |
 	aShip := Ship with: 'PlayerOne'.
@@ -47,7 +14,7 @@ ShipTest >> test004AShipCanBeCreatedWithAName [
 ]
 
 { #category : #tests }
-ShipTest >> test005TwoShipsAreEqualIfTheirNamesAreEqual [
+ShipTest >> test002TwoShipsAreEqualIfTheirNamesAreEqual [
 
 	| aShip1 aShip2 |
 
