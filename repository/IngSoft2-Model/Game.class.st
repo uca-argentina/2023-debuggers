@@ -84,11 +84,6 @@ Game >> playTurn [
 ]
 
 { #category : #accessing }
-Game >> shipLaps [
-	^ shipLaps
-]
-
-{ #category : #accessing }
 Game >> shipPositions [
 
 	^ shipPositions.
