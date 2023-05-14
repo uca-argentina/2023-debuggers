@@ -336,3 +336,91 @@ GameTest >> test013AGameCannotStartWithZeroOrLowerAmountOfLaps [
 		raise: Error
 		withMessage: 'Amount of laps cannot be 0 or lower'
 ]
+
+{ #category : #tests }
+GameTest >> test014AGameWithSquaresWithNoEffectsDoesNotMoveCurrentPositionOfASingleShip [
+
+	| aGame normal square aCollectionOfShips dice aDiceCup|
+	
+	normal := NormalSquare new.
+	square := Square with: normal.
+	aCollectionOfShips := OrderedCollection with: aShip1.
+	dice := OrderedCollection with: die1 with: die2.
+	aDiceCup := DiceCup with: dice.
+	aGame := Game
+		         with: aCollectionOfShips
+		         and: anAmountofSquares
+		         and: anAmountOfLaps
+					and: square
+		         uses: aDiceCup.
+	
+	aGame playTurn.
+
+	self assert: (((aGame shipPositions) at: 1) = 15).
+]
+
+{ #category : #tests }
+GameTest >> test015AGameWithSquaresWithSpeedUpEffectMove4SquaresToCurrentPositionOfASingleShip [
+
+	| aGame speedUp square aCollectionOfShips dice aDiceCup|
+	
+	speedUp := SpeedUpSquare new.
+	square := Square with: speedUp.
+	aCollectionOfShips := OrderedCollection with: aShip1.
+	dice := OrderedCollection with: die1 with: die2.
+	aDiceCup := DiceCup with: dice.
+	aGame := Game
+		         with: aCollectionOfShips
+		         and: anAmountofSquares
+		         and: anAmountOfLaps
+					and: square
+		         uses: aDiceCup.
+	
+	aGame playTurn.
+
+	self assert: (((aGame shipPositions) at: 1) = 19).
+]
+
+{ #category : #tests }
+GameTest >> test016AGameWithSquaresWithWormHoleEffectGoBack4SquaresOfADestinationOfASingleShip [
+
+	| aGame wormHole square aCollectionOfShips dice aDiceCup|
+	
+	wormHole := WormHole new.
+	square := Square with: wormHole.
+	aCollectionOfShips := OrderedCollection with: aShip1.
+	dice := OrderedCollection with: die1 with: die2.
+	aDiceCup := DiceCup with: dice.
+	aGame := Game
+		         with: aCollectionOfShips
+		         and: anAmountofSquares
+		         and: anAmountOfLaps
+					and: square
+		         uses: aDiceCup.
+	
+	aGame playTurn.
+
+	self assert: (((aGame shipPositions) at: 1) = 11).
+]
+
+{ #category : #tests }
+GameTest >> test017AGameWithSingleShipAndSquaresWithAtomicBombEffectGoBackToFirstSquare [
+
+	| aGame atomicBomb square aCollectionOfShips dice aDiceCup|
+	
+	atomicBomb := AtomicBomb new.
+	square := Square with: atomicBomb.
+	aCollectionOfShips := OrderedCollection with: aShip1.
+	dice := OrderedCollection with: die1 with: die2.
+	aDiceCup := DiceCup with: dice.
+	aGame := Game
+		         with: aCollectionOfShips
+		         and: anAmountofSquares
+		         and: anAmountOfLaps
+					and: square
+		         uses: aDiceCup.
+	
+	aGame playTurn.
+
+	self assert: (((aGame shipPositions) at: 1) = 1).
+]

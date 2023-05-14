@@ -8,7 +8,8 @@ Class {
 		'currentTurn',
 		'shipPositions',
 		'shipLaps',
-		'laps'
+		'laps',
+		'effect'
 	],
 	#classInstVars : [
 		'ships',
@@ -36,6 +37,14 @@ Game class >> checkLaps: anAmountOfLaps [
 Game class >> checkSquares: anAmountOfSquares [
 	
 	(anAmountOfSquares <= 0) ifTrue: [ Error signal: 'Amount of squares cannot be 0 or lower' ]
+]
+
+{ #category : #'instance creation' }
+Game class >> with: someShips and: anAmountOfSquares and: anAmountOfLaps and: squareWithEffect uses: aDiceCup [ 
+	self checkForDuplicated: someShips.
+	self checkSquares: anAmountOfSquares.
+	self checkLaps: anAmountOfLaps.
+	^((self new) initializeWith: someShips and: anAmountOfSquares and: anAmountOfLaps and: squareWithEffect uses: aDiceCup).
 ]
 
 { #category : #'instance creation' }
@@ -107,7 +116,12 @@ Game >> updatePosition [
 	[ destination > squares ] whileTrue: [ 
 		destination := destination - squares.
 		shipLaps at: currentTurn put: turnShipLap + 1 ].
+	(effect isNil) ifFalse:[
+	destination := destination + effect position. 
+	(effect typeOfEffect = 'AtomicBomb') ifTrue:[destination := 1].
+	].
 	shipPositions at: currentTurn put: destination
+	
 ]
 
 { #category : #playing }
