@@ -424,3 +424,26 @@ GameTest >> test017AGameWithSingleShipAndSquaresWithAtomicBombEffectGoBackToFirs
 
 	self assert: (((aGame shipPositions) at: 1) = 1).
 ]
+
+{ #category : #tests }
+GameTest >> test018AGameWithShipsAndSquaresWithMoonWalkEffectGoBack3SquaresOfAnotherShip [
+
+	| aGame moonWalk square aCollectionOfShips|
+	
+	moonWalk := MoonWalk new.
+	square := Square with: (moonWalk with: 3).
+	
+	aCollectionOfShips := OrderedCollection
+		                      with: aShip1
+		                      with: aShip2.
+	aGame := Game
+		         with: aCollectionOfShips
+		         and: anAmountofSquares
+					and: anAmountOfLaps 
+					and: square
+		         uses: die1.
+
+	aGame playTurn.
+
+	self assert: aGame shipPositions equals: #( 5 1 ) asOrderedCollection.
+]

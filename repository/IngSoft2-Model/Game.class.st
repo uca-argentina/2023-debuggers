@@ -9,7 +9,8 @@ Class {
 		'shipPositions',
 		'shipLaps',
 		'laps',
-		'effect'
+		'effect',
+		'someShips'
 	],
 	#classInstVars : [
 		'ships',
@@ -109,19 +110,20 @@ Game >> throw [
 Game >> updatePosition [
 
 	| turnShipPosition destination turnShipLap |
-	
 	turnShipPosition := shipPositions at: currentTurn.
 	turnShipLap := shipLaps at: currentTurn.
 	destination := turnShipPosition + diceCup throw.
 	[ destination > squares ] whileTrue: [ 
 		destination := destination - squares.
 		shipLaps at: currentTurn put: turnShipLap + 1 ].
-	(effect isNil) ifFalse:[
-	destination := destination + effect position. 
-	(effect typeOfEffect = 'AtomicBomb') ifTrue:[destination := 1].
-	].
+	effect isNil ifFalse: [ 
+		destination := destination + effect position.
+		effect typeOfEffect = 'AtomicBomb' ifTrue: [ destination := 1 ].
+		effect typeOfEffect = 'MoonWalk' ifTrue: [ 
+			ships do: [ :aShip | 
+				(ships indexOf: aShip) ~= turnShipPosition ifTrue: [ 
+					shipPositions at: currentTurn put: effect position ] ] ] ].
 	shipPositions at: currentTurn put: destination
-	
 ]
 
 { #category : #playing }
