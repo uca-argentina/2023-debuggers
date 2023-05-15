@@ -10,7 +10,8 @@ Class {
 		'shipLaps',
 		'laps',
 		'effect',
-		'someShips'
+		'someShips',
+		'currentIndex'
 	],
 	#classInstVars : [
 		'ships',
@@ -106,6 +107,7 @@ Game >> squaresToParsecs [
 	collection := effect haveCollectionOfHyperJumpSquares.
 	parsecs := effect haveParsecs.
 	collection do: [ :anElement | newCollection add: (anElement * parsecs)  ].
+	currentIndex := 1.
 	^ newCollection.
 ]
 
@@ -119,7 +121,7 @@ Game >> throw [
 { #category : #playing }
 Game >> updatePosition [
 
-	| turnShipPosition destination turnShipLap |
+	| turnShipPosition destination turnShipLap positionToMove |
 	turnShipPosition := shipPositions at: currentTurn.
 	turnShipLap := shipLaps at: currentTurn.
 	destination := turnShipPosition + diceCup throw.
@@ -129,11 +131,18 @@ Game >> updatePosition [
 	effect isNil ifFalse: [ 
 		destination := destination + effect position.
 		effect typeOfEffect = 'AtomicBomb' ifTrue: [ destination := 1 ].
-		effect typeOfEffect = 'MoonWalk' ifTrue: [ 
-			ships do: [ :aShip | 
-				(ships indexOf: aShip) ~= turnShipPosition ifTrue: [ 
-					shipPositions at: currentTurn put: effect position ] ] ] ].
-	shipPositions at: currentTurn put: destination
+		effect typeOfEffect = 'MoonWalk'
+			ifTrue: [ 
+				ships do: [ :aShip | 
+					(ships indexOf: aShip) ~= turnShipPosition ifTrue: [ 
+						shipPositions at: currentTurn put: effect position ] ] ].
+			effect typeOfEffect = 'HyperJump'
+			ifTrue: [ 
+				(currentIndex = (self squaresToParsecs) size) ifTrue:[ currentIndex := 1] ifFalse:[
+				currentIndex := currentIndex + 1.
+				positionToMove := self squaresToParsecs at: currentIndex.
+				destination := destination + positionToMove ] ]].
+	shipPositions at: currentTurn put: destination.
 ]
 
 { #category : #playing }

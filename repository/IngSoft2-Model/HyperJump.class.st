@@ -45,6 +45,11 @@ HyperJump >> initalizeWith: aCollection and: anAmountOfParsecs [
 ]
 
 { #category : #accessing }
+HyperJump >> position [
+	^ 0.
+]
+
+{ #category : #accessing }
 HyperJump >> typeOfEffect [
 	^'HyperJump'.
 ]

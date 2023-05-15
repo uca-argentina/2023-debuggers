@@ -470,3 +470,26 @@ GameTest >> test019AGameWithSquaresIsConsistentWithParsecs [
 
 	self assert: aGame squaresToParsecs = #(20 15 10 5) asOrderedCollection .
 ]
+
+{ #category : #tests }
+GameTest >> test020AGameWithSquaresWithHyperJumpMoveASingleShipAnAmountOfParsecs [
+
+	| aGame aCollectionOfShips dice aDiceCup hyperJump square position |
+	
+	hyperJump := HyperJump with: #( 3 4 2 1 ) with: 5.
+	square := Square with: hyperJump.
+	aCollectionOfShips := OrderedCollection
+		                      with: aShip1.
+	dice := OrderedCollection with: die1 with: die2.
+	aDiceCup := DiceCup with: dice.
+	aGame := Game
+		         with: aCollectionOfShips
+		         and: aSmallAmountOfSquares
+		         and: anAmountOfLaps
+					and: square
+		         uses: aDiceCup.
+	aGame playTurn.
+	position := ((aGame shipPositions) at: 1).
+
+	self assert: (position = 25)
+]
