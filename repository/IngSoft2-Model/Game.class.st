@@ -99,6 +99,16 @@ Game >> shipPositions [
 	^ shipPositions.
 ]
 
+{ #category : #'as yet unclassified' }
+Game >> squaresToParsecs [
+	| collection parsecs newCollection |
+	newCollection := OrderedCollection new.
+	collection := effect haveCollectionOfHyperJumpSquares.
+	parsecs := effect haveParsecs.
+	collection do: [ :anElement | newCollection add: (anElement * parsecs)  ].
+	^ newCollection.
+]
+
 { #category : #playing }
 Game >> throw [
 

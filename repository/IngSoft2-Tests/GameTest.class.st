@@ -447,3 +447,26 @@ GameTest >> test018AGameWithShipsAndSquaresWithMoonWalkEffectGoBack3SquaresOfAno
 
 	self assert: aGame shipPositions equals: #( 5 1 ) asOrderedCollection.
 ]
+
+{ #category : #tests }
+GameTest >> test019AGameWithSquaresIsConsistentWithParsecs [
+
+	| aGame aCollectionOfShips dice aDiceCup hyperJump square |
+	
+	hyperJump := HyperJump with: #( 3 4 2 1 ) with: 5.
+	square := Square with: hyperJump.
+	aCollectionOfShips := OrderedCollection
+		                      with: aShip1
+		                      with: aShip2
+		                      with: aShip3.
+	dice := OrderedCollection with: die1 with: die2.
+	aDiceCup := DiceCup with: dice.
+	aGame := Game
+		         with: aCollectionOfShips
+		         and: aSmallAmountOfSquares
+		         and: anAmountOfLaps
+					and: square
+		         uses: aDiceCup.
+
+	self assert: aGame squaresToParsecs = #(20 15 10 5) asOrderedCollection .
+]
