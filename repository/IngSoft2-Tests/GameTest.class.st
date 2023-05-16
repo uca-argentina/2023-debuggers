@@ -16,53 +16,103 @@ Class {
 }
 
 { #category : #'set up' }
-GameTest >> aGame [
-
-	| aGame aCollectionOfShips dice aDiceCup |
-	
-	aCollectionOfShips := OrderedCollection
-		                      with: aShip1
-		                      with: aShip2
-		                      with: aShip3.
-	dice := OrderedCollection with: die1 with: die2.
-	aDiceCup := DiceCup with: dice.
-	aGame := Game
-		         with: aCollectionOfShips
-		         and: anAmountofSquares
-					and: anAmountOfLaps 
-		         uses: aDiceCup.
-	^ aGame.	
-]
-
-{ #category : #'set up' }
 GameTest >> aGameWithASingleDie [
 
-	| aGame aCollectionOfShips dice aDiceCup |
+	| aGame aCollectionOfShips noEffectSquare squares values |
 	
 	aCollectionOfShips := OrderedCollection
 		                      with: aShip1
 		                      with: aShip2
 		                      with: aShip3.
+	noEffectSquare := NoEffectSquare new.
+	squares := OrderedCollection new.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	values := #(4 3 2 1) asOrderedCollection.
 	aGame := Game
 		         with: aCollectionOfShips
-		         and: anAmountofSquares
-					and: anAmountOfLaps 
+		         and: squares
+					and: anAmountOfLaps
+					and: 5
+					and: values
 		         uses: die1.
-	^ aGame.	
+	^ aGame.
 ]
 
 { #category : #'set up' }
 GameTest >> aGameWithASingleShip [
 
-	| aGame aCollectionOfShips dice aDiceCup |
-	
+	| aGame aCollectionOfShips dice aDiceCup noEffectSquare squares values |
 	aCollectionOfShips := OrderedCollection with: aShip1.
 	dice := OrderedCollection with: die1 with: die2.
 	aDiceCup := DiceCup with: dice.
+	noEffectSquare := NoEffectSquare new.
+	squares := OrderedCollection new.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	values := #( 4 3 2 1 ) asOrderedCollection.
 	aGame := Game
 		         with: aCollectionOfShips
-		         and: anAmountofSquares
+		         and: squares
 		         and: anAmountOfLaps
+		         and: 5
+		         and: values
 		         uses: aDiceCup.
 	^ aGame
 ]
@@ -70,7 +120,7 @@ GameTest >> aGameWithASingleShip [
 { #category : #'set up' }
 GameTest >> aGameWithDuplicatedShips [
 
-	| aGame aCollectionOfShips dice aDiceCup |
+	| aGame aCollectionOfShips dice aDiceCup noEffectSquare squares values |
 	
 	aCollectionOfShips := OrderedCollection
 		                      with: aShip1
@@ -78,10 +128,25 @@ GameTest >> aGameWithDuplicatedShips [
 		                      with: aShip2.
 	dice := OrderedCollection with: die1 with: die2.
 	aDiceCup := DiceCup with: dice.
+	noEffectSquare := NoEffectSquare new.
+	squares := OrderedCollection new.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	values := #(4 3 2 1) asOrderedCollection.
 	aGame := Game
 		         with: aCollectionOfShips
-		         and: anAmountofSquares
-					and: anAmountOfLaps 
+		         and: squares
+					and: anAmountOfLaps
+					and: 5
+					and: values
 		         uses: aDiceCup.
 	^ aGame.	
 ]
@@ -89,7 +154,7 @@ GameTest >> aGameWithDuplicatedShips [
 { #category : #'set up' }
 GameTest >> aGameWithInvalidAmountOfLaps [
 
-	| aGame aCollectionOfShips dice aDiceCup invalidAmountOfLaps |
+	| aGame aCollectionOfShips dice aDiceCup noEffectSquare squares values invalidAmountOfLaps |
 	
 	aCollectionOfShips := OrderedCollection
 		                      with: aShip1
@@ -98,18 +163,33 @@ GameTest >> aGameWithInvalidAmountOfLaps [
 	dice := OrderedCollection with: die1 with: die2.
 	aDiceCup := DiceCup with: dice.
 	invalidAmountOfLaps := -5.
+	noEffectSquare := NoEffectSquare new.
+	squares := OrderedCollection new.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	values := #(4 3 2 1) asOrderedCollection.
 	aGame := Game
 		         with: aCollectionOfShips
-		         and: anAmountofSquares 
-					and: invalidAmountOfLaps 
+		         and: squares
+					and: invalidAmountOfLaps
+					and: 5
+					and: values
 		         uses: aDiceCup.
-	^ aGame.	
+	^ aGame.
 ]
 
 { #category : #'set up' }
 GameTest >> aGameWithInvalidAmountOfSquares [
 
-	| aGame aCollectionOfShips dice aDiceCup invalidAmountOfSquares |
+	| aGame aCollectionOfShips dice aDiceCup noEffectSquare squares values |
 	
 	aCollectionOfShips := OrderedCollection
 		                      with: aShip1
@@ -117,19 +197,57 @@ GameTest >> aGameWithInvalidAmountOfSquares [
 		                      with: aShip3.
 	dice := OrderedCollection with: die1 with: die2.
 	aDiceCup := DiceCup with: dice.
-	invalidAmountOfSquares := -5.
+	noEffectSquare := NoEffectSquare new.
+	squares := OrderedCollection new.
+	values := #(4 3 2 1) asOrderedCollection.
 	aGame := Game
 		         with: aCollectionOfShips
-		         and: invalidAmountOfSquares
-					and: anAmountOfLaps 
+		         and: squares
+					and: anAmountOfLaps
+					and: 5
+					and: values
+		         uses: aDiceCup.
+	^ aGame.
+]
+
+{ #category : #'set up' }
+GameTest >> aGameWithOnlyAtomicBombSquares [
+
+	| aGame aCollectionOfShips dice aDiceCup atomicBombSquare squares values |
+	
+	aCollectionOfShips := OrderedCollection
+		                      with: aShip1
+		                      with: aShip2
+		                      with: aShip3.
+	dice := OrderedCollection with: die1 with: die2.
+	aDiceCup := DiceCup with: dice.
+	atomicBombSquare := AtomicBombSquare new.
+	squares := OrderedCollection new.
+	squares add: atomicBombSquare.
+	squares add: atomicBombSquare.
+	squares add: atomicBombSquare.
+	squares add: atomicBombSquare.
+	squares add: atomicBombSquare.
+	squares add: atomicBombSquare.
+	squares add: atomicBombSquare.
+	squares add: atomicBombSquare.
+	squares add: atomicBombSquare.
+	squares add: atomicBombSquare.
+	values := #(4 3 2 1) asOrderedCollection.
+	aGame := Game
+		         with: aCollectionOfShips
+		         and: squares
+					and: anAmountOfLaps
+					and: 5
+					and: values
 		         uses: aDiceCup.
 	^ aGame.	
 ]
 
 { #category : #'set up' }
-GameTest >> aShortGame [
+GameTest >> aGameWithOnlyMoonwalkSquares [
 
-	| aGame aCollectionOfShips dice aDiceCup |
+	| aGame aCollectionOfShips dice aDiceCup moonwalkSquare1 moonwalkSquare2 squares values |
 	
 	aCollectionOfShips := OrderedCollection
 		                      with: aShip1
@@ -137,10 +255,230 @@ GameTest >> aShortGame [
 		                      with: aShip3.
 	dice := OrderedCollection with: die1 with: die2.
 	aDiceCup := DiceCup with: dice.
+	moonwalkSquare1 := MoonwalkSquare with: 3.
+	moonwalkSquare2 := MoonwalkSquare with: 5.
+	squares := OrderedCollection new.
+	squares add: moonwalkSquare1.
+	squares add: moonwalkSquare2.
+	squares add: moonwalkSquare1.
+	squares add: moonwalkSquare2.
+	squares add: moonwalkSquare1.
+	squares add: moonwalkSquare2.
+	squares add: moonwalkSquare1.
+	squares add: moonwalkSquare2.
+	squares add: moonwalkSquare2.
+	squares add: moonwalkSquare2.
+	squares add: moonwalkSquare1.
+	squares add: moonwalkSquare1.
+	squares add: moonwalkSquare1.
+	squares add: moonwalkSquare2.
+	squares add: moonwalkSquare1.
+	squares add: moonwalkSquare2.
+	squares add: moonwalkSquare1.
+	squares add: moonwalkSquare1.
+	squares add: moonwalkSquare1.
+	squares add: moonwalkSquare1.
+	values := #(4 3 2 1) asOrderedCollection.
 	aGame := Game
 		         with: aCollectionOfShips
-		         and: aSmallAmountOfSquares
-					and: anAmountOfLaps 
+		         and: squares
+					and: anAmountOfLaps
+					and: 5
+					and: values
+		         uses: aDiceCup.
+	^ aGame.	
+]
+
+{ #category : #'set up' }
+GameTest >> aGameWithOnlyNoEffectSquares [
+
+	| aGame aCollectionOfShips dice aDiceCup noEffectSquare squares values |
+	
+	aCollectionOfShips := OrderedCollection
+		                      with: aShip1
+		                      with: aShip2
+		                      with: aShip3.
+	dice := OrderedCollection with: die1 with: die2.
+	aDiceCup := DiceCup with: dice.
+	noEffectSquare := NoEffectSquare new.
+	squares := OrderedCollection new.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	values := #(4 3 2 1) asOrderedCollection.
+	aGame := Game
+		         with: aCollectionOfShips
+		         and: squares
+					and: anAmountOfLaps
+					and: 5
+					and: values
+		         uses: aDiceCup.
+	^ aGame.	
+]
+
+{ #category : #'set up' }
+GameTest >> aGameWithOnlySpeedUpSquares [
+
+	| aGame aCollectionOfShips dice aDiceCup speedUpSquare squares values |
+	
+	aCollectionOfShips := OrderedCollection
+		                      with: aShip1
+		                      with: aShip2
+		                      with: aShip3.
+	dice := OrderedCollection with: die1 with: die2.
+	aDiceCup := DiceCup with: dice.
+	speedUpSquare := SpeedUpSquare new.
+	squares := OrderedCollection new.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	squares add: speedUpSquare.
+	values := #(4 3 2 1) asOrderedCollection.
+	aGame := Game
+		         with: aCollectionOfShips
+		         and: squares
+					and: anAmountOfLaps
+					and: 5
+					and: values
+		         uses: aDiceCup.
+	^ aGame.	
+]
+
+{ #category : #'set up' }
+GameTest >> aGameWithOnlyWormholeSquares [
+
+	| aGame aCollectionOfShips dice aDiceCup wormholeSquare squares values |
+	
+	aCollectionOfShips := OrderedCollection
+		                      with: aShip1
+		                      with: aShip2
+		                      with: aShip3.
+	dice := OrderedCollection with: die1 with: die2.
+	aDiceCup := DiceCup with: dice.
+	wormholeSquare := WormholeSquare new.
+	squares := OrderedCollection new.
+	squares add: wormholeSquare.
+	squares add: wormholeSquare.
+	squares add: wormholeSquare.
+	squares add: wormholeSquare.
+	squares add: wormholeSquare.
+	squares add: wormholeSquare.
+	squares add: wormholeSquare.
+	squares add: wormholeSquare.
+	squares add: wormholeSquare.
+	squares add: wormholeSquare.
+	squares add: wormholeSquare.
+	squares add: wormholeSquare.
+	squares add: wormholeSquare.
+	squares add: wormholeSquare.
+	squares add: wormholeSquare.
+	squares add: wormholeSquare.
+	squares add: wormholeSquare.
+	squares add: wormholeSquare.
+	squares add: wormholeSquare.
+	squares add: wormholeSquare.
+	squares add: wormholeSquare.
+	squares add: wormholeSquare.
+	squares add: wormholeSquare.
+	squares add: wormholeSquare.
+	values := #(4 3 2 1) asOrderedCollection.
+	aGame := Game
+		         with: aCollectionOfShips
+		         and: squares
+					and: anAmountOfLaps
+					and: 5
+					and: values
+		         uses: aDiceCup.
+	^ aGame.	
+]
+
+{ #category : #'set up' }
+GameTest >> aShortGameWithOnlyNoEffectSquares [
+
+	| aGame aCollectionOfShips dice aDiceCup noEffectSquare squares values |
+	
+	aCollectionOfShips := OrderedCollection
+		                      with: aShip1
+		                      with: aShip2
+		                      with: aShip3.
+	dice := OrderedCollection with: die1 with: die2.
+	aDiceCup := DiceCup with: dice.
+	noEffectSquare := NoEffectSquare new.
+	squares := OrderedCollection new.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	squares add: noEffectSquare.
+	values := #(4 3 2 1) asOrderedCollection.
+	aGame := Game
+		         with: aCollectionOfShips
+		         and: squares
+					and: anAmountOfLaps
+					and: 5
+					and: values
 		         uses: aDiceCup.
 	^ aGame.	
 ]
@@ -194,7 +532,7 @@ GameTest >> test002AGameCanStartWithManyShipsAndCanPlayATurnAndTheCurrentTurnAdv
 
 	| aGame |
 	
-	aGame := self aGame.
+	aGame := self aGameWithOnlyNoEffectSquares.
 	
 	aGame playTurn.
 
@@ -207,7 +545,7 @@ GameTest >> test003AGameCanPlayEveryPlayersTurnAtLeastOnce [
 
 	| aGame |
 	
-	aGame := self aGame.
+	aGame := self aGameWithOnlyNoEffectSquares.
 	
 	aGame playTurn.
 	aGame playTurn.
@@ -224,7 +562,7 @@ GameTest >> test004AGameCanBePlayEveryPlayersTurnAndThenStartAnotherRound [
 
 	| aGame |
 	
-	aGame := self aGame.
+	aGame := self aGameWithOnlyNoEffectSquares.
 	
 	aGame playTurn.
 	aGame playTurn.
@@ -238,7 +576,7 @@ GameTest >> test005AGameCanTellMeTheWinner [
 
 	| aGame |
 	
-	aGame := self aShortGame.
+	aGame := self aShortGameWithOnlyNoEffectSquares.
 	
 	aGame playTurn.
 	aGame playTurn.
@@ -253,7 +591,7 @@ GameTest >> test006AGameWithoutAWinnerWillReturnAnEmptyShip [
 
 	| aGame aNonPlayerShip |
 	
-	aGame := self aShortGame.
+	aGame := self aShortGameWithOnlyNoEffectSquares.
 	
 	aGame playTurn.
 	aNonPlayerShip := Ship with: 'Nadie Gano'.
@@ -265,7 +603,7 @@ GameTest >> test006AGameWithoutAWinnerWillReturnAnEmptyShip [
 GameTest >> test007AGameWithAWinnerCannotBePlayed [
 
 	| aGame |
-	aGame := self aShortGame.
+	aGame := self aShortGameWithOnlyNoEffectSquares.
 
 	aGame playTurn.
 	aGame playTurn.
@@ -283,7 +621,7 @@ GameTest >> test008AGameWithManyShipsCanTellMeItsShipsPositions [
 
 	| aGame |
 	
-	aGame := self aGame.
+	aGame := self aGameWithOnlyNoEffectSquares.
 
 	self
 		assert: aGame shipPositions 
@@ -305,7 +643,7 @@ GameTest >> test010AGameCanThrowADiceCup [
 
 	| aGame |
 	
-	aGame := self aGame.
+	aGame := self aGameWithOnlyNoEffectSquares.
 
 	self assert: aGame throw equals: 14.
 ]
@@ -325,7 +663,7 @@ GameTest >> test012AGameCannotStartWithZeroOrLowerAmountOfSquares [
 	self
 		should: [ self aGameWithInvalidAmountOfSquares ]
 		raise: Error
-		withMessage: 'Amount of squares cannot be 0 or lower'
+		withMessage: 'Amount of squares cannot be 0'
 ]
 
 { #category : #tests }
@@ -338,21 +676,11 @@ GameTest >> test013AGameCannotStartWithZeroOrLowerAmountOfLaps [
 ]
 
 { #category : #tests }
-GameTest >> test014AGameWithSquaresWithNoEffectsDoesNotMoveCurrentPositionOfASingleShip [
+GameTest >> test014AGameWithOnlyNoEffectSquaresWontMoveShipsWhenTheyLandOnThoseSquares [
 
-	| aGame normal square aCollectionOfShips dice aDiceCup|
+	| aGame |
 	
-	normal := NormalSquare new.
-	square := Square with: normal.
-	aCollectionOfShips := OrderedCollection with: aShip1.
-	dice := OrderedCollection with: die1 with: die2.
-	aDiceCup := DiceCup with: dice.
-	aGame := Game
-		         with: aCollectionOfShips
-		         and: anAmountofSquares
-		         and: anAmountOfLaps
-					and: square
-		         uses: aDiceCup.
+	aGame := self aGameWithOnlyNoEffectSquares.
 	
 	aGame playTurn.
 
@@ -360,21 +688,11 @@ GameTest >> test014AGameWithSquaresWithNoEffectsDoesNotMoveCurrentPositionOfASin
 ]
 
 { #category : #tests }
-GameTest >> test015AGameWithSquaresWithSpeedUpEffectMove4SquaresToCurrentPositionOfASingleShip [
+GameTest >> test015AGameWithOnlySpeedUpSquaresMovesShipsFourSquaresFowardWhenTheyLandOnThoseSquares [
 
-	| aGame speedUp square aCollectionOfShips dice aDiceCup|
+	| aGame |
 	
-	speedUp := SpeedUpSquare new.
-	square := Square with: speedUp.
-	aCollectionOfShips := OrderedCollection with: aShip1.
-	dice := OrderedCollection with: die1 with: die2.
-	aDiceCup := DiceCup with: dice.
-	aGame := Game
-		         with: aCollectionOfShips
-		         and: anAmountofSquares
-		         and: anAmountOfLaps
-					and: square
-		         uses: aDiceCup.
+	aGame := self aGameWithOnlySpeedUpSquares.
 	
 	aGame playTurn.
 
@@ -382,21 +700,27 @@ GameTest >> test015AGameWithSquaresWithSpeedUpEffectMove4SquaresToCurrentPositio
 ]
 
 { #category : #tests }
-GameTest >> test016AGameWithSquaresWithWormHoleEffectGoBack4SquaresOfADestinationOfASingleShip [
+GameTest >> test016AGameWithOnlySpeedUpSquaresMovesShipsFourSquaresFowardWhenTheyLandOnThoseSquaresAndShipsCanAdvanceLapsWithTheEffect [
 
-	| aGame wormHole square aCollectionOfShips dice aDiceCup|
+	| aGame |
 	
-	wormHole := WormHole new.
-	square := Square with: wormHole.
-	aCollectionOfShips := OrderedCollection with: aShip1.
-	dice := OrderedCollection with: die1 with: die2.
-	aDiceCup := DiceCup with: dice.
-	aGame := Game
-		         with: aCollectionOfShips
-		         and: anAmountofSquares
-		         and: anAmountOfLaps
-					and: square
-		         uses: aDiceCup.
+	aGame := self aGameWithOnlySpeedUpSquares.
+	
+	aGame playTurn.
+	aGame playTurn.
+	aGame playTurn.
+	aGame playTurn.
+
+	self assert: (((aGame shipPositions) at: 1) = 3).
+	self assert: (((aGame shipLaps) at: 1) = 2).
+]
+
+{ #category : #tests }
+GameTest >> test017AGameWithOnlyWormholeSquaresMovesShipsFourSquaresBackwardsWhenTheyLandOnThoseSquares [
+
+	| aGame |
+	
+	aGame := self aGameWithOnlyWormholeSquares.
 	
 	aGame playTurn.
 
@@ -404,21 +728,27 @@ GameTest >> test016AGameWithSquaresWithWormHoleEffectGoBack4SquaresOfADestinatio
 ]
 
 { #category : #tests }
-GameTest >> test017AGameWithSingleShipAndSquaresWithAtomicBombEffectGoBackToFirstSquare [
+GameTest >> test018AGameWithOnlyWormholeSquaresMovesShipsFourSquaresBackwardsWhenTheyLandOnThoseSquaresAndShipsCanGoBackLapsWithTheEffect [
 
-	| aGame atomicBomb square aCollectionOfShips dice aDiceCup|
+	| aGame |
 	
-	atomicBomb := AtomicBomb new.
-	square := Square with: atomicBomb.
-	aCollectionOfShips := OrderedCollection with: aShip1.
-	dice := OrderedCollection with: die1 with: die2.
-	aDiceCup := DiceCup with: dice.
-	aGame := Game
-		         with: aCollectionOfShips
-		         and: anAmountofSquares
-		         and: anAmountOfLaps
-					and: square
-		         uses: aDiceCup.
+	aGame := self aGameWithOnlyWormholeSquares.
+	
+	aGame playTurn.
+	aGame playTurn.
+	aGame playTurn.
+	aGame playTurn.
+
+	self assert: (((aGame shipPositions) at: 1) = 21).
+	self assert: (((aGame shipLaps) at: 1) = 1).
+]
+
+{ #category : #tests }
+GameTest >> test019AGameWithOnlyAtomicBombSquaresMovesAllShipsBackToTheFirstSquareWhenTheyLandOnThoseSquares [
+
+	| aGame |
+	
+	aGame := self aGameWithOnlyAtomicBombSquares.
 	
 	aGame playTurn.
 
@@ -426,70 +756,47 @@ GameTest >> test017AGameWithSingleShipAndSquaresWithAtomicBombEffectGoBackToFirs
 ]
 
 { #category : #tests }
-GameTest >> test018AGameWithShipsAndSquaresWithMoonWalkEffectGoBack3SquaresOfAnotherShip [
+GameTest >> test020AGameWithOnlyAtomicBombSquaresMovesAllShipsBackToTheFirstSquareWhenTheyLandOnThoseSquaresButTheyKeepTheLapsDone [
 
-	| aGame moonWalk square aCollectionOfShips|
+	| aGame |
 	
-	moonWalk := MoonWalk new.
-	square := Square with: (moonWalk with: 3).
+	aGame := self aGameWithOnlyAtomicBombSquares.
 	
-	aCollectionOfShips := OrderedCollection
-		                      with: aShip1
-		                      with: aShip2.
-	aGame := Game
-		         with: aCollectionOfShips
-		         and: anAmountofSquares
-					and: anAmountOfLaps 
-					and: square
-		         uses: die1.
-
 	aGame playTurn.
 
-	self assert: aGame shipPositions equals: #( 5 1 ) asOrderedCollection.
+	self assert: (((aGame shipPositions) at: 1) = 1).
+	self assert: (((aGame shipLaps) at: 1) = 2).
 ]
 
 { #category : #tests }
-GameTest >> test019AGameWithSquaresIsConsistentWithParsecs [
+GameTest >> test021AGameWithOnlyMoonwalkSquaresMovesAllOtherShipsBackAnAmountOfSquaresSpecifiedByTheSquareWhenTheyLandOnThoseSquares [
 
-	| aGame aCollectionOfShips dice aDiceCup hyperJump square |
+	| aGame |
 	
-	hyperJump := HyperJump with: #( 3 4 2 1 ) with: 5.
-	square := Square with: hyperJump.
-	aCollectionOfShips := OrderedCollection
-		                      with: aShip1
-		                      with: aShip2
-		                      with: aShip3.
-	dice := OrderedCollection with: die1 with: die2.
-	aDiceCup := DiceCup with: dice.
-	aGame := Game
-		         with: aCollectionOfShips
-		         and: aSmallAmountOfSquares
-		         and: anAmountOfLaps
-					and: square
-		         uses: aDiceCup.
+	aGame := self aGameWithOnlyMoonwalkSquares.
+	
+	aGame playTurn.
+	aGame playTurn.
 
-	self assert: aGame squaresToParsecs = #(20 15 10 5) asOrderedCollection .
+	self assert: (((aGame shipPositions) at: 1) = 10).
+	self assert: (((aGame shipPositions) at: 2) = 9).
 ]
 
 { #category : #tests }
-GameTest >> test020AGameWithSquaresWithHyperJumpMoveASingleShipAnAmountOfParsecs [
+GameTest >> test022AGameWithOnlyMoonwalkSquaresMovesAllOtherShipsBackAnAmountOfSquaresSpecifiedByTheSquareWhenTheyLandOnThoseSquaresCanGoBackLapsWithTheEffect [
 
-	| aGame aCollectionOfShips dice aDiceCup hyperJump square position |
+	| aGame |
 	
-	hyperJump := HyperJump with: #( 3 4 2 1 ) with: 5.
-	square := Square with: hyperJump.
-	aCollectionOfShips := OrderedCollection
-		                      with: aShip1.
-	dice := OrderedCollection with: die1 with: die2.
-	aDiceCup := DiceCup with: dice.
-	aGame := Game
-		         with: aCollectionOfShips
-		         and: aSmallAmountOfSquares
-		         and: anAmountOfLaps
-					and: square
-		         uses: aDiceCup.
+	aGame := self aGameWithOnlyMoonwalkSquares.
+	
 	aGame playTurn.
-	position := ((aGame shipPositions) at: 1).
+	aGame playTurn.
+	aGame playTurn.
+	aGame playTurn.
+	aGame playTurn.
 
-	self assert: (position = 25)
+	self assert: (((aGame shipPositions) at: 1) = 16).
+	self assert: (((aGame shipPositions) at: 2) = 14).
+	self assert: (((aGame shipPositions) at: 3) = 10).
+	self assert: (((aGame shipLaps) at: 1) = 1).
 ]

@@ -1,10 +1,10 @@
 Class {
-	#name : #SpeedUpSquare,
+	#name : #WormholeSquare,
 	#superclass : #Square,
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #accessing }
-SpeedUpSquare >> effect: aGame [
-	^ aGame applySpeedUp.
+WormholeSquare >> effect: aGame [
+	aGame applyWormhole.
 ]
