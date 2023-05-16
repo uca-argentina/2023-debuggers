@@ -64,14 +64,14 @@ Game class >> with: someShips and: anAmountOfSquares and: anAmountOfLaps uses: a
 	^((self new) initializeWith: someShips and: anAmountOfSquares and: anAmountOfLaps  uses: aDiceCup).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'applying effects' }
 Game >> applyAtomicBomb [
 
 	shipPositions removeAll.
 	ships do: [ :aShip | shipPositions add: 1 ].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'applying effects' }
 Game >> applyEffect [
 	
 	| landedSquare |
@@ -80,21 +80,21 @@ Game >> applyEffect [
 	landedSquare effect: self.
 ]
 
-{ #category : #'as yet unclassified' }
-Game >> applyMoonwalk [
+{ #category : #'applying effects' }
+Game >> applyHyperJump: value [
 
 	| turnShipPosition destination turnShipLap |
 
 	turnShipPosition := shipPositions at: currentTurn.
 	turnShipLap := shipLaps at: currentTurn.
-	destination := (turnShipPosition - 4).
-	[ destination < 1 ] whileTrue: [ 
-		destination := destination + (squares size).
-		shipLaps at: currentTurn put: turnShipLap - 1 ].
+	destination := (turnShipPosition + (parsecSize * value)).
+	[ destination > (squares size)] whileTrue: [ 
+		destination := destination - (squares size).
+		shipLaps at: currentTurn put: turnShipLap + 1 ].
 	shipPositions at: currentTurn put: destination.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'applying effects' }
 Game >> applyMoonwalk: steps [
 
 	shipPositions withIndexDo: [ :aShipPosition :aShipToMove | 
@@ -102,7 +102,7 @@ Game >> applyMoonwalk: steps [
 			self moonwalk: steps to: aShipToMove ] ].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'applying effects' }
 Game >> applySpeedUp [
 
 	| turnShipPosition destination turnShipLap |
@@ -116,7 +116,7 @@ Game >> applySpeedUp [
 	shipPositions at: currentTurn put: destination.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'applying effects' }
 Game >> applyWormhole [
 
 	| turnShipPosition destination turnShipLap |
@@ -162,6 +162,19 @@ Game >> initializeWith: someShips and: someSquares and: anAmountOfLaps and: aPar
 ]
 
 { #category : #initialization }
+Game >> initializeWith: someShips and: someSquares and: anAmountOfLaps and: aParsecSize uses: aDiceCup [ 
+	ships := someShips.
+	squares := someSquares.
+	laps := anAmountOfLaps.
+	parsecSize := aParsecSize.
+	diceCup 	:= aDiceCup.
+	currentTurn := 1.
+	shipPositions := OrderedCollection new.
+	ships do: [ :aShip | shipPositions add: 1 ].
+	shipLaps := shipPositions copy.
+]
+
+{ #category : #initialization }
 Game >> initializeWith: someShips and: anAmountOfSquares and: anAmountOfLaps uses: aDiceCup [
 	ships := someShips.
 	squares := anAmountOfSquares.
@@ -173,7 +186,7 @@ Game >> initializeWith: someShips and: anAmountOfSquares and: anAmountOfLaps use
 	shipLaps := shipPositions copy.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'applying effects' }
 Game >> moonwalk: steps to: shipToMove [
 	
 	| destination shipLap shipPosition |
@@ -207,15 +220,20 @@ Game >> shipPositions [
 	^ shipPositions.
 ]
 
-{ #category : #'as yet unclassified' }
-Game >> squaresToParsecs [
-	| collection parsecs newCollection |
-	newCollection := OrderedCollection new.
-	collection := effect haveCollectionOfHyperJumpSquares.
-	parsecs := effect haveParsecs.
-	collection do: [ :anElement | newCollection add: (anElement * parsecs)  ].
-	currentIndex := 1.
-	^ newCollection.
+{ #category : #'game status' }
+Game >> shipRanking [
+
+	| shipSquaresAdvanced sortedByAdvanced ranking |
+	shipSquaresAdvanced := shipPositions
+		                       with: shipLaps
+		                       collect: [ :aPosition :aLap | 
+		                       aPosition + (squares size * (aLap - 1)) ].
+	sortedByAdvanced := shipSquaresAdvanced sort: [ :a :b | a <= b ].
+	ranking := OrderedCollection new.
+	sortedByAdvanced do: [ :anAmountOfAdvancedSquares | 
+		ranking add:
+			(ships at: (shipSquaresAdvanced indexOf: anAmountOfAdvancedSquares)) ].
+	^ ranking
 ]
 
 { #category : #playing }

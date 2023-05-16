@@ -18,7 +18,7 @@ Class {
 { #category : #'set up' }
 GameTest >> aGameWithASingleDie [
 
-	| aGame aCollectionOfShips noEffectSquare squares values |
+	| aGame aCollectionOfShips noEffectSquare squares parsecSize |
 	
 	aCollectionOfShips := OrderedCollection
 		                      with: aShip1
@@ -56,13 +56,12 @@ GameTest >> aGameWithASingleDie [
 	squares add: noEffectSquare.
 	squares add: noEffectSquare.
 	squares add: noEffectSquare.
-	values := #(4 3 2 1) asOrderedCollection.
+	parsecSize := 5.
 	aGame := Game
 		         with: aCollectionOfShips
 		         and: squares
 					and: anAmountOfLaps
-					and: 5
-					and: values
+					and: parsecSize
 		         uses: die1.
 	^ aGame.
 ]
@@ -70,7 +69,7 @@ GameTest >> aGameWithASingleDie [
 { #category : #'set up' }
 GameTest >> aGameWithASingleShip [
 
-	| aGame aCollectionOfShips dice aDiceCup noEffectSquare squares values |
+	| aGame aCollectionOfShips dice aDiceCup noEffectSquare squares parsecSize |
 	aCollectionOfShips := OrderedCollection with: aShip1.
 	dice := OrderedCollection with: die1 with: die2.
 	aDiceCup := DiceCup with: dice.
@@ -106,13 +105,12 @@ GameTest >> aGameWithASingleShip [
 	squares add: noEffectSquare.
 	squares add: noEffectSquare.
 	squares add: noEffectSquare.
-	values := #( 4 3 2 1 ) asOrderedCollection.
+	parsecSize := 5.
 	aGame := Game
 		         with: aCollectionOfShips
 		         and: squares
 		         and: anAmountOfLaps
-		         and: 5
-		         and: values
+		         and: parsecSize
 		         uses: aDiceCup.
 	^ aGame
 ]
@@ -120,7 +118,7 @@ GameTest >> aGameWithASingleShip [
 { #category : #'set up' }
 GameTest >> aGameWithDuplicatedShips [
 
-	| aGame aCollectionOfShips dice aDiceCup noEffectSquare squares values |
+	| aGame aCollectionOfShips dice aDiceCup noEffectSquare squares parsecSize |
 	
 	aCollectionOfShips := OrderedCollection
 		                      with: aShip1
@@ -140,13 +138,12 @@ GameTest >> aGameWithDuplicatedShips [
 	squares add: noEffectSquare.
 	squares add: noEffectSquare.
 	squares add: noEffectSquare.
-	values := #(4 3 2 1) asOrderedCollection.
+	parsecSize := 5.
 	aGame := Game
 		         with: aCollectionOfShips
 		         and: squares
 					and: anAmountOfLaps
-					and: 5
-					and: values
+					and: parsecSize
 		         uses: aDiceCup.
 	^ aGame.	
 ]
@@ -154,7 +151,7 @@ GameTest >> aGameWithDuplicatedShips [
 { #category : #'set up' }
 GameTest >> aGameWithInvalidAmountOfLaps [
 
-	| aGame aCollectionOfShips dice aDiceCup noEffectSquare squares values invalidAmountOfLaps |
+	| aGame aCollectionOfShips dice aDiceCup noEffectSquare squares parsecSize invalidAmountOfLaps |
 	
 	aCollectionOfShips := OrderedCollection
 		                      with: aShip1
@@ -175,13 +172,12 @@ GameTest >> aGameWithInvalidAmountOfLaps [
 	squares add: noEffectSquare.
 	squares add: noEffectSquare.
 	squares add: noEffectSquare.
-	values := #(4 3 2 1) asOrderedCollection.
+	parsecSize := 5.
 	aGame := Game
 		         with: aCollectionOfShips
 		         and: squares
 					and: invalidAmountOfLaps
-					and: 5
-					and: values
+					and: parsecSize
 		         uses: aDiceCup.
 	^ aGame.
 ]
@@ -189,7 +185,7 @@ GameTest >> aGameWithInvalidAmountOfLaps [
 { #category : #'set up' }
 GameTest >> aGameWithInvalidAmountOfSquares [
 
-	| aGame aCollectionOfShips dice aDiceCup noEffectSquare squares values |
+	| aGame aCollectionOfShips dice aDiceCup noEffectSquare squares parsecSize |
 	
 	aCollectionOfShips := OrderedCollection
 		                      with: aShip1
@@ -199,13 +195,12 @@ GameTest >> aGameWithInvalidAmountOfSquares [
 	aDiceCup := DiceCup with: dice.
 	noEffectSquare := NoEffectSquare new.
 	squares := OrderedCollection new.
-	values := #(4 3 2 1) asOrderedCollection.
+	parsecSize := 5.
 	aGame := Game
 		         with: aCollectionOfShips
 		         and: squares
 					and: anAmountOfLaps
-					and: 5
-					and: values
+					and: parsecSize
 		         uses: aDiceCup.
 	^ aGame.
 ]
@@ -213,7 +208,7 @@ GameTest >> aGameWithInvalidAmountOfSquares [
 { #category : #'set up' }
 GameTest >> aGameWithOnlyAtomicBombSquares [
 
-	| aGame aCollectionOfShips dice aDiceCup atomicBombSquare squares values |
+	| aGame aCollectionOfShips dice aDiceCup atomicBombSquare squares parsecSize |
 	
 	aCollectionOfShips := OrderedCollection
 		                      with: aShip1
@@ -233,13 +228,57 @@ GameTest >> aGameWithOnlyAtomicBombSquares [
 	squares add: atomicBombSquare.
 	squares add: atomicBombSquare.
 	squares add: atomicBombSquare.
-	values := #(4 3 2 1) asOrderedCollection.
+	parsecSize := 5.
 	aGame := Game
 		         with: aCollectionOfShips
 		         and: squares
 					and: anAmountOfLaps
-					and: 5
-					and: values
+					and: parsecSize
+		         uses: aDiceCup.
+	^ aGame.	
+]
+
+{ #category : #'set up' }
+GameTest >> aGameWithOnlyHyperJumpSquares [
+
+	| aGame aCollectionOfShips dice aDiceCup hyperJumpSquare squares parsecSize |
+	
+	aCollectionOfShips := OrderedCollection
+		                      with: aShip1
+		                      with: aShip2
+		                      with: aShip3.
+	dice := OrderedCollection with: die1 with: die2.
+	aDiceCup := DiceCup with: dice.
+	hyperJumpSquare := HyperJumpSquare with: (#(2 1) asOrderedCollection).
+	squares := OrderedCollection new.
+	squares add: hyperJumpSquare.
+	squares add: hyperJumpSquare.
+	squares add: hyperJumpSquare.
+	squares add: hyperJumpSquare.
+	squares add: hyperJumpSquare.
+	squares add: hyperJumpSquare.
+	squares add: hyperJumpSquare.
+	squares add: hyperJumpSquare.
+	squares add: hyperJumpSquare.
+	squares add: hyperJumpSquare.
+	squares add: hyperJumpSquare.
+	squares add: hyperJumpSquare.
+	squares add: hyperJumpSquare.
+	squares add: hyperJumpSquare.
+	squares add: hyperJumpSquare.
+	squares add: hyperJumpSquare.
+	squares add: hyperJumpSquare.
+	squares add: hyperJumpSquare.
+	squares add: hyperJumpSquare.
+	squares add: hyperJumpSquare.
+	squares add: hyperJumpSquare.
+	squares add: hyperJumpSquare.
+	parsecSize := 5.
+	aGame := Game
+		         with: aCollectionOfShips
+		         and: squares
+					and: anAmountOfLaps
+					and: parsecSize
 		         uses: aDiceCup.
 	^ aGame.	
 ]
@@ -247,7 +286,7 @@ GameTest >> aGameWithOnlyAtomicBombSquares [
 { #category : #'set up' }
 GameTest >> aGameWithOnlyMoonwalkSquares [
 
-	| aGame aCollectionOfShips dice aDiceCup moonwalkSquare1 moonwalkSquare2 squares values |
+	| aGame aCollectionOfShips dice aDiceCup moonwalkSquare1 moonwalkSquare2 squares parsecSize |
 	
 	aCollectionOfShips := OrderedCollection
 		                      with: aShip1
@@ -278,13 +317,12 @@ GameTest >> aGameWithOnlyMoonwalkSquares [
 	squares add: moonwalkSquare1.
 	squares add: moonwalkSquare1.
 	squares add: moonwalkSquare1.
-	values := #(4 3 2 1) asOrderedCollection.
+	parsecSize := 5.
 	aGame := Game
 		         with: aCollectionOfShips
 		         and: squares
 					and: anAmountOfLaps
-					and: 5
-					and: values
+					and: parsecSize
 		         uses: aDiceCup.
 	^ aGame.	
 ]
@@ -292,7 +330,7 @@ GameTest >> aGameWithOnlyMoonwalkSquares [
 { #category : #'set up' }
 GameTest >> aGameWithOnlyNoEffectSquares [
 
-	| aGame aCollectionOfShips dice aDiceCup noEffectSquare squares values |
+	| aGame aCollectionOfShips dice aDiceCup noEffectSquare squares parsecSize |
 	
 	aCollectionOfShips := OrderedCollection
 		                      with: aShip1
@@ -332,13 +370,12 @@ GameTest >> aGameWithOnlyNoEffectSquares [
 	squares add: noEffectSquare.
 	squares add: noEffectSquare.
 	squares add: noEffectSquare.
-	values := #(4 3 2 1) asOrderedCollection.
+	parsecSize := 5.
 	aGame := Game
 		         with: aCollectionOfShips
 		         and: squares
 					and: anAmountOfLaps
-					and: 5
-					and: values
+					and: parsecSize
 		         uses: aDiceCup.
 	^ aGame.	
 ]
@@ -346,7 +383,7 @@ GameTest >> aGameWithOnlyNoEffectSquares [
 { #category : #'set up' }
 GameTest >> aGameWithOnlySpeedUpSquares [
 
-	| aGame aCollectionOfShips dice aDiceCup speedUpSquare squares values |
+	| aGame aCollectionOfShips dice aDiceCup speedUpSquare squares parsecSize |
 	
 	aCollectionOfShips := OrderedCollection
 		                      with: aShip1
@@ -390,13 +427,12 @@ GameTest >> aGameWithOnlySpeedUpSquares [
 	squares add: speedUpSquare.
 	squares add: speedUpSquare.
 	squares add: speedUpSquare.
-	values := #(4 3 2 1) asOrderedCollection.
+	parsecSize := 5.
 	aGame := Game
 		         with: aCollectionOfShips
 		         and: squares
 					and: anAmountOfLaps
-					and: 5
-					and: values
+					and: parsecSize
 		         uses: aDiceCup.
 	^ aGame.	
 ]
@@ -404,7 +440,7 @@ GameTest >> aGameWithOnlySpeedUpSquares [
 { #category : #'set up' }
 GameTest >> aGameWithOnlyWormholeSquares [
 
-	| aGame aCollectionOfShips dice aDiceCup wormholeSquare squares values |
+	| aGame aCollectionOfShips dice aDiceCup wormholeSquare squares parsecSize |
 	
 	aCollectionOfShips := OrderedCollection
 		                      with: aShip1
@@ -438,13 +474,12 @@ GameTest >> aGameWithOnlyWormholeSquares [
 	squares add: wormholeSquare.
 	squares add: wormholeSquare.
 	squares add: wormholeSquare.
-	values := #(4 3 2 1) asOrderedCollection.
+	parsecSize := 5.
 	aGame := Game
 		         with: aCollectionOfShips
 		         and: squares
 					and: anAmountOfLaps
-					and: 5
-					and: values
+					and: parsecSize
 		         uses: aDiceCup.
 	^ aGame.	
 ]
@@ -452,7 +487,7 @@ GameTest >> aGameWithOnlyWormholeSquares [
 { #category : #'set up' }
 GameTest >> aShortGameWithOnlyNoEffectSquares [
 
-	| aGame aCollectionOfShips dice aDiceCup noEffectSquare squares values |
+	| aGame aCollectionOfShips dice aDiceCup noEffectSquare squares parsecSize |
 	
 	aCollectionOfShips := OrderedCollection
 		                      with: aShip1
@@ -472,13 +507,12 @@ GameTest >> aShortGameWithOnlyNoEffectSquares [
 	squares add: noEffectSquare.
 	squares add: noEffectSquare.
 	squares add: noEffectSquare.
-	values := #(4 3 2 1) asOrderedCollection.
+	parsecSize := 5.
 	aGame := Game
 		         with: aCollectionOfShips
 		         and: squares
 					and: anAmountOfLaps
-					and: 5
-					and: values
+					and: parsecSize
 		         uses: aDiceCup.
 	^ aGame.	
 ]
@@ -799,4 +833,47 @@ GameTest >> test022AGameWithOnlyMoonwalkSquaresMovesAllOtherShipsBackAnAmountOfS
 	self assert: (((aGame shipPositions) at: 2) = 14).
 	self assert: (((aGame shipPositions) at: 3) = 10).
 	self assert: (((aGame shipLaps) at: 1) = 1).
+]
+
+{ #category : #tests }
+GameTest >> test023AGameWithOnlySpeedUpSquaresMovesShipsAnAmountOfParsecsFowardWhenTheyLandOnThoseSquares [
+
+	| aGame |
+	
+	aGame := self aGameWithOnlyHyperJumpSquares.
+	
+	aGame playTurn.
+
+	self assert: (((aGame shipPositions) at: 1) = 3).
+	self assert: (((aGame shipLaps) at: 1) = 2).
+]
+
+{ #category : #tests }
+GameTest >> test024AGameWithOnlySpeedUpSquaresMovesShipsAnAmountOfParsecsFowardWhenTheyLandOnThoseSquaresCanAdvanceLapsWithTheEffect [
+
+	| aGame |
+	
+	aGame := self aGameWithOnlyHyperJumpSquares.
+	
+	aGame playTurn.
+
+	self assert: (((aGame shipPositions) at: 1) = 3).
+	self assert: (((aGame shipLaps) at: 1) = 2).
+]
+
+{ #category : #tests }
+GameTest >> test025AGameCanGiveMeARankingOfItsShips [
+
+	| aGame |
+	
+	aGame := self aGameWithOnlyNoEffectSquares.
+	
+	aGame playTurn.
+	aGame playTurn.
+	aGame playTurn.
+
+	self assert: (((aGame shipRanking) at: 1) equals: aShip1).
+	self assert: (((aGame shipRanking) at: 2) equals: aShip2).
+	self assert: (((aGame shipRanking) at: 3) equals: aShip3).
+	
 ]

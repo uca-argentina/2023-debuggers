@@ -1,0 +1,48 @@
+Class {
+	#name : #HyperJumpSquare,
+	#superclass : #Square,
+	#instVars : [
+		'values'
+	],
+	#classInstVars : [
+		'parsecs',
+		'collectionSquares'
+	],
+	#category : #'IngSoft2-Model'
+}
+
+{ #category : #'as yet unclassified' }
+HyperJumpSquare class >> checkValuesAreInDescendingOrder: someValues [
+
+	(someValues isSortedBy: [:a :b | a >= b ]) ifFalse: [ Error signal: 'The list of values must be in descending order' ].
+]
+
+{ #category : #validation }
+HyperJumpSquare class >> checkValuesIsNotEmpty: someValues [
+
+	(someValues isEmpty) ifTrue: [ Error signal: 'The list of values cannot be empty' ]
+]
+
+{ #category : #'instance creation' }
+HyperJumpSquare class >> with: someValues [
+	self checkValuesIsNotEmpty: someValues. 
+	self checkValuesAreInDescendingOrder: someValues.
+	^ (self new) initializeWith: someValues.
+]
+
+{ #category : #accessing }
+HyperJumpSquare >> effect: aGame [
+	
+	| value |
+	
+	value := values removeFirst.
+	aGame applyHyperJump: value.
+	values add: value.
+	
+]
+
+{ #category : #initialization }
+HyperJumpSquare >> initializeWith: someValues [
+
+	values := someValues.
+]

@@ -22,3 +22,29 @@ self
 		raise: Error
 		withMessage: 'Amount of steps cannot be 0 or lower'
 ]
+
+{ #category : #tests }
+SquaresTest >> test002AHyperJumpSquareCannotHaveEmptyValueList [
+
+	| values |
+	
+	values := #() asOrderedCollection.
+
+self
+		should: [ HyperJumpSquare with: values ]
+		raise: Error
+		withMessage: 'The list of values cannot be empty'
+]
+
+{ #category : #tests }
+SquaresTest >> test004AHyperJumpSquareCannotHaveAListOfValueThatIsNotInDescendinOrder [
+
+	| values |
+	
+	values := #( 1 2 3) asOrderedCollection.
+
+self
+		should: [ HyperJumpSquare with: values ]
+		raise: Error
+		withMessage: 'The list of values must be in descending order'
+]

@@ -14,11 +14,6 @@ Square class >> isAbstract [
 	^ self == Square
 ]
 
-{ #category : #'instance creation' }
-Square class >> with: anEffect [
-	^ (self new) initializeWith: anEffect.
-]
-
 { #category : #accessing }
 Square >> effect: aGame [
 	^ self subclassResponsibility.
