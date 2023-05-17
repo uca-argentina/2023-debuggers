@@ -4,6 +4,16 @@ Class {
 	#category : #'IngSoft2-Tests'
 }
 
+{ #category : #asserting }
+DieTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMessage [
+
+	self
+		should: anErrorBlock
+		raise: anExceptionClass
+		withExceptionDo: [ :error | 
+		self assert: error messageText equals: anErrorMessage ]
+]
+
 { #category : #tests }
 DieTest >> test001ARandomDieCanTellMeItsFaces [
 
@@ -61,4 +71,63 @@ DieTest >> test005ALoadedDieSequenceCanBeRepeated [
 	self assert: aDie throw equals: 2.
 	self assert: aDie throw equals: 3.
 	self assert: aDie throw equals: 4
+]
+
+{ #category : #tests }
+DieTest >> test006ARandomDieCanCannotHaveZeroFaces [
+
+	| aDie |
+	
+	self
+		should: [ aDie := Die with: 0 ]
+		raise: Error
+		withMessage: 'Unable to create dice with 0 or less faces'
+]
+
+{ #category : #tests }
+DieTest >> test007ARandomDieCanCannotHaveNegativeAmountOfFaces [
+
+	| aDie |
+	
+	self
+		should: [ aDie := Die with: -3 ]
+		raise: Error
+		withMessage: 'Unable to create dice with 0 or less faces'
+]
+
+{ #category : #tests }
+DieTest >> test008ALoadedDieCanCannotHaveZeroFaces [
+
+	| aDie sequence |
+	
+	sequence := #( 0 ).
+
+	self
+		should: [ aDie := LoadedDie with: sequence ]
+		raise: Error
+		withMessage: 'Unable to create dice with 0 or less faces'
+]
+
+{ #category : #tests }
+DieTest >> test009ALoadedDieCanCannotHaveANegativeAmountOfFaces [
+
+	| aDie sequence |
+	
+	sequence := #( -5 ).
+
+	self
+		should: [ aDie := LoadedDie with: sequence ]
+		raise: Error
+		withMessage: 'Unable to create dice with 0 or less faces'
+]
+
+{ #category : #tests }
+DieTest >> test010ALoadedDieCanTellMeItsFaces [
+
+	| aDie sequence |
+	
+	sequence := #( 7 8 4 ).
+	aDie := LoadedDie with: sequence.
+
+	self assert: aDie faces equals: 8
 ]
