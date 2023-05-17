@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'squares'
 	],
-	#category : #'IngSoft2-Tests'
+	#category : #'IngSoft2-Model'
 }
 
 { #category : #validation }
@@ -21,7 +21,7 @@ Board class >> with: someSquares [
 ]
 
 { #category : #initialization }
-Board >> effectTo: aGame At: aSquareIndex [
+Board >> effectTo: aGame at: aSquareIndex [
 
 	(squares at: aSquareIndex) effect: aGame.
 ]
@@ -30,4 +30,10 @@ Board >> effectTo: aGame At: aSquareIndex [
 Board >> initializeWith: someSquares [
 
 	squares := someSquares
+]
+
+{ #category : #accessing }
+Board >> size [
+	
+	^ (squares size)
 ]
