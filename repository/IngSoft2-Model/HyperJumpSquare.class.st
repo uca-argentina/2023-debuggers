@@ -1,6 +1,6 @@
 Class {
 	#name : #HyperJumpSquare,
-	#superclass : #Square,
+	#superclass : #Object,
 	#instVars : [
 		'values'
 	],

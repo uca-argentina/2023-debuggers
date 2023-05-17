@@ -1,6 +1,6 @@
 Class {
 	#name : #WormholeSquare,
-	#superclass : #Square,
+	#superclass : #Object,
 	#category : #'IngSoft2-Model'
 }
 
