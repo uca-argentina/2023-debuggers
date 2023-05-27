@@ -6,5 +6,5 @@ Class {
 
 { #category : #effect }
 SpeedUpSquare >> effect: aGame [
-	^ aGame applySpeedUp.
+	^ aGame updatePosition: 4.
 ]

@@ -47,12 +47,12 @@ GalaxyCircuitGame class >> checkParsecs: aParsecSize and: aBoard [
 ]
 
 { #category : #'instance creation' }
-GalaxyCircuitGame class >> with: someShips and: aBoard and: anAmountOfLaps and: aParsecSize uses: aDiceCup [ 
-	self checkForDuplicated: someShips.
+GalaxyCircuitGame class >> with: somePlayersName and: aBoard and: anAmountOfLaps and: aParsecSize uses: aDiceCup [ 
+	self checkForDuplicated: somePlayersName.
 	self checkLaps: anAmountOfLaps.
 	self checkParsecs: aParsecSize.
 	self checkParsecs: aParsecSize and: aBoard.
-	^((self new) initializeWith: someShips and: aBoard and: anAmountOfLaps and: aParsecSize uses: aDiceCup).
+	^((self new) initializeWith: somePlayersName and: aBoard and: anAmountOfLaps and: aParsecSize uses: aDiceCup).
 ]
 
 { #category : #'applying effects' }
@@ -139,8 +139,8 @@ GalaxyCircuitGame >> hasAWinner [
 ]
 
 { #category : #initialization }
-GalaxyCircuitGame >> initializeWith: someShips and: aBoard and: anAmountOfLaps and: aParsecSize uses: aDiceCup [ 
-	ships := someShips.
+GalaxyCircuitGame >> initializeWith: somePlayersNames and: aBoard and: anAmountOfLaps and: aParsecSize uses: aDiceCup [ 
+	ships := somePlayersNames.
 	board := aBoard.
 	laps := anAmountOfLaps.
 	parsecSize := aParsecSize.
@@ -215,6 +215,19 @@ GalaxyCircuitGame >> updatePosition [
 	turnShipPosition := shipPositions at: currentTurn.
 	turnShipLap := shipLaps at: currentTurn.
 	destination := (turnShipPosition + (diceCup throw)).
+	[ destination > (board size)] whileTrue: [ 
+		destination := destination - (board size).
+		shipLaps at: currentTurn put: turnShipLap + 1 ].
+	shipPositions at: currentTurn put: destination.
+]
+
+{ #category : #playing }
+GalaxyCircuitGame >> updatePosition: steps [
+
+	| turnShipPosition destination turnShipLap |
+	turnShipPosition := shipPositions at: currentTurn.
+	turnShipLap := shipLaps at: currentTurn.
+	destination := (turnShipPosition + (steps)).
 	[ destination > (board size)] whileTrue: [ 
 		destination := destination - (board size).
 		shipLaps at: currentTurn put: turnShipLap + 1 ].

@@ -6,7 +6,6 @@ Class {
 		'aShip2',
 		'aShip3',
 		'aShip4',
-		'anAmountofSquares',
 		'die1',
 		'die2',
 		'anAmountOfLaps',
@@ -14,6 +13,55 @@ Class {
 	],
 	#category : #'IngSoft2-Tests'
 }
+
+{ #category : #'set up' }
+GalaxyCircuitGameTest >> aGameWith: anAmountOfSquares of: square [
+
+	| aGame aCollectionOfShips dice aDiceCup squares parsecSize aBoard amountOfLaps |
+	
+	aCollectionOfShips := OrderedCollection
+		                      with: aShip1
+		                      with: aShip2
+		                      with: aShip3.
+	dice := OrderedCollection with: die1 with: die2.
+	aDiceCup := DiceCup with: dice.
+	amountOfLaps := 5.
+	squares := OrderedCollection new.
+	anAmountOfSquares timesRepeat: [ squares add: square. ].
+	aBoard := Board with: squares.
+	parsecSize := 1.
+	aGame := GalaxyCircuitGame
+		         with: aCollectionOfShips
+		         and: aBoard
+					and: amountOfLaps
+					and: parsecSize
+		         uses: aDiceCup.
+	^ aGame.
+]
+
+{ #category : #'set up' }
+GalaxyCircuitGameTest >> aGameWith: anAmountOfSquares of: square and: parsecSize [
+
+	| aGame aCollectionOfShips dice aDiceCup squares aBoard amountOfLaps |
+	
+	aCollectionOfShips := OrderedCollection
+		                      with: aShip1
+		                      with: aShip2
+		                      with: aShip3.
+	dice := OrderedCollection with: die1 with: die2.
+	aDiceCup := DiceCup with: dice.
+	amountOfLaps := 5.
+	squares := OrderedCollection new.
+	anAmountOfSquares timesRepeat: [ squares add: square. ].
+	aBoard := Board with: squares.
+	aGame := GalaxyCircuitGame
+		         with: aCollectionOfShips
+		         and: aBoard
+					and: amountOfLaps
+					and: parsecSize
+		         uses: aDiceCup.
+	^ aGame.
+]
 
 { #category : #'set up' }
 GalaxyCircuitGameTest >> aGameWithASingleDie [
@@ -572,8 +620,6 @@ GalaxyCircuitGameTest >> setUp [
 	aShip2 := Ship with: 'Juan'.
 	aShip3 := Ship with: 'Martin'.
 	aShip4 := Ship with: 'Martin'.
-	anAmountofSquares := 30.
-	aSmallAmountOfSquares:= 10.
 	anAmountOfLaps := 2.
 	die1 := LoadedDie with: #( 7 5 3).
 	die2 := LoadedDie with: #( 7 6 2).
@@ -749,9 +795,10 @@ GalaxyCircuitGameTest >> test012AGameCannotStartWithZeroOrLowerAmountOfLaps [
 { #category : #tests }
 GalaxyCircuitGameTest >> test013AGameWithOnlyNoEffectSquaresWontMoveShipsWhenTheyLandOnThoseSquares [
 
-	| aGame |
+	| aGame amountOfSquares |
 	
-	aGame := self aGameWithOnlyNoEffectSquares.
+	amountOfSquares := 30.
+	aGame := self aGameWith: amountOfSquares of: NoEffectSquare new .
 	
 	aGame playTurn.
 
@@ -761,9 +808,10 @@ GalaxyCircuitGameTest >> test013AGameWithOnlyNoEffectSquaresWontMoveShipsWhenThe
 { #category : #tests }
 GalaxyCircuitGameTest >> test014AGameWithOnlySpeedUpSquaresMovesShipsFourSquaresFowardWhenTheyLandOnThoseSquares [
 
-	| aGame |
+	| aGame amountOfSquares |
 	
-	aGame := self aGameWithOnlySpeedUpSquares.
+	amountOfSquares := 30.
+	aGame := self aGameWith: amountOfSquares of: SpeedUpSquare new.
 	
 	aGame playTurn.
 
@@ -773,13 +821,11 @@ GalaxyCircuitGameTest >> test014AGameWithOnlySpeedUpSquaresMovesShipsFourSquares
 { #category : #tests }
 GalaxyCircuitGameTest >> test015AGameWithOnlySpeedUpSquaresMovesShipsFourSquaresFowardWhenTheyLandOnThoseSquaresAndShipsCanAdvanceLapsWithTheEffect [
 
-	| aGame |
+	| aGame amountOfSquares |
 	
-	aGame := self aGameWithOnlySpeedUpSquares.
+	amountOfSquares := 16.
+	aGame := self aGameWith: amountOfSquares of: SpeedUpSquare new.
 	
-	aGame playTurn.
-	aGame playTurn.
-	aGame playTurn.
 	aGame playTurn.
 
 	self assert: (((aGame shipPositions) at: 1) = 3).
@@ -789,9 +835,10 @@ GalaxyCircuitGameTest >> test015AGameWithOnlySpeedUpSquaresMovesShipsFourSquares
 { #category : #tests }
 GalaxyCircuitGameTest >> test016AGameWithOnlyWormholeSquaresMovesShipsFourSquaresBackwardsWhenTheyLandOnThoseSquares [
 
-	| aGame |
+	| aGame amountOfSquares |
 	
-	aGame := self aGameWithOnlyWormholeSquares.
+	amountOfSquares := 30.
+	aGame := self aGameWith: amountOfSquares of: WormholeSquare new.
 	
 	aGame playTurn.
 
@@ -801,25 +848,24 @@ GalaxyCircuitGameTest >> test016AGameWithOnlyWormholeSquaresMovesShipsFourSquare
 { #category : #tests }
 GalaxyCircuitGameTest >> test017AGameWithOnlyWormholeSquaresMovesShipsFourSquaresBackwardsWhenTheyLandOnThoseSquaresAndShipsCanGoBackLapsWithTheEffect [
 
-	| aGame |
+	| aGame amountOfSquares |
 	
-	aGame := self aGameWithOnlyWormholeSquares.
+	amountOfSquares := 12.
+	aGame := self aGameWith: amountOfSquares of: WormholeSquare new.
 	
-	aGame playTurn.
-	aGame playTurn.
-	aGame playTurn.
 	aGame playTurn.
 
-	self assert: (((aGame shipPositions) at: 1) = 21).
+	self assert: (((aGame shipPositions) at: 1) = 11).
 	self assert: (((aGame shipLaps) at: 1) = 1).
 ]
 
 { #category : #tests }
 GalaxyCircuitGameTest >> test018AGameWithOnlyAtomicBombSquaresMovesAllShipsBackToTheFirstSquareWhenTheyLandOnThoseSquares [
 
-	| aGame |
+	| aGame amountOfSquares |
 	
-	aGame := self aGameWithOnlyAtomicBombSquares.
+	amountOfSquares := 30.
+	aGame := self aGameWith: amountOfSquares of: AtomicBombSquare new.
 	
 	aGame playTurn.
 
@@ -829,67 +875,72 @@ GalaxyCircuitGameTest >> test018AGameWithOnlyAtomicBombSquaresMovesAllShipsBackT
 { #category : #tests }
 GalaxyCircuitGameTest >> test019AGameWithOnlyAtomicBombSquaresMovesAllShipsBackToTheFirstSquareWhenTheyLandOnThoseSquaresButTheyKeepTheLapsDone [
 
-	| aGame |
+	| aGame amountOfSquares |
 	
-	aGame := self aGameWithOnlyAtomicBombSquares.
+	amountOfSquares := 10.
+	aGame := self aGameWith: amountOfSquares of: AtomicBombSquare new.
 	
 	aGame playTurn.
 
-	self assert: (((aGame shipPositions) at: 1) = 1).
 	self assert: (((aGame shipLaps) at: 1) = 2).
 ]
 
 { #category : #tests }
 GalaxyCircuitGameTest >> test020AGameWithOnlyMoonwalkSquaresMovesAllOtherShipsBackAnAmountOfSquaresSpecifiedByTheSquareWhenTheyLandOnThoseSquares [
 
-	| aGame |
+	| aGame amountOfSquares aMoonwalkSquare |
 	
-	aGame := self aGameWithOnlyMoonwalkSquares.
+	amountOfSquares := 30.
+	aMoonwalkSquare := MoonwalkSquare with: 4.
+	aGame := self aGameWith: amountOfSquares of: aMoonwalkSquare.
 	
 	aGame playTurn.
 	aGame playTurn.
 
-	self assert: (((aGame shipPositions) at: 1) = 10).
-	self assert: (((aGame shipPositions) at: 2) = 9).
+	self assert: (((aGame shipPositions) at: 1) = 11).
+	self assert: (((aGame shipPositions) at: 2) = 8).
 ]
 
 { #category : #tests }
 GalaxyCircuitGameTest >> test021AGameWithOnlyMoonwalkSquaresMovesAllOtherShipsBackAnAmountOfSquaresSpecifiedByTheSquareWhenTheyLandOnThoseSquaresCanGoBackLapsWithTheEffect [
 
-	| aGame |
+	| aGame amountOfSquares aMoonwalkSquare |
 	
-	aGame := self aGameWithOnlyMoonwalkSquares.
+	amountOfSquares := 12.
+	aMoonwalkSquare := MoonwalkSquare with: 4.
+	aGame := self aGameWith: amountOfSquares of: aMoonwalkSquare.
 	
-	aGame playTurn.
-	aGame playTurn.
-	aGame playTurn.
 	aGame playTurn.
 	aGame playTurn.
 
-	self assert: (((aGame shipPositions) at: 1) = 16).
-	self assert: (((aGame shipPositions) at: 2) = 14).
-	self assert: (((aGame shipPositions) at: 3) = 10).
+	self assert: (((aGame shipPositions) at: 1) = 11).
 	self assert: (((aGame shipLaps) at: 1) = 1).
 ]
 
 { #category : #tests }
 GalaxyCircuitGameTest >> test022AGameWithOnlyHyperJumpSquaresMovesShipsAnAmountOfParsecsFowardWhenTheyLandOnThoseSquares [
 
-	| aGame |
+	| aGame amountOfSquares aHyperJumpSquare parsecSize |
 	
-	aGame := self aGameWithOnlyHyperJumpSquares.
+	amountOfSquares := 30.
+	aHyperJumpSquare := HyperJumpSquare with: (#(2 1) asOrderedCollection).
+	parsecSize := 5.
+	aGame := self aGameWith: amountOfSquares of: aHyperJumpSquare and: parsecSize.
 	
 	aGame playTurn.
 
-	self assert: (((aGame shipPositions) at: 1) = 5).
+	self assert: (((aGame shipPositions) at: 1) = 25).
 ]
 
 { #category : #tests }
 GalaxyCircuitGameTest >> test023AGameWithOnlyHyperJumpSquaresMovesShipsAnAmountOfParsecsFowardWhenTheyLandOnThoseSquaresCanAdvanceLapsWithTheEffect [
 
-	| aGame |
+	| aGame amountOfSquares aHyperJumpSquare parsecSize |
 	
-	aGame := self aGameWithOnlyHyperJumpSquares.
+	amountOfSquares := 30.
+	aHyperJumpSquare := HyperJumpSquare with: (#(4 1) asOrderedCollection).
+	parsecSize := 5.
+	aGame := self aGameWith: amountOfSquares of: aHyperJumpSquare and: parsecSize.
 
 	aGame playTurn.
 

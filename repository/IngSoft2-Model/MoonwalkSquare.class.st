@@ -2,7 +2,6 @@ Class {
 	#name : #MoonwalkSquare,
 	#superclass : #Object,
 	#instVars : [
-		'backwards',
 		'steps'
 	],
 	#category : #'IngSoft2-Model'

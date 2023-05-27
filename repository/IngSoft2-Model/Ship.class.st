@@ -2,7 +2,9 @@ Class {
 	#name : #Ship,
 	#superclass : #Object,
 	#instVars : [
-		'name'
+		'name',
+		'position',
+		'lap'
 	],
 	#classInstVars : [
 		'position',
