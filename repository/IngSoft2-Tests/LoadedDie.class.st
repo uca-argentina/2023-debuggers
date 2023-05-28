@@ -2,8 +2,7 @@ Class {
 	#name : #LoadedDie,
 	#superclass : #Object,
 	#instVars : [
-		'faces',
-		'currentRoll'
+		'sequenceHandler'
 	],
 	#category : #'IngSoft2-Tests'
 }
@@ -26,23 +25,17 @@ LoadedDie class >> with: aSequenceOfRolls [
 
 { #category : #accessing }
 LoadedDie >> faces [
-	^ faces max.
+	^ (sequenceHandler sequence) max.
 ]
 
 { #category : #initialization }
 LoadedDie >> initializeWith: aSequenceOfRolls [
-	faces:=aSequenceOfRolls.
-	currentRoll:=1.
+
+	sequenceHandler := SequenceHandler with: aSequenceOfRolls.
 ]
 
 { #category : #'dice rolling' }
 LoadedDie >> throw [
 
-	| roll |
-	roll := (faces at: currentRoll).
-	(currentRoll == (faces size))
-		ifTrue: [ currentRoll := 1 ]
-		ifFalse: [ currentRoll := currentRoll + 1 ].
-
-	^ roll.
+	^ (sequenceHandler next).
 ]

@@ -2,7 +2,8 @@ Class {
 	#name : #HyperJumpSquare,
 	#superclass : #Object,
 	#instVars : [
-		'values'
+		'values',
+		'sequence'
 	],
 	#classInstVars : [
 		'parsecs',
@@ -33,17 +34,15 @@ HyperJumpSquare class >> with: someValues [
 { #category : #accessing }
 HyperJumpSquare >> effect: aGame [
 	
-	| currentValue steps |
+	| steps |
 	
-	currentValue := values removeFirst.
-	steps := currentValue * (aGame parsecSize).
+	steps := (sequence next) * (aGame parsecSize).
 	aGame updatePosition: steps.
-	values add: currentValue.
 	
 ]
 
 { #category : #initialization }
 HyperJumpSquare >> initializeWith: someValues [
 
-	values := someValues.
+	sequence := SequenceHandler with: someValues.
 ]

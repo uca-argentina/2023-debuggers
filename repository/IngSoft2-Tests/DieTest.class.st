@@ -38,7 +38,8 @@ self assert: ((aDie throw) between: 1 and: 3).
 DieTest >> test003ALoadedDieCanThrowAnExpectedNumber [
 
 	| aDie sequence |
-	sequence:= #( 2  ).
+	
+	sequence:= #( 2 ) asOrderedCollection.
 	aDie := LoadedDie with: sequence.
 
 	self assert: aDie throw equals: 2.
@@ -48,7 +49,8 @@ DieTest >> test003ALoadedDieCanThrowAnExpectedNumber [
 DieTest >> test004ALoadedDieCanThrowAnExpectedSequenceOfNumbers [
 
 	| aDie sequence |
-	sequence:= #( 2 3 4 ).
+
+	sequence:= #( 2 3 4 ) asOrderedCollection.
 	aDie := LoadedDie with: sequence.
 
 	self assert: aDie throw equals: 2.
@@ -61,7 +63,7 @@ DieTest >> test004ALoadedDieCanThrowAnExpectedSequenceOfNumbers [
 DieTest >> test005ALoadedDieSequenceCanBeRepeated [
 
 	| aDie sequence |
-	sequence := #( 2 3 4 ).
+	sequence := #( 2 3 4 ) asOrderedCollection.
 	aDie := LoadedDie with: sequence.
 
 	self assert: aDie throw equals: 2.
@@ -126,7 +128,7 @@ DieTest >> test010ALoadedDieCanTellMeItsFaces [
 
 	| aDie sequence |
 	
-	sequence := #( 7 8 4 ).
+	sequence := #( 7 8 4 ) asOrderedCollection.
 	aDie := LoadedDie with: sequence.
 
 	self assert: aDie faces equals: 8

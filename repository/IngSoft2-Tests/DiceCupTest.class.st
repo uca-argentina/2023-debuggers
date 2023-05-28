@@ -22,7 +22,7 @@ DiceCupTest >> test001ADiceCupCanThrowADie [
 	
 	| die dice aDiceCup |
 	
-	die := LoadedDie with: #( 7 ).
+	die := LoadedDie with: #( 7 ) asOrderedCollection.
 	dice := OrderedCollection with: die.
 	aDiceCup := DiceCup with: dice.
 
@@ -34,8 +34,8 @@ DiceCupTest >> test002ADiceCupCanThrowDice [
 	
 	| die1 die2 dice aDiceCup |
 	
-	die1 := LoadedDie with: #( 7 8 ).
-	die2 := LoadedDie with: #( 7 6 ).
+	die1 := LoadedDie with: #( 7 8 ) asOrderedCollection.
+	die2 := LoadedDie with: #( 7 6 ) asOrderedCollection.
 	dice := OrderedCollection with: die1 with: die2.
 	aDiceCup := DiceCup with: dice.
 

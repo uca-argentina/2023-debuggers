@@ -10,7 +10,8 @@ Class {
 		'laps',
 		'parsecSize',
 		'hyperJumpValues',
-		'board'
+		'board',
+		'turnOrder'
 	],
 	#classInstVars : [
 		'ships',
@@ -71,20 +72,6 @@ GalaxyCircuitGame >> applyEffect [
 ]
 
 { #category : #'applying effects' }
-GalaxyCircuitGame >> applyHyperJump: value [
-
-	| turnShipPosition destination turnShipLap |
-
-	turnShipPosition := shipPositions at: currentTurn.
-	turnShipLap := shipLaps at: currentTurn.
-	destination := (turnShipPosition + (parsecSize * value)).
-	[ destination > (board size)] whileTrue: [ 
-		destination := destination - (board size).
-		shipLaps at: currentTurn put: turnShipLap + 1 ].
-	shipPositions at: currentTurn put: destination.
-]
-
-{ #category : #'applying effects' }
 GalaxyCircuitGame >> applyMoonwalk: steps [
 
 	ships withIndexDo: [ :aShip :aShipTurnOrder | 
@@ -112,12 +99,20 @@ GalaxyCircuitGame >> hasAWinner [
 { #category : #initialization }
 GalaxyCircuitGame >> initializeWith: somePlayersNames and: aBoard and: anAmountOfLaps and: aParsecSize uses: aDiceCup [
 
+	| counter turns |
+	
 	ships := somePlayersNames collect: [ :aName | Ship with: aName ].
 	board := aBoard.
 	laps := anAmountOfLaps.
 	parsecSize := aParsecSize.
 	diceCup := aDiceCup.
-	currentTurn := 1
+	counter := 1.
+	turns := OrderedCollection new.
+	(ships size) timesRepeat: [ 
+		turns add: counter.
+		counter := counter + 1 ].
+	turnOrder := SequenceHandler with: turns.
+	currentTurn := turnOrder next.
 ]
 
 { #category : #accessing }
@@ -149,39 +144,10 @@ GalaxyCircuitGame >> shipPositions [
 { #category : #'game status' }
 GalaxyCircuitGame >> shipRanking [
 
-	| shipSquaresAdvanced sortedByAdvanced ranking |
-	shipSquaresAdvanced := shipPositions
-		                       with: shipLaps
-		                       collect: [ :aPosition :aLap | 
-		                       aPosition + (board size * (aLap - 1)) ].
-	sortedByAdvanced := shipSquaresAdvanced sort: [ :a :b | a <= b ].
-	ranking := OrderedCollection new.
-	sortedByAdvanced do: [ :anAmountOfAdvancedSquares | 
-		ranking add:
-			(ships at: (shipSquaresAdvanced indexOf: anAmountOfAdvancedSquares)) ].
-	^ ranking
-]
-
-{ #category : #'game status' }
-GalaxyCircuitGame >> shipRankingNew [
-
 	| ranking |
 	
 	ranking := ships sort: [ :aShip :anotherShip | (aShip advancedSquares) >= (anotherShip advancedSquares) ].
 	^ ranking
-]
-
-{ #category : #playing }
-GalaxyCircuitGame >> updatePosition [
-
-	| turnShipPosition destination turnShipLap |
-	turnShipPosition := shipPositions at: currentTurn.
-	turnShipLap := shipLaps at: currentTurn.
-	destination := (turnShipPosition + (diceCup throw)).
-	[ destination > (board size)] whileTrue: [ 
-		destination := destination - (board size).
-		shipLaps at: currentTurn put: turnShipLap + 1 ].
-	shipPositions at: currentTurn put: destination.
 ]
 
 { #category : #playing }
@@ -196,9 +162,7 @@ GalaxyCircuitGame >> updatePosition: steps [
 { #category : #playing }
 GalaxyCircuitGame >> updateTurn [
 
-	currentTurn := currentTurn = ships size
-		               ifFalse: [ currentTurn + 1 ]
-		               ifTrue: [ 1 ]
+	currentTurn := turnOrder next.
 ]
 
 { #category : #'game status' }
