@@ -33,11 +33,12 @@ HyperJumpSquare class >> with: someValues [
 { #category : #accessing }
 HyperJumpSquare >> effect: aGame [
 	
-	| value |
+	| currentValue steps |
 	
-	value := values removeFirst.
-	aGame applyHyperJump: value.
-	values add: value.
+	currentValue := values removeFirst.
+	steps := currentValue * (aGame parsecSize).
+	aGame updatePosition: steps.
+	values add: currentValue.
 	
 ]
 

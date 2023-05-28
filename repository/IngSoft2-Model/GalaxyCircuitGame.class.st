@@ -20,11 +20,11 @@ Class {
 }
 
 { #category : #validation }
-GalaxyCircuitGame class >> checkForDuplicated: aCollectionOfShips [
+GalaxyCircuitGame class >> checkForDuplicated: somePlayerNames [
 
-	aCollectionOfShips do: [ :aShip | 
-		(aCollectionOfShips count: [ :anotherShip | 
-			 aShip equals: anotherShip ]) >= 2 ifTrue: [ 
+	somePlayerNames do: [ :aName | 
+		(somePlayerNames count: [ :anotherName | 
+			 aName = anotherName ]) >= 2 ifTrue: [ 
 			Error signal: 'Ship already exists with that name' ] ]
 ]
 
@@ -58,8 +58,7 @@ GalaxyCircuitGame class >> with: somePlayersName and: aBoard and: anAmountOfLaps
 { #category : #'applying effects' }
 GalaxyCircuitGame >> applyAtomicBomb [
 
-	shipPositions removeAll.
-	ships do: [ :aShip | shipPositions add: 1 ].
+	ships do: [ :aShip | aShip resetPosition ].
 ]
 
 { #category : #'applying effects' }
@@ -67,7 +66,7 @@ GalaxyCircuitGame >> applyEffect [
 	
 	| landedSquare |
 	
-	landedSquare := (shipPositions at: currentTurn).
+	landedSquare := ((ships at: currentTurn) position).
 	board effectTo: self at: landedSquare.
 ]
 
@@ -88,37 +87,9 @@ GalaxyCircuitGame >> applyHyperJump: value [
 { #category : #'applying effects' }
 GalaxyCircuitGame >> applyMoonwalk: steps [
 
-	shipPositions withIndexDo: [ :aShipPosition :aShipToMove | 
-		aShipToMove = currentTurn ifFalse: [ 
-			self moonwalk: steps to: aShipToMove ] ].
-]
-
-{ #category : #'applying effects' }
-GalaxyCircuitGame >> applySpeedUp [
-
-	| turnShipPosition destination turnShipLap |
-
-	turnShipPosition := shipPositions at: currentTurn.
-	turnShipLap := shipLaps at: currentTurn.
-	destination := (turnShipPosition + 4).
-	[ destination > (board size)] whileTrue: [ 
-		destination := destination - (board size).
-		shipLaps at: currentTurn put: turnShipLap + 1 ].
-	shipPositions at: currentTurn put: destination.
-]
-
-{ #category : #'applying effects' }
-GalaxyCircuitGame >> applyWormhole [
-
-	| turnShipPosition destination turnShipLap |
-
-	turnShipPosition := shipPositions at: currentTurn.
-	turnShipLap := shipLaps at: currentTurn.
-	destination := (turnShipPosition - 4).
-	[ destination < 1 ] whileTrue: [ 
-		destination := destination + (board size).
-		shipLaps at: currentTurn put: turnShipLap - 1 ].
-	shipPositions at: currentTurn put: destination.
+	ships withIndexDo: [ :aShip :aShipTurnOrder | 
+		aShipTurnOrder = currentTurn ifFalse: [ 
+			aShip move: steps in: board ] ].
 ]
 
 { #category : #validation }
@@ -135,54 +106,44 @@ GalaxyCircuitGame >> currentTurn [
 { #category : #'game status' }
 GalaxyCircuitGame >> hasAWinner [
 
-	^ shipLaps anySatisfy: [ :aShipLap | aShipLap > laps ]. 
+	^ ships anySatisfy: [ :aShip | (aShip lap) > laps ]. 
 ]
 
 { #category : #initialization }
-GalaxyCircuitGame >> initializeWith: somePlayersNames and: aBoard and: anAmountOfLaps and: aParsecSize uses: aDiceCup [ 
-	ships := somePlayersNames.
+GalaxyCircuitGame >> initializeWith: somePlayersNames and: aBoard and: anAmountOfLaps and: aParsecSize uses: aDiceCup [
+
+	ships := somePlayersNames collect: [ :aName | Ship with: aName ].
 	board := aBoard.
 	laps := anAmountOfLaps.
 	parsecSize := aParsecSize.
-	diceCup 	:= aDiceCup.
-	currentTurn := 1.
-	shipPositions := OrderedCollection new.
-	ships do: [ :aShip | shipPositions add: 1 ].
-	shipLaps := shipPositions copy.
+	diceCup := aDiceCup.
+	currentTurn := 1
 ]
 
-{ #category : #'applying effects' }
-GalaxyCircuitGame >> moonwalk: steps to: shipToMove [
-	
-	| destination shipLap shipPosition |
-	
-	shipPosition := shipPositions at: shipToMove.
-	shipLap := shipLaps at: shipToMove.
-	destination := (shipPosition - steps).
-	[ destination < 1 ] whileTrue: [ 
-		destination := destination + (board size).
-		shipLaps at: shipToMove put: shipLap - 1 ].
-	shipPositions at: shipToMove put: destination.
+{ #category : #accessing }
+GalaxyCircuitGame >> parsecSize [
+
+	^ parsecSize.
 ]
 
 { #category : #playing }
 GalaxyCircuitGame >> playTurn [
 
 	self checkThereIsNoWinner.
-	self updatePosition.
+	self updatePosition: diceCup throw.
 	self applyEffect.
 	self updateTurn
 ]
 
 { #category : #accessing }
 GalaxyCircuitGame >> shipLaps [
-	^ shipLaps
+	^ ships collect: [ :aShip | aShip lap].
 ]
 
 { #category : #accessing }
 GalaxyCircuitGame >> shipPositions [
 
-	^ shipPositions.
+	^ ships collect: [ :aShip | aShip position].
 ]
 
 { #category : #'game status' }
@@ -201,11 +162,13 @@ GalaxyCircuitGame >> shipRanking [
 	^ ranking
 ]
 
-{ #category : #playing }
-GalaxyCircuitGame >> throw [
+{ #category : #'game status' }
+GalaxyCircuitGame >> shipRankingNew [
 
-	^ diceCup throw.
-
+	| ranking |
+	
+	ranking := ships sort: [ :aShip :anotherShip | (aShip advancedSquares) >= (anotherShip advancedSquares) ].
+	^ ranking
 ]
 
 { #category : #playing }
@@ -224,20 +187,16 @@ GalaxyCircuitGame >> updatePosition [
 { #category : #playing }
 GalaxyCircuitGame >> updatePosition: steps [
 
-	| turnShipPosition destination turnShipLap |
-	turnShipPosition := shipPositions at: currentTurn.
-	turnShipLap := shipLaps at: currentTurn.
-	destination := (turnShipPosition + (steps)).
-	[ destination > (board size)] whileTrue: [ 
-		destination := destination - (board size).
-		shipLaps at: currentTurn put: turnShipLap + 1 ].
-	shipPositions at: currentTurn put: destination.
+	| turnShip |
+	
+	turnShip := ships at: currentTurn.
+	turnShip move: steps in: board.
 ]
 
 { #category : #playing }
 GalaxyCircuitGame >> updateTurn [
 
-	currentTurn := currentTurn = shipPositions size
+	currentTurn := currentTurn = ships size
 		               ifFalse: [ currentTurn + 1 ]
 		               ifTrue: [ 1 ]
 ]
@@ -245,7 +204,5 @@ GalaxyCircuitGame >> updateTurn [
 { #category : #'game status' }
 GalaxyCircuitGame >> winner [
 
-	shipLaps do: [ :aShipLap | 
-		aShipLap > laps ifTrue: [ ^ ships at: (shipLaps indexOf: aShipLap) ] ].
-	^ Ship with: 'Nadie Gano'
+	^ ships detect: [ :aShip | aShip lap > laps ] ifNone: [ ^ nil ]
 ]

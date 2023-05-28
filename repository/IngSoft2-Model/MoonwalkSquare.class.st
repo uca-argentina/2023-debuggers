@@ -22,7 +22,7 @@ MoonwalkSquare class >> with: anAmountOfSteps [
 { #category : #effect }
 MoonwalkSquare >> effect: aGame [
 
-	aGame applyMoonwalk: steps.
+	aGame applyMoonwalk: (steps negated).
 ]
 
 { #category : #initialization }

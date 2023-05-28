@@ -2,14 +2,13 @@ Class {
 	#name : #GalaxyCircuitGameTest,
 	#superclass : #TestCase,
 	#instVars : [
-		'aShip1',
-		'aShip2',
-		'aShip3',
-		'aShip4',
 		'die1',
 		'die2',
 		'anAmountOfLaps',
-		'aSmallAmountOfSquares'
+		'aSmallAmountOfSquares',
+		'aPlayerName1',
+		'aPlayerName2',
+		'aPlayerName3'
 	],
 	#category : #'IngSoft2-Tests'
 }
@@ -17,12 +16,12 @@ Class {
 { #category : #'set up' }
 GalaxyCircuitGameTest >> aGameWith: anAmountOfSquares of: square [
 
-	| aGame aCollectionOfShips dice aDiceCup squares parsecSize aBoard amountOfLaps |
+	| aGame aCollectionOfPlayerNames dice aDiceCup squares parsecSize aBoard amountOfLaps |
 	
-	aCollectionOfShips := OrderedCollection
-		                      with: aShip1
-		                      with: aShip2
-		                      with: aShip3.
+	aCollectionOfPlayerNames := OrderedCollection
+		                      with: aPlayerName1
+		                      with: aPlayerName2
+		                      with: aPlayerName3.
 	dice := OrderedCollection with: die1 with: die2.
 	aDiceCup := DiceCup with: dice.
 	amountOfLaps := 5.
@@ -31,7 +30,7 @@ GalaxyCircuitGameTest >> aGameWith: anAmountOfSquares of: square [
 	aBoard := Board with: squares.
 	parsecSize := 1.
 	aGame := GalaxyCircuitGame
-		         with: aCollectionOfShips
+		         with: aCollectionOfPlayerNames
 		         and: aBoard
 					and: amountOfLaps
 					and: parsecSize
@@ -45,9 +44,9 @@ GalaxyCircuitGameTest >> aGameWith: anAmountOfSquares of: square and: parsecSize
 	| aGame aCollectionOfShips dice aDiceCup squares aBoard amountOfLaps |
 	
 	aCollectionOfShips := OrderedCollection
-		                      with: aShip1
-		                      with: aShip2
-		                      with: aShip3.
+		                      with: aPlayerName1
+		                      with: aPlayerName2
+		                      with: aPlayerName3.
 	dice := OrderedCollection with: die1 with: die2.
 	aDiceCup := DiceCup with: dice.
 	amountOfLaps := 5.
@@ -69,9 +68,9 @@ GalaxyCircuitGameTest >> aGameWithASingleDie [
 	| aGame aCollectionOfShips noEffectSquare squares parsecSize aBoard |
 	
 	aCollectionOfShips := OrderedCollection
-		                      with: aShip1
-		                      with: aShip2
-		                      with: aShip3.
+		                      with: aPlayerName1
+		                      with: aPlayerName2
+		                      with: aPlayerName3.
 	noEffectSquare := NoEffectSquare new.
 	squares := OrderedCollection new.
 	squares add: noEffectSquare.
@@ -119,7 +118,7 @@ GalaxyCircuitGameTest >> aGameWithASingleDie [
 GalaxyCircuitGameTest >> aGameWithASingleShip [
 
 	| aGame aCollectionOfShips dice aDiceCup noEffectSquare squares parsecSize aBoard|
-	aCollectionOfShips := OrderedCollection with: aShip1.
+	aCollectionOfShips := OrderedCollection with: aPlayerName1.
 	dice := OrderedCollection with: die1 with: die2.
 	aDiceCup := DiceCup with: dice.
 	noEffectSquare := NoEffectSquare new.
@@ -171,9 +170,9 @@ GalaxyCircuitGameTest >> aGameWithDuplicatedShips [
 	| aGame aCollectionOfShips dice aDiceCup noEffectSquare squares parsecSize aBoard |
 	
 	aCollectionOfShips := OrderedCollection
-		                      with: aShip1
-		                      with: aShip2
-		                      with: aShip2.
+		                      with: aPlayerName1
+		                      with: aPlayerName2
+		                      with: aPlayerName2.
 	dice := OrderedCollection with: die1 with: die2.
 	aDiceCup := DiceCup with: dice.
 	noEffectSquare := NoEffectSquare new.
@@ -205,9 +204,9 @@ GalaxyCircuitGameTest >> aGameWithInvalidAmountOfLaps [
 	| aGame aCollectionOfShips dice aDiceCup noEffectSquare squares parsecSize invalidAmountOfLaps aBoard |
 	
 	aCollectionOfShips := OrderedCollection
-		                      with: aShip1
-		                      with: aShip2
-		                      with: aShip3.
+		                      with: aPlayerName1
+		                      with: aPlayerName2
+		                      with: aPlayerName3.
 	dice := OrderedCollection with: die1 with: die2.
 	aDiceCup := DiceCup with: dice.
 	invalidAmountOfLaps := -5.
@@ -240,9 +239,9 @@ GalaxyCircuitGameTest >> aGameWithInvalidAmountOfParsecs [
 	| aGame aCollectionOfShips dice aDiceCup noEffectSquare squares invalidParsecSize amountOfLaps aBoard |
 	
 	aCollectionOfShips := OrderedCollection
-		                      with: aShip1
-		                      with: aShip2
-		                      with: aShip3.
+		                      with: aPlayerName1
+		                      with: aPlayerName2
+		                      with: aPlayerName3.
 	dice := OrderedCollection with: die1 with: die2.
 	aDiceCup := DiceCup with: dice.
 	amountOfLaps := 5.
@@ -275,9 +274,9 @@ GalaxyCircuitGameTest >> aGameWithOnlyAtomicBombSquares [
 	| aGame aCollectionOfShips dice aDiceCup atomicBombSquare squares parsecSize aBoard|
 	
 	aCollectionOfShips := OrderedCollection
-		                      with: aShip1
-		                      with: aShip2
-		                      with: aShip3.
+		                      with: aPlayerName1
+		                      with: aPlayerName2
+		                      with: aPlayerName3.
 	dice := OrderedCollection with: die1 with: die2.
 	aDiceCup := DiceCup with: dice.
 	atomicBombSquare := AtomicBombSquare new.
@@ -309,9 +308,9 @@ GalaxyCircuitGameTest >> aGameWithOnlyHyperJumpSquares [
 	| aGame aCollectionOfShips dice aDiceCup hyperJumpSquare squares parsecSize aBoard|
 	
 	aCollectionOfShips := OrderedCollection
-		                      with: aShip1
-		                      with: aShip2
-		                      with: aShip3.
+		                      with: aPlayerName1
+		                      with: aPlayerName2
+		                      with: aPlayerName3.
 	dice := OrderedCollection with: die1 with: die2.
 	aDiceCup := DiceCup with: dice.
 	hyperJumpSquare := HyperJumpSquare with: (#(2 1) asOrderedCollection).
@@ -353,9 +352,9 @@ GalaxyCircuitGameTest >> aGameWithOnlyMoonwalkSquares [
 	| aGame aCollectionOfShips dice aDiceCup moonwalkSquare1 moonwalkSquare2 squares parsecSize aBoard|
 	
 	aCollectionOfShips := OrderedCollection
-		                      with: aShip1
-		                      with: aShip2
-		                      with: aShip3.
+		                      with: aPlayerName1
+		                      with: aPlayerName2
+		                      with: aPlayerName3.
 	dice := OrderedCollection with: die1 with: die2.
 	aDiceCup := DiceCup with: dice.
 	moonwalkSquare1 := MoonwalkSquare with: 3.
@@ -398,9 +397,9 @@ GalaxyCircuitGameTest >> aGameWithOnlyNoEffectSquares [
 	| aGame aCollectionOfShips dice aDiceCup noEffectSquare squares parsecSize aBoard |
 	
 	aCollectionOfShips := OrderedCollection
-		                      with: aShip1
-		                      with: aShip2
-		                      with: aShip3.
+		                      with: aPlayerName1
+		                      with: aPlayerName2
+		                      with: aPlayerName3.
 	dice := OrderedCollection with: die1 with: die2.
 	aDiceCup := DiceCup with: dice.
 	noEffectSquare := NoEffectSquare new.
@@ -452,9 +451,9 @@ GalaxyCircuitGameTest >> aGameWithOnlySpeedUpSquares [
 	| aGame aCollectionOfShips dice aDiceCup speedUpSquare squares parsecSize aBoard |
 	
 	aCollectionOfShips := OrderedCollection
-		                      with: aShip1
-		                      with: aShip2
-		                      with: aShip3.
+		                      with: aPlayerName1
+		                      with: aPlayerName2
+		                      with: aPlayerName3.
 	dice := OrderedCollection with: die1 with: die2.
 	aDiceCup := DiceCup with: dice.
 	speedUpSquare := SpeedUpSquare new.
@@ -510,9 +509,9 @@ GalaxyCircuitGameTest >> aGameWithOnlyWormholeSquares [
 	| aGame aCollectionOfShips dice aDiceCup wormholeSquare squares parsecSize aBoard |
 	
 	aCollectionOfShips := OrderedCollection
-		                      with: aShip1
-		                      with: aShip2
-		                      with: aShip3.
+		                      with: aPlayerName1
+		                      with: aPlayerName2
+		                      with: aPlayerName3.
 	dice := OrderedCollection with: die1 with: die2.
 	aDiceCup := DiceCup with: dice.
 	wormholeSquare := WormholeSquare new.
@@ -558,9 +557,9 @@ GalaxyCircuitGameTest >> aGameWithRandomSquares [
 	| aGame aCollectionOfShips dice aDiceCup noEffectSquare squares parsecSize aBoard randomSquareGenerator |
 	
 	aCollectionOfShips := OrderedCollection
-		                      with: aShip1
-		                      with: aShip2
-		                      with: aShip3.
+		                      with: aPlayerName1
+		                      with: aPlayerName2
+		                      with: aPlayerName3.
 	dice := OrderedCollection with: die1 with: die2.
 	aDiceCup := DiceCup with: dice.
 	noEffectSquare := NoEffectSquare new.
@@ -583,9 +582,9 @@ GalaxyCircuitGameTest >> aShortGameWithOnlyNoEffectSquares [
 	| aGame aCollectionOfShips dice aDiceCup noEffectSquare squares parsecSize aBoard |
 	
 	aCollectionOfShips := OrderedCollection
-		                      with: aShip1
-		                      with: aShip2
-		                      with: aShip3.
+		                      with: aPlayerName1
+		                      with: aPlayerName2
+		                      with: aPlayerName3.
 	dice := OrderedCollection with: die1 with: die2.
 	aDiceCup := DiceCup with: dice.
 	noEffectSquare := NoEffectSquare new.
@@ -616,10 +615,9 @@ GalaxyCircuitGameTest >> setUp [
 	
 	super setUp.	
 		
-	aShip1 := Ship with: 'Mafalda'.
-	aShip2 := Ship with: 'Juan'.
-	aShip3 := Ship with: 'Martin'.
-	aShip4 := Ship with: 'Martin'.
+	aPlayerName1 := 'Mafalda'.
+	aPlayerName2 := 'Juan'.
+	aPlayerName3 := 'Martin'.
 	anAmountOfLaps := 2.
 	die1 := LoadedDie with: #( 7 5 3).
 	die2 := LoadedDie with: #( 7 6 2).
@@ -709,20 +707,19 @@ GalaxyCircuitGameTest >> test005AGameCanTellMeTheWinner [
 	aGame playTurn.
 	aGame playTurn.
 
-	self assert: aGame winner equals: aShip1.
+	self assert: (aGame winner) name equals: aPlayerName1.
 ]
 
 { #category : #tests }
 GalaxyCircuitGameTest >> test006AGameWithoutAWinnerWillReturnAnEmptyShip [
 
-	| aGame aNonPlayerShip |
+	| aGame |
 	
 	aGame := self aShortGameWithOnlyNoEffectSquares.
 	
 	aGame playTurn.
-	aNonPlayerShip := Ship with: 'Nadie Gano'.
-	
-	self assert: ((aGame winner) equals: aNonPlayerShip).
+		
+	self assert: ((aGame winner) isNil).
 ]
 
 { #category : #tests }
@@ -752,26 +749,6 @@ GalaxyCircuitGameTest >> test008AGameWithManyShipsCanTellMeItsShipsPositions [
 	self
 		assert: aGame shipPositions 
 		equals: #( 1 1 1 ) asOrderedCollection
-]
-
-{ #category : #tests }
-GalaxyCircuitGameTest >> test009AGameCanThrowADie [
-
-	| aGame |
-	
-	aGame := self aGameWithASingleDie.
-
-	self assert: aGame throw equals: 7.
-]
-
-{ #category : #tests }
-GalaxyCircuitGameTest >> test010AGameCanThrowADiceCup [
-
-	| aGame |
-	
-	aGame := self aGameWithOnlyNoEffectSquares.
-
-	self assert: aGame throw equals: 14.
 ]
 
 { #category : #tests }
@@ -893,12 +870,12 @@ GalaxyCircuitGameTest >> test020AGameWithOnlyMoonwalkSquaresMovesAllOtherShipsBa
 	amountOfSquares := 30.
 	aMoonwalkSquare := MoonwalkSquare with: 4.
 	aGame := self aGameWith: amountOfSquares of: aMoonwalkSquare.
-	
-	aGame playTurn.
-	aGame playTurn.
 
-	self assert: (((aGame shipPositions) at: 1) = 11).
-	self assert: (((aGame shipPositions) at: 2) = 8).
+	aGame playTurn.
+	aGame playTurn.
+	
+	self assert: (aGame shipPositions at: 1) equals: 11.
+	self assert: (aGame shipPositions at: 2) = 8
 ]
 
 { #category : #tests }
@@ -950,17 +927,18 @@ GalaxyCircuitGameTest >> test023AGameWithOnlyHyperJumpSquaresMovesShipsAnAmountO
 { #category : #tests }
 GalaxyCircuitGameTest >> test024AGameCanGiveMeARankingOfItsShips [
 
-	| aGame |
+	| aGame amountOfSquares |
 	
-	aGame := self aGameWithOnlyNoEffectSquares.
+	amountOfSquares := 30.
+	aGame := self aGameWith: amountOfSquares of: NoEffectSquare new.
 
 	aGame playTurn.
 	aGame playTurn.
 	aGame playTurn.
 
-	self assert: ((aGame shipRanking at: 1) equals: aShip1).
-	self assert: ((aGame shipRanking at: 2) equals: aShip2).
-	self assert: ((aGame shipRanking at: 3) equals: aShip3)
+	self assert: ((aGame shipRankingNew at: 1) name = aPlayerName1).
+	self assert: ((aGame shipRankingNew at: 2) name = aPlayerName2).
+	self assert: ((aGame shipRankingNew at: 3) name = aPlayerName3)
 ]
 
 { #category : #tests }
