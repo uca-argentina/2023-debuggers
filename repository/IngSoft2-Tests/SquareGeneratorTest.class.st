@@ -53,3 +53,30 @@ SquareGeneratorTest >> test003ASquareGeneratorCannotGenerateZeroOrLowerAmountOfS
 	
 	
 ]
+
+{ #category : #tests }
+SquareGeneratorTest >> test005ASquareGeneratorCanFollowADistributionGiven [
+
+	| randomSquareGenerator anAmountOfSquares randomSquares found squaresToUse distribution |
+	anAmountOfSquares := 100.
+	squaresToUse := OrderedCollection new.
+	squaresToUse add: AtomicBombSquare new.
+	squaresToUse add: (HyperJumpSquare with: #( 4 1 ) asOrderedCollection).
+	squaresToUse add: (MoonwalkSquare with: 3).
+	squaresToUse add: SpeedUpSquare new.
+	squaresToUse add: WormholeSquare new.
+	squaresToUse add: NoEffectSquare new.
+	distribution := #( 2 8 10 20 20 40 ) asOrderedCollection.
+	randomSquareGenerator := SquareGenerator
+		                         with: 100
+		                         of: squaresToUse
+		                         using: distribution.
+	randomSquares := randomSquareGenerator generateSquaresNew.
+	found := OrderedCollection new.
+	1000 timesRepeat: [ 
+		randomSquares := randomSquareGenerator generateSquaresNew.
+		found add:
+			(randomSquares select: [ :aSquare | 
+				 aSquare type = 'Hyper Jump Effect' ]) ].
+	self assert: (((found size) / 1000) between: 1 and: 8).
+]

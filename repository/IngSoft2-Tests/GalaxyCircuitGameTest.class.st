@@ -16,7 +16,7 @@ Class {
 { #category : #'set up' }
 GalaxyCircuitGameTest >> aGameWith: anAmountOfSquares of: square and: parsecSize [
 
-	| aGame aCollectionOfPlayerNames dice aDiceCup squares aBoard amountOfLaps |
+	| aGame aCollectionOfPlayerNames dice aDiceCup squares aBoard |
 	
 	aCollectionOfPlayerNames := OrderedCollection
 		                      with: aPlayerName1
@@ -190,7 +190,7 @@ GalaxyCircuitGameTest >> test007AGameWithAWinnerCannotBePlayed [
 	aParsecSize := 1.
 	aGame := self aGameWith: amountOfSquares of: NoEffectSquare new and: aParsecSize.
 
-	aGame playTurn..
+	aGame playTurn.
 
 	self
 		should: [ aGame playTurn ]

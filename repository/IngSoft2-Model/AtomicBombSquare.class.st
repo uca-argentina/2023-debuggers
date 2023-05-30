@@ -9,3 +9,8 @@ AtomicBombSquare >> effect: aGame [
 
 	aGame applyAtomicBomb.
 ]
+
+{ #category : #accessing }
+AtomicBombSquare >> type [
+	^ 'Atomic Bomb Effect'.
+]

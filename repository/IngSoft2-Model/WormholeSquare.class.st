@@ -8,3 +8,8 @@ Class {
 WormholeSquare >> effect: aGame [
 	aGame updatePosition: -4.
 ]
+
+{ #category : #accessing }
+WormholeSquare >> type [
+	^ 'Wormhole Effect'.
+]

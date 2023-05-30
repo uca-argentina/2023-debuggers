@@ -2,7 +2,9 @@ Class {
 	#name : #SquareGenerator,
 	#superclass : #Object,
 	#instVars : [
-		'squaresToGenerate'
+		'squaresToGenerate',
+		'squaresToUse',
+		'distribution'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -17,6 +19,12 @@ SquareGenerator class >> checkAmountOfSquares: anAmountOfSquares [
 SquareGenerator class >> with: anAmountOfSquares [
 	self checkAmountOfSquares: anAmountOfSquares.
 	^ self new initializeWith: anAmountOfSquares
+]
+
+{ #category : #'instance creation' }
+SquareGenerator class >> with: anAmountOfSquares of: someSquares using: someDistribution [
+	self checkAmountOfSquares: anAmountOfSquares.
+	^ ((self new) initializeWith: anAmountOfSquares of: someSquares using: someDistribution).
 ]
 
 { #category : #Generation }
@@ -49,8 +57,33 @@ SquareGenerator >> generateSquares [
 	^ squares
 ]
 
+{ #category : #Generation }
+SquareGenerator >> generateSquaresNew [
+
+	| squares squareSelector floor ceiling |
+	squares := OrderedCollection new.
+	1 to: squaresToGenerate do: [ :i | 
+		floor := 1.
+		ceiling := 0.
+		squareSelector := self generateNumber.
+		distribution withIndexDo: [ :currentDistribution :generatedIndex | 
+			ceiling := ceiling + currentDistribution.
+			(squareSelector between: floor and: ceiling) ifTrue: [ 
+				squares add: (squaresToUse at: generatedIndex) ].
+			floor := currentDistribution + 1 ] ].
+	^ squares.
+]
+
 { #category : #initialization }
 SquareGenerator >> initializeWith: anAmountOfSquares [
 
 	squaresToGenerate := anAmountOfSquares.
+]
+
+{ #category : #initialization }
+SquareGenerator >> initializeWith: anAmountOfSquares of: someSquares using: someDistribution [
+
+	squaresToGenerate := anAmountOfSquares.
+	squaresToUse := someSquares.
+	distribution := someDistribution.
 ]

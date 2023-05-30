@@ -8,3 +8,8 @@ Class {
 SpeedUpSquare >> effect: aGame [
 	^ aGame updatePosition: 4.
 ]
+
+{ #category : #accessing }
+SpeedUpSquare >> type [
+	^ 'Speed Up Effect'.
+]

@@ -46,3 +46,8 @@ HyperJumpSquare >> initializeWith: someValues [
 
 	sequence := SequenceHandler with: someValues.
 ]
+
+{ #category : #accessing }
+HyperJumpSquare >> type [
+	^ 'Hyper Jump Effect'.
+]

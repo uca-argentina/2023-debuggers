@@ -30,3 +30,8 @@ MoonwalkSquare >> initializeWith: anAmountOfSteps [
 
 	steps := anAmountOfSteps.
 ]
+
+{ #category : #initialization }
+MoonwalkSquare >> type [
+	^ 'Moonwalk Effect'.
+]

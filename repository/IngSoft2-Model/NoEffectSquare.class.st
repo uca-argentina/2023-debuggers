@@ -7,3 +7,8 @@ Class {
 { #category : #effect }
 NoEffectSquare >> effect: aGame [
 ]
+
+{ #category : #accessing }
+NoEffectSquare >> type [
+	^ 'No Effect'.
+]
