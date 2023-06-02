@@ -76,7 +76,7 @@ GalaxyCircuitGame >> applyMoonwalk: steps [
 
 	ships withIndexDo: [ :aShip :aShipTurnOrder | 
 		aShipTurnOrder = currentTurn ifFalse: [ 
-			aShip move: steps in: board ] ].
+			aShip move: steps in: board] ].
 ]
 
 { #category : #validation }
@@ -151,12 +151,26 @@ GalaxyCircuitGame >> shipRanking [
 ]
 
 { #category : #playing }
+GalaxyCircuitGame >> updateLap [
+
+	| currentShip |
+	currentShip := ships at: currentTurn.
+	(board outOfBoardBounds: currentShip position) ifTrue: [ 
+		| lapAdded newPosition |
+		lapAdded := (currentShip position / board size) floor.
+		newPosition := currentShip position % board size.
+		currentShip moveLaps: lapAdded and: newPosition ]
+
+]
+
+{ #category : #playing }
 GalaxyCircuitGame >> updatePosition: steps [
 
 	| turnShip |
 	
 	turnShip := ships at: currentTurn.
-	turnShip move: steps in: board.
+	turnShip move: steps.
+	self updateLap.
 ]
 
 { #category : #playing }

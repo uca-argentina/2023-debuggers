@@ -19,9 +19,9 @@ Ship class >> with: aName [
 	^((self new) intializeWith: aName).
 ]
 
-{ #category : #accessing }
+{ #category : #'as yet unclassified' }
 Ship >> advancedSquares [
-	^ lap * position.
+	^ lap * position .
 ]
 
 { #category : #comparing }
@@ -43,17 +43,30 @@ Ship >> lap [
 ]
 
 { #category : #accessing }
+Ship >> move: steps [
+
+	position := position + steps
+]
+
+{ #category : #accessing }
 Ship >> move: steps in: aBoard [
 
 	| destination |
 	destination := (position + (steps)).
 	[ destination > (aBoard size)] whileTrue: [ 
 		destination := destination - (aBoard size).
-		lap := lap + 1 ].
+		lap := lap + 1 
+		 ].
 	[ destination < 1 ] whileTrue: [ 
 		destination := destination + (aBoard size).
 		lap := lap - 1 ].
 	position := destination.
+]
+
+{ #category : #'as yet unclassified' }
+Ship >> moveLaps: someLaps and: aNewPosition [
+	lap := lap + someLaps.
+	position := aNewPosition.
 ]
 
 { #category : #accessing }

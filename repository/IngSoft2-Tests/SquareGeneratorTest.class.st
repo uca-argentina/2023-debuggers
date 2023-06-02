@@ -75,8 +75,8 @@ SquareGeneratorTest >> test005ASquareGeneratorCanFollowADistributionGiven [
 	found := OrderedCollection new.
 	1000 timesRepeat: [ 
 		randomSquares := randomSquareGenerator generateSquaresNew.
-		found add:
+		found addAll:
 			(randomSquares select: [ :aSquare | 
-				 aSquare type = 'Hyper Jump Effect' ]) ].
-	self assert: (((found size) / 1000) between: 1 and: 8).
+				 aSquare isKindOf: HyperJumpSquare ]) ].
+	self assert: (((found size) / 1000) between: 7 and: 9).
 ]

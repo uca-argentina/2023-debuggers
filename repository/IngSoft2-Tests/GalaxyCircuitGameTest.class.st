@@ -186,7 +186,7 @@ GalaxyCircuitGameTest >> test007AGameWithAWinnerCannotBePlayed [
 
 	| aGame amountOfSquares aParsecSize |
 	
-	amountOfSquares := 1.
+	amountOfSquares := 2.
 	aParsecSize := 1.
 	aGame := self aGameWith: amountOfSquares of: NoEffectSquare new and: aParsecSize.
 
@@ -325,15 +325,17 @@ GalaxyCircuitGameTest >> test016AGameWithOnlyWormholeSquaresMovesShipsFourSquare
 GalaxyCircuitGameTest >> test017AGameWithOnlyWormholeSquaresMovesShipsFourSquaresBackwardsWhenTheyLandOnThoseSquaresAndShipsCanGoBackLapsWithTheEffect [
 
 	| aGame amountOfSquares aParsecSize |
-	
 	amountOfSquares := 12.
 	aParsecSize := 1.
-	aGame := self aGameWith: amountOfSquares of: WormholeSquare new and: aParsecSize.
-	
+	aGame := self
+		         aGameWith: amountOfSquares
+		         of: WormholeSquare new
+		         and: aParsecSize.
+
 	aGame playTurn.
 
-	self assert: ((aGame shipPositions) at: 1) equals: 11.
-	self assert: ((aGame shipLaps) at: 1) equals: 1.
+	self assert: (aGame shipPositions at: 1) equals: 11.
+	self assert: (aGame shipLaps at: 1) equals: 1
 ]
 
 { #category : #tests }

@@ -2,7 +2,6 @@ Class {
 	#name : #HyperJumpSquare,
 	#superclass : #Object,
 	#instVars : [
-		'values',
 		'sequence'
 	],
 	#classInstVars : [

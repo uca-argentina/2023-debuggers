@@ -20,7 +20,7 @@ SequenceHandler >> initializeWith: aCollectionOfValues [
 { #category : #'sequence handling' }
 SequenceHandler >> next [
 
-	| currentValue steps |
+	| currentValue |
 	
 	currentValue := sequence removeFirst.
 	sequence add: currentValue.
