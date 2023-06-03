@@ -147,7 +147,7 @@ GalaxyCircuitGame >> shipRanking [
 
 	| ranking |
 	
-	ranking := ships sort: [ :aShip :anotherShip | (aShip advancedSquares) >= (anotherShip advancedSquares) ].
+	ranking := ships sort: [ :aShip :anotherShip | (((aShip lap) * board size) + aShip position) >= (((anotherShip lap) * board size) + anotherShip position) ].
 	^ ranking
 ]
 
