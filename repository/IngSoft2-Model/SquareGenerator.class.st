@@ -15,6 +15,17 @@ SquareGenerator class >> checkAmountOfSquares: anAmountOfSquares [
 	(anAmountOfSquares <= 0) ifTrue: [ Error signal: 'Amount of squares cannot be 0 or lower' ]
 ]
 
+{ #category : #'as yet unclassified' }
+SquareGenerator class >> checkDistribution: someDistribution [
+	((someDistribution sum) = 100) ifFalse: [ Error signal: 'Distribution must add up 100%' ].
+]
+
+{ #category : #'as yet unclassified' }
+SquareGenerator class >> checkTypesOfSquares: someSquares [
+
+	(someSquares isEmpty ) ifTrue:[Error signal: 'Cannot generate wihtout any type of square']
+]
+
 { #category : #'instance creation' }
 SquareGenerator class >> with: anAmountOfSquares [
 	self checkAmountOfSquares: anAmountOfSquares.
@@ -24,6 +35,8 @@ SquareGenerator class >> with: anAmountOfSquares [
 { #category : #'instance creation' }
 SquareGenerator class >> with: anAmountOfSquares of: someSquares using: someDistribution [
 	self checkAmountOfSquares: anAmountOfSquares.
+	self checkDistribution:  someDistribution.
+	self checkTypesOfSquares:  someSquares.
 	^ ((self new) initializeWith: anAmountOfSquares of: someSquares using: someDistribution).
 ]
 

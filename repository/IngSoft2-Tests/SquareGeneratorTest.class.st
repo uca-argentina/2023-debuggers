@@ -17,10 +17,20 @@ SquareGeneratorTest >> should: anErrorBlock raise: anExceptionClass withMessage:
 { #category : #tests }
 SquareGeneratorTest >> test001ASquareGeneratorCanGenerateANumberBetween1And100 [
 
-	| randomSquareGenerator anAmountOfSquares |
-	
+	| randomSquareGenerator anAmountOfSquares squaresToUse distribution |
 	anAmountOfSquares := 100.
-	randomSquareGenerator := SquareGenerator with: 100.
+	squaresToUse := OrderedCollection new.
+	squaresToUse add: AtomicBombSquare new.
+	squaresToUse add: (HyperJumpSquare with: #( 4 1 ) asOrderedCollection).
+	squaresToUse add: (MoonwalkSquare with: 3).
+	squaresToUse add: SpeedUpSquare new.
+	squaresToUse add: WormholeSquare new.
+	squaresToUse add: NoEffectSquare new.
+	distribution := #( 2 8 10 20 20 40 ) asOrderedCollection.
+	randomSquareGenerator := SquareGenerator
+		                         with: anAmountOfSquares 
+		                         of: squaresToUse
+		                         using: distribution.
 	
 	self assert: ((randomSquareGenerator generateNumber) between: 1 and: 100). 
 	
@@ -31,10 +41,20 @@ SquareGeneratorTest >> test001ASquareGeneratorCanGenerateANumberBetween1And100 [
 { #category : #tests }
 SquareGeneratorTest >> test002ASquareGeneratorCanGenerateSquaresBasedOnAGivenAmountOfSquares [
 
-	| randomSquareGenerator anAmountOfSquares |
-	
+	| randomSquareGenerator anAmountOfSquares squaresToUse distribution |
 	anAmountOfSquares := 100.
-	randomSquareGenerator := SquareGenerator with: 100.
+	squaresToUse := OrderedCollection new.
+	squaresToUse add: AtomicBombSquare new.
+	squaresToUse add: (HyperJumpSquare with: #( 4 1 ) asOrderedCollection).
+	squaresToUse add: (MoonwalkSquare with: 3).
+	squaresToUse add: SpeedUpSquare new.
+	squaresToUse add: WormholeSquare new.
+	squaresToUse add: NoEffectSquare new.
+	distribution := #( 2 8 10 20 20 40 ) asOrderedCollection.
+	randomSquareGenerator := SquareGenerator
+		                         with: anAmountOfSquares 
+		                         of: squaresToUse
+		                         using: distribution.
 	
 	self assert: (((randomSquareGenerator generateSquares) size) = 100). 
 	
@@ -45,8 +65,22 @@ SquareGeneratorTest >> test002ASquareGeneratorCanGenerateSquaresBasedOnAGivenAmo
 { #category : #tests }
 SquareGeneratorTest >> test003ASquareGeneratorCannotGenerateZeroOrLowerAmountOfSquares [
 	
+	| randomSquareGenerator anAmountOfSquares squaresToUse distribution |
+	anAmountOfSquares := -5.
+	squaresToUse := OrderedCollection new.
+	squaresToUse add: AtomicBombSquare new.
+	squaresToUse add: (HyperJumpSquare with: #( 4 1 ) asOrderedCollection).
+	squaresToUse add: (MoonwalkSquare with: 3).
+	squaresToUse add: SpeedUpSquare new.
+	squaresToUse add: WormholeSquare new.
+	squaresToUse add: NoEffectSquare new.
+	distribution := #( 2 8 10 20 20 40 ) asOrderedCollection.
+	
 	self
-		should: [ SquareGenerator with: -5 ]
+		should: [ randomSquareGenerator := SquareGenerator
+		                         with: anAmountOfSquares 
+		                         of: squaresToUse
+		                         using: distribution. ]
 		raise: Error
 		withMessage: 'Amount of squares cannot be 0 or lower'
 	
@@ -55,7 +89,53 @@ SquareGeneratorTest >> test003ASquareGeneratorCannotGenerateZeroOrLowerAmountOfS
 ]
 
 { #category : #tests }
-SquareGeneratorTest >> test005ASquareGeneratorCanFollowADistributionGiven [
+SquareGeneratorTest >> test004ASquareGeneratorCannotGenerateWithInvalidDistribution [
+	
+	| randomSquareGenerator anAmountOfSquares squaresToUse distribution |
+	anAmountOfSquares := 100.
+	squaresToUse := OrderedCollection new.
+	squaresToUse add: AtomicBombSquare new.
+	squaresToUse add: (HyperJumpSquare with: #( 4 1 ) asOrderedCollection).
+	squaresToUse add: (MoonwalkSquare with: 3).
+	squaresToUse add: SpeedUpSquare new.
+	squaresToUse add: WormholeSquare new.
+	squaresToUse add: NoEffectSquare new.
+	distribution := #( 2 8 10 20 20 91 ) asOrderedCollection.
+	
+	self
+		should: [ randomSquareGenerator := SquareGenerator
+		                         with: anAmountOfSquares 
+		                         of: squaresToUse
+		                         using: distribution. ]
+		raise: Error
+		withMessage: 'Distribution must add up 100%'
+	
+	
+	
+]
+
+{ #category : #tests }
+SquareGeneratorTest >> test005ASquareGeneratorCannotGenerateWithoutAnyTypeOfSquare [
+	
+	| randomSquareGenerator anAmountOfSquares squaresToUse distribution |
+	anAmountOfSquares := 100.
+	squaresToUse := OrderedCollection new.
+	distribution := #( 2 8 10 20 20 40 ) asOrderedCollection.
+	
+	self
+		should: [ randomSquareGenerator := SquareGenerator
+		                         with: anAmountOfSquares 
+		                         of: squaresToUse
+		                         using: distribution. ]
+		raise: Error
+		withMessage: 'Cannot generate wihtout any type of square'
+	
+	
+	
+]
+
+{ #category : #tests }
+SquareGeneratorTest >> test006ASquareGeneratorCanFollowADistributionGiven [
 
 	| randomSquareGenerator anAmountOfSquares randomSquares found squaresToUse distribution |
 	anAmountOfSquares := 100.

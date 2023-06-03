@@ -9,10 +9,10 @@ Class {
 
 { #category : #'code-critics' }
 ManifestIngSoft2Model class >> ruleGuardingClauseRuleV1FalsePositive [
-	^ #(#(#(#RGMethodDefinition #(#GalaxyCircuitGame #updateLap #false)) #'2023-06-01T23:53:28.295-03:00') )
+	^ #(#(#(#RGMethodDefinition #(#GalaxyCircuitGame #updateLap #false)) #'2023-06-01T23:53:28.295-03:00') #(#(#RGMethodDefinition #(#GalaxyCircuitGame #updateLapTo: #false)) #'2023-06-02T00:20:26.096-03:00') )
 ]
 
 { #category : #'code-critics' }
 ManifestIngSoft2Model class >> ruleReGuardClauseRuleV1FalsePositive [
-	^ #(#(#(#RGMethodDefinition #(#GalaxyCircuitGame #updateLap #false)) #'2023-06-01T23:53:25.129-03:00') )
+	^ #(#(#(#RGMethodDefinition #(#GalaxyCircuitGame #updateLap #false)) #'2023-06-01T23:53:25.129-03:00') #(#(#RGMethodDefinition #(#GalaxyCircuitGame #updateLapTo: #false)) #'2023-06-02T00:20:28.413-03:00') )
 ]
