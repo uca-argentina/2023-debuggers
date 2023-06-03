@@ -9,27 +9,21 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'instance creation' }
+{ #category : #validation }
 SquareGenerator class >> checkAmountOfSquares: anAmountOfSquares [
 	
 	(anAmountOfSquares <= 0) ifTrue: [ Error signal: 'Amount of squares cannot be 0 or lower' ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #validation }
 SquareGenerator class >> checkDistribution: someDistribution [
 	((someDistribution sum) = 100) ifFalse: [ Error signal: 'Distribution must add up 100%' ].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #validation }
 SquareGenerator class >> checkTypesOfSquares: someSquares [
 
 	(someSquares isEmpty ) ifTrue:[Error signal: 'Cannot generate wihtout any type of square']
-]
-
-{ #category : #'instance creation' }
-SquareGenerator class >> with: anAmountOfSquares [
-	self checkAmountOfSquares: anAmountOfSquares.
-	^ self new initializeWith: anAmountOfSquares
 ]
 
 { #category : #'instance creation' }
@@ -85,12 +79,6 @@ SquareGenerator >> generateSquaresNew [
 				squares add: (squaresToUse at: generatedIndex) ].
 			floor := currentDistribution + 1 ] ].
 	^ squares.
-]
-
-{ #category : #initialization }
-SquareGenerator >> initializeWith: anAmountOfSquares [
-
-	squaresToGenerate := anAmountOfSquares.
 ]
 
 { #category : #initialization }

@@ -77,7 +77,7 @@ GalaxyCircuitGame >> applyMoonwalk: steps [
 	ships withIndexDo: [ :aShip :aShipTurnOrder | 
 		aShipTurnOrder = currentTurn ifFalse: [ 
 			aShip move: steps. 
-			self updateLapTo: aShipTurnOrder ] ].
+			self updateLapTo: aShip ] ].
 ]
 
 { #category : #validation }
@@ -152,29 +152,16 @@ GalaxyCircuitGame >> shipRanking [
 ]
 
 { #category : #playing }
-GalaxyCircuitGame >> updateLap [
+GalaxyCircuitGame >> updateLapTo: aShip [
 
-	| currentShip |
-	currentShip := ships at: currentTurn.
-	(board outOfBoardBounds: currentShip position) ifTrue: [ 
+	(board outOfBoardBounds: aShip position) ifTrue: [ 
 		| lapAdded newPosition |
-		lapAdded := (currentShip position / board size) floor.
-		newPosition := currentShip position % board size.
-		currentShip moveLaps: lapAdded and: newPosition ]
-
-]
-
-{ #category : #playing }
-GalaxyCircuitGame >> updateLapTo: aTurn [
-
-	| currentShip |
-	currentShip := ships at: aTurn.
-	(board outOfBoardBounds: currentShip position) ifTrue: [ 
-		| lapAdded newPosition |
-		lapAdded := (currentShip position / board size) floor.
-		newPosition := currentShip position % board size.
-		currentShip moveLaps: lapAdded and: newPosition ]
-
+		lapAdded := (aShip position / board size) floor.
+		newPosition := aShip position % board size.
+		newPosition = 0 ifTrue: [ 
+			newPosition := board size.
+			lapAdded := lapAdded - 1 ].
+		aShip moveLaps: lapAdded and: newPosition ]
 ]
 
 { #category : #playing }
@@ -184,7 +171,7 @@ GalaxyCircuitGame >> updatePosition: steps [
 	
 	turnShip := ships at: currentTurn.
 	turnShip move: steps.
-	self updateLap.
+	self updateLapTo: turnShip.
 ]
 
 { #category : #playing }

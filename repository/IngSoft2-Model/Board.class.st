@@ -32,7 +32,7 @@ Board >> initializeWith: someSquares [
 	squares := someSquares
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'boundary check' }
 Board >> outOfBoardBounds: aPosition [ 
 	^ aPosition > (squares size) or: aPosition < 1
 ]
