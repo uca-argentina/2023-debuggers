@@ -6,5 +6,4 @@ Class {
 
 { #category : #effect }
 NoEffectSquare >> effect: aGame [
-	^ 'This Square Has No Effect'
 ]

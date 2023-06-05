@@ -2,7 +2,7 @@ Class {
 	#name : #HyperJumpSquare,
 	#superclass : #Object,
 	#instVars : [
-		'values'
+		'sequence'
 	],
 	#classInstVars : [
 		'parsecs',
@@ -11,7 +11,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #validation }
 HyperJumpSquare class >> checkValuesAreInDescendingOrder: someValues [
 
 	(someValues isSortedBy: [:a :b | a >= b ]) ifFalse: [ Error signal: 'The list of values must be in descending order' ].
@@ -33,16 +33,15 @@ HyperJumpSquare class >> with: someValues [
 { #category : #accessing }
 HyperJumpSquare >> effect: aGame [
 	
-	| value |
+	| parsecSteps |
 	
-	value := values removeFirst.
-	aGame applyHyperJump: value.
-	values add: value.
+	parsecSteps := (sequence next).
+	aGame updateParsecs: parsecSteps.
 	
 ]
 
 { #category : #initialization }
 HyperJumpSquare >> initializeWith: someValues [
 
-	values := someValues.
+	sequence := SequenceHandler with: someValues.
 ]

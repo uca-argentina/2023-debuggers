@@ -2,7 +2,6 @@ Class {
 	#name : #MoonwalkSquare,
 	#superclass : #Object,
 	#instVars : [
-		'backwards',
 		'steps'
 	],
 	#category : #'IngSoft2-Model'
@@ -23,7 +22,7 @@ MoonwalkSquare class >> with: anAmountOfSteps [
 { #category : #effect }
 MoonwalkSquare >> effect: aGame [
 
-	aGame applyMoonwalk: steps.
+	aGame applyMoonwalk: (steps negated).
 ]
 
 { #category : #initialization }

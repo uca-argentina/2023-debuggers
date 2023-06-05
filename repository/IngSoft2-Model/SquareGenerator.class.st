@@ -2,21 +2,36 @@ Class {
 	#name : #SquareGenerator,
 	#superclass : #Object,
 	#instVars : [
-		'squaresToGenerate'
+		'squaresToGenerate',
+		'squaresToUse',
+		'distribution'
 	],
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'instance creation' }
+{ #category : #validation }
 SquareGenerator class >> checkAmountOfSquares: anAmountOfSquares [
 	
 	(anAmountOfSquares <= 0) ifTrue: [ Error signal: 'Amount of squares cannot be 0 or lower' ]
 ]
 
+{ #category : #validation }
+SquareGenerator class >> checkDistribution: someDistribution [
+	((someDistribution sum) = 100) ifFalse: [ Error signal: 'Distribution must add up 100%' ].
+]
+
+{ #category : #validation }
+SquareGenerator class >> checkTypesOfSquares: someSquares [
+
+	(someSquares isEmpty ) ifTrue:[Error signal: 'Cannot generate wihtout any type of square']
+]
+
 { #category : #'instance creation' }
-SquareGenerator class >> with: anAmountOfSquares [
+SquareGenerator class >> with: anAmountOfSquares of: someSquares using: someDistribution [
 	self checkAmountOfSquares: anAmountOfSquares.
-	^ self new initializeWith: anAmountOfSquares
+	self checkDistribution:  someDistribution.
+	self checkTypesOfSquares:  someSquares.
+	^ ((self new) initializeWith: anAmountOfSquares of: someSquares using: someDistribution).
 ]
 
 { #category : #Generation }
@@ -49,8 +64,27 @@ SquareGenerator >> generateSquares [
 	^ squares
 ]
 
+{ #category : #Generation }
+SquareGenerator >> generateSquaresNew [
+
+	| squares squareSelector floor ceiling |
+	squares := OrderedCollection new.
+	1 to: squaresToGenerate do: [ :i | 
+		floor := 1.
+		ceiling := 0.
+		squareSelector := self generateNumber.
+		distribution withIndexDo: [ :currentDistribution :generatedIndex | 
+			ceiling := ceiling + currentDistribution.
+			(squareSelector between: floor and: ceiling) ifTrue: [ 
+				squares add: (squaresToUse at: generatedIndex) ].
+			floor := currentDistribution + 1 ] ].
+	^ squares.
+]
+
 { #category : #initialization }
-SquareGenerator >> initializeWith: anAmountOfSquares [
+SquareGenerator >> initializeWith: anAmountOfSquares of: someSquares using: someDistribution [
 
 	squaresToGenerate := anAmountOfSquares.
+	squaresToUse := someSquares.
+	distribution := someDistribution.
 ]

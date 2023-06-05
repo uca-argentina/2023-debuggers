@@ -6,5 +6,5 @@ Class {
 
 { #category : #effect }
 WormholeSquare >> effect: aGame [
-	aGame applyWormhole.
+	aGame updatePosition: -4.
 ]

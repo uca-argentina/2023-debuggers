@@ -2,7 +2,10 @@ Class {
 	#name : #Ship,
 	#superclass : #Object,
 	#instVars : [
-		'name'
+		'name',
+		'position',
+		'lap',
+		'parsec'
 	],
 	#classInstVars : [
 		'position',
@@ -26,9 +29,50 @@ Ship >> equals: anotherShip [
 { #category : #initialize }
 Ship >> intializeWith: aName [ 
 	name := aName.
+	lap := 1.
+	position := 1.
+	parsec := 1.
+]
+
+{ #category : #accessing }
+Ship >> lap [
+	^ lap
+]
+
+{ #category : #accessing }
+Ship >> move: steps [
+
+	position := position + steps
+]
+
+{ #category : #accessing }
+Ship >> moveLaps: someLaps and: aNewPosition [
+	lap := lap + someLaps.
+	position := aNewPosition.
 ]
 
 { #category : #accessing }
 Ship >> name [
 	^ name.
+]
+
+{ #category : #accessing }
+Ship >> parsec [
+	^ parsec.
+]
+
+{ #category : #accessing }
+Ship >> parsecMove: parsecSteps [
+
+	parsec := parsecSteps. 
+]
+
+{ #category : #accessing }
+Ship >> position [
+	^ position.
+]
+
+{ #category : #accessing }
+Ship >> resetPosition [
+	position := 1.
 ]

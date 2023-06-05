@@ -37,7 +37,7 @@ self
 ]
 
 { #category : #tests }
-SquaresTest >> test004AHyperJumpSquareCannotHaveAListOfValueThatIsNotInDescendinOrder [
+SquaresTest >> test003AHyperJumpSquareCannotHaveAListOfValueThatIsNotInDescendinOrder [
 
 	| values |
 	
