@@ -35,9 +35,6 @@ HyperJumpSquare >> effect: aGame [
 	
 	| parsecSteps |
 	
-	"steps := (sequence next) * (aGame parsecSize).
-	aGame updatePosition: steps."
-	
 	parsecSteps := (sequence next).
 	aGame updateParsecs: parsecSteps.
 	

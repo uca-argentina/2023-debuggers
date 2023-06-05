@@ -20,11 +20,6 @@ Ship class >> with: aName [
 	^((self new) intializeWith: aName).
 ]
 
-{ #category : #accessing }
-Ship >> advancedSquares [
-	^ lap * position .
-]
-
 { #category : #comparing }
 Ship >> equals: anotherShip [
 

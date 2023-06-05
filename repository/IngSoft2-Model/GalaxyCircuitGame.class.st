@@ -101,12 +101,6 @@ GalaxyCircuitGame >> initializeWith: somePlayersNames and: aBoard and: anAmountO
 	currentTurn := turnOrder next.
 ]
 
-{ #category : #accessing }
-GalaxyCircuitGame >> parsecSize [
-
-	^ parsecSize.
-]
-
 { #category : #playing }
 GalaxyCircuitGame >> playTurn [
 
@@ -139,14 +133,14 @@ GalaxyCircuitGame >> shipRanking [
 { #category : #playing }
 GalaxyCircuitGame >> updateLapTo: aShip [
 
-	(board outOfBoardBounds: aShip position) ifTrue: [ 
-		| lapAdded newPosition |
-		lapAdded := (aShip position / board size) floor.
-		newPosition := aShip position % board size.
-		newPosition = 0 ifTrue: [ 
-			newPosition := board size.
-			lapAdded := lapAdded - 1 ].
-		aShip moveLaps: lapAdded and: newPosition ]
+	| lapAdded newPosition |
+	(board outOfBoardBounds: aShip position) ifFalse: [ ^ self ].
+	lapAdded := (aShip position / board size) floor.
+	newPosition := aShip position % board size.
+	newPosition = 0 ifTrue: [ 
+		newPosition := board size.
+		lapAdded := lapAdded - 1 ].
+	aShip moveLaps: lapAdded and: newPosition
 ]
 
 { #category : #playing }
