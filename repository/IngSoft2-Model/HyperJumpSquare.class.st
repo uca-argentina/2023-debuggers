@@ -33,10 +33,13 @@ HyperJumpSquare class >> with: someValues [
 { #category : #accessing }
 HyperJumpSquare >> effect: aGame [
 	
-	| steps |
+	| parsecSteps |
 	
-	steps := (sequence next) * (aGame parsecSize).
-	aGame updatePosition: steps.
+	"steps := (sequence next) * (aGame parsecSize).
+	aGame updatePosition: steps."
+	
+	parsecSteps := (sequence next).
+	aGame updateParsecs: parsecSteps.
 	
 ]
 

@@ -35,25 +35,11 @@ GalaxyCircuitGame class >> checkLaps: anAmountOfLaps [
 	(anAmountOfLaps <= 0) ifTrue: [ Error signal: 'Amount of laps cannot be 0 or lower' ]
 ]
 
-{ #category : #validation }
-GalaxyCircuitGame class >> checkParsecs: aParsecSize [
-
-	(aParsecSize <= 0) ifTrue: [ Error signal: 'Parsec size cannot be 0 or lower' ]
-]
-
-{ #category : #validation }
-GalaxyCircuitGame class >> checkParsecs: aParsecSize and: aBoard [
-
-	(((aBoard size) % aParsecSize) = 0) ifFalse: [ Error signal: 'Amount of squares must be propotional to the size of parsecs' ]
-]
-
 { #category : #'instance creation' }
-GalaxyCircuitGame class >> with: somePlayersName and: aBoard and: anAmountOfLaps and: aParsecSize uses: aDiceCup [ 
+GalaxyCircuitGame class >> with: somePlayersName and: aBoard and: anAmountOfLaps uses: aDiceCup [ 
 	self checkForDuplicated: somePlayersName.
 	self checkLaps: anAmountOfLaps.
-	self checkParsecs: aParsecSize.
-	self checkParsecs: aParsecSize and: aBoard.
-	^((self new) initializeWith: somePlayersName and: aBoard and: anAmountOfLaps and: aParsecSize uses: aDiceCup).
+	^((self new) initializeWith: somePlayersName and: aBoard and: anAmountOfLaps uses: aDiceCup).
 ]
 
 { #category : #'applying effects' }
@@ -98,14 +84,13 @@ GalaxyCircuitGame >> hasAWinner [
 ]
 
 { #category : #initialization }
-GalaxyCircuitGame >> initializeWith: somePlayersNames and: aBoard and: anAmountOfLaps and: aParsecSize uses: aDiceCup [
+GalaxyCircuitGame >> initializeWith: somePlayersNames and: aBoard and: anAmountOfLaps uses: aDiceCup [
 
 	| counter turns |
 	
 	ships := somePlayersNames collect: [ :aName | Ship with: aName ].
 	board := aBoard.
 	laps := anAmountOfLaps.
-	parsecSize := aParsecSize.
 	diceCup := aDiceCup.
 	counter := 1.
 	turns := OrderedCollection new.
@@ -162,6 +147,20 @@ GalaxyCircuitGame >> updateLapTo: aShip [
 			newPosition := board size.
 			lapAdded := lapAdded - 1 ].
 		aShip moveLaps: lapAdded and: newPosition ]
+]
+
+{ #category : #playing }
+GalaxyCircuitGame >> updateParsecs: parsecSteps [
+
+	| turnShip steps |
+	turnShip := ships at: currentTurn.
+	steps := board parsecMovementToSquare: ((parsecSteps + turnShip parsec) - 1).
+	steps := steps > 0
+		         ifTrue: [ steps truncated ]
+		         ifFalse: [ steps floor ].
+	turnShip move: steps.
+	turnShip parsecMove: (board checkParsecLandedWith: parsecSteps).
+	self updateLapTo: turnShip
 ]
 
 { #category : #playing }

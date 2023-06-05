@@ -17,19 +17,56 @@ BoardTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMe
 { #category : #tests }
 BoardTest >> test001ABoardCanTellMeItsSize [
 
-	| aSquare squares aBoard |
+	| aSquare squares aBoard anAmountOfParsecs |
 	aSquare := NoEffectSquare new.
 	squares := OrderedCollection with: aSquare.
-	aBoard := Board with: squares.
+	anAmountOfParsecs := 1.
+	aBoard := Board with: squares and: anAmountOfParsecs.
 	
-	self assert: (aBoard size) = 1.
+	self assert: (aBoard size) equals: 1.
 ]
 
 { #category : #tests }
 BoardTest >> test002ABoardCannotHaveZeroAmountOfSquares [
-
+	
+	| anAmountOfParsecs |
+	
+	anAmountOfParsecs := 1.
+	
 	self
-		should: [ Board with: #() ]
+		should: [ Board with: #()  and: anAmountOfParsecs ]
 		raise: Error
 		withMessage: 'Amount of squares cannot be 0'
+]
+
+{ #category : #tests }
+BoardTest >> test003ABoardCannotHaveZeroAmountOfParsecsOrLower [
+	
+	| anInvalidAmountOfParsecs aSquare squares |
+	
+	aSquare := NoEffectSquare new.
+	squares := OrderedCollection with: aSquare.
+	anInvalidAmountOfParsecs := -1.
+	
+	self
+		should: [ Board with: squares and: anInvalidAmountOfParsecs ]
+		raise: Error
+		withMessage: 'Amount of parsecs cannot be 0 or lower'
+]
+
+{ #category : #tests }
+BoardTest >> test004ABoardsAmountOfParsecsMustBeDivisibleByTheAmountOfSquares [
+	
+	| anInvalidAmountOfParsecs aSquare1 aSquare2 squares |
+	
+	aSquare1 := NoEffectSquare new.
+	aSquare2 := NoEffectSquare new.
+	squares := OrderedCollection with: aSquare1. 
+	squares add: aSquare2.
+	anInvalidAmountOfParsecs := 1.
+	
+	self
+		should: [ Board with: squares and: anInvalidAmountOfParsecs ]
+		raise: Error
+		withMessage: 'Amount of parsecs must be divisible by the amount of squares'
 ]
