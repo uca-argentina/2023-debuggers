@@ -5,7 +5,8 @@ Class {
 		'name',
 		'position',
 		'lap',
-		'parsec'
+		'parsec',
+		'hand'
 	],
 	#classInstVars : [
 		'position',
@@ -20,15 +21,36 @@ Ship class >> with: aName [
 	^((self new) intializeWith: aName).
 ]
 
+{ #category : #'instance creation' }
+Ship class >> with: aName and: aStartingHand [
+
+	^((self new) intializeWith: aName and: aStartingHand).
+]
+
 { #category : #comparing }
 Ship >> equals: anotherShip [
 
 	^ (name = (anotherShip name)).
 ]
 
+{ #category : #accessing }
+Ship >> has: aCard [
+
+	^ hand anySatisfy: [ :aHandCard | aHandCard isKindOf: aCard class].
+]
+
 { #category : #initialize }
 Ship >> intializeWith: aName [ 
 	name := aName.
+	lap := 1.
+	position := 1.
+	parsec := 1.
+]
+
+{ #category : #initialize }
+Ship >> intializeWith: aName and: aStartingHand [
+	name := aName.
+	hand := aStartingHand.
 	lap := 1.
 	position := 1.
 	parsec := 1.

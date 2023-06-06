@@ -1,30 +1,29 @@
 Class {
-	#name : #SpeedCard,
+	#name : #AccelerationCard,
 	#superclass : #Object,
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'as yet unclassified' }
-SpeedCard >> applyAll [
+AccelerationCard >> applyAll [
 
-	^ false.
+	^ true.
 ]
 
 { #category : #'as yet unclassified' }
-SpeedCard >> effect [
+AccelerationCard >> effect [
 
 	^ 1.
 ]
 
 { #category : #'as yet unclassified' }
-SpeedCard >> playableOnAnyTurn [
+AccelerationCard >> playableOnAnyTurn [
 
 	^ false.
 ]
 
 { #category : #'as yet unclassified' }
-SpeedCard >> use: aGame to: targetShip [
+AccelerationCard >> use: aGame to: targetShip [
 
 	aGame addToPermanentPile: (CardEffect with: self to: targetShip).
-	
 ]

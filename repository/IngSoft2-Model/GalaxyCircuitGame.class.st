@@ -11,7 +11,9 @@ Class {
 		'parsecSize',
 		'hyperJumpValues',
 		'board',
-		'turnOrder'
+		'turnOrder',
+		'deck',
+		'permanentCards'
 	],
 	#classInstVars : [
 		'ships',
@@ -42,6 +44,19 @@ GalaxyCircuitGame class >> with: somePlayersName and: aBoard and: anAmountOfLaps
 	^((self new) initializeWith: somePlayersName and: aBoard and: anAmountOfLaps uses: aDiceCup).
 ]
 
+{ #category : #'instance creation' }
+GalaxyCircuitGame class >> with: somePlayersName and: aBoard and: anAmountOfLaps uses: aDiceCup uses: aDeck [
+	self checkForDuplicated: somePlayersName.
+	self checkLaps: anAmountOfLaps.
+	^((self new) initializeWith: somePlayersName and: aBoard and: anAmountOfLaps uses: aDiceCup uses: aDeck).
+]
+
+{ #category : #'card effects' }
+GalaxyCircuitGame >> addToPermanentPile: aCardEffect [
+
+	permanentCards add: aCardEffect.
+]
+
 { #category : #'applying effects' }
 GalaxyCircuitGame >> applyAtomicBomb [
 
@@ -64,6 +79,28 @@ GalaxyCircuitGame >> applyMoonwalk: steps [
 		aShipTurnOrder = currentTurn ifFalse: [ 
 			aShip move: steps. 
 			self updateLapTo: aShip ] ].
+]
+
+{ #category : #'as yet unclassified' }
+GalaxyCircuitGame >> checkOwner: cardOwner [
+
+	(cardOwner = currentTurn) ifFalse: [ Error signal: 'Unable to play permanent card when its not your turn' ]
+]
+
+{ #category : #'as yet unclassified' }
+GalaxyCircuitGame >> checkPlayed: aCard from: aCardOwner [
+
+	(aCardOwner = currentTurn or: aCard playableOnAnyTurn) ifFalse: [ Error signal: 'Unable to play permanent card when its not your turn' ]
+]
+
+{ #category : #'as yet unclassified' }
+GalaxyCircuitGame >> checkThat: aCardOwner has: aCard [
+	
+	| cardOwner |
+	
+	cardOwner := ships at: aCardOwner.
+	
+	(cardOwner has: aCard) ifFalse: [ Error signal: 'Unable to play card when the player does not own the card' ]
 ]
 
 { #category : #validation }
@@ -101,11 +138,44 @@ GalaxyCircuitGame >> initializeWith: somePlayersNames and: aBoard and: anAmountO
 	currentTurn := turnOrder next.
 ]
 
+{ #category : #initialization }
+GalaxyCircuitGame >> initializeWith: somePlayersNames and: aBoard and: anAmountOfLaps uses: aDiceCup uses: aDeck [
+
+	| counter turns |
+	
+	deck := aDeck.
+	ships := somePlayersNames collect: [ :aName | 
+		         | aStartingHand |
+		         aStartingHand := OrderedCollection new.
+		         aStartingHand add: aDeck draw.
+		         aStartingHand add: aDeck draw.
+		         Ship with: aName and: aStartingHand ].
+	board := aBoard.
+	laps := anAmountOfLaps.
+	diceCup := aDiceCup.
+	permanentCards := OrderedCollection new.
+	counter := 1.
+	turns := OrderedCollection new.
+	ships size timesRepeat: [ 
+		turns add: counter.
+		counter := counter + 1 ].
+	turnOrder := SequenceHandler with: turns.
+	currentTurn := turnOrder next
+]
+
+{ #category : #playing }
+GalaxyCircuitGame >> play: aCard from: aCardOwner to: targetShip [ 
+	
+	self checkThat: aCardOwner has: aCard.
+	self checkPlayed: aCard from: aCardOwner.
+	aCard use: self to: targetShip.
+]
+
 { #category : #playing }
 GalaxyCircuitGame >> playTurn [
 
 	self checkThereIsNoWinner.
-	self updatePosition: diceCup throw.
+	self updatePosition: (diceCup throw + (self usePermanentCards)).
 	self applyEffect.
 	self updateTurn
 ]
@@ -171,6 +241,12 @@ GalaxyCircuitGame >> updatePosition: steps [
 GalaxyCircuitGame >> updateTurn [
 
 	currentTurn := turnOrder next.
+]
+
+{ #category : #'card effects' }
+GalaxyCircuitGame >> usePermanentCards [
+	
+	^ permanentCards sumNumbers: [ :aPermanentCard | aPermanentCard applyTo: currentTurn ]
 ]
 
 { #category : #'game status' }
