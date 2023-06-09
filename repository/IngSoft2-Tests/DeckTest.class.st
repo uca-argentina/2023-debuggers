@@ -45,3 +45,20 @@ DeckTest >> test003ADeckCanDrawAnyRandomCard [
 	
 	self assert: ((aDraw isKindOf: OverloadCard) or: (aDraw isKindOf: SpeedCard)).
 ]
+
+{ #category : #tests }
+DeckTest >> test004ALoadedDeckWillDrawTheSameCardsInSequence [
+
+	| anOverloadCard cards aDeck aSpeedCard aDraw |
+	
+	aSpeedCard := SpeedCard new.
+	anOverloadCard := OverloadCard new.
+	cards := OrderedCollection new.
+	cards add: aSpeedCard.
+	cards add: anOverloadCard.
+	aDeck := LoadedDeck with:cards. 
+	
+	self assert: (aDeck draw isKindOf: SpeedCard).
+	self assert: (aDeck draw isKindOf: OverloadCard).
+	self assert: (aDeck draw isKindOf: SpeedCard).
+]

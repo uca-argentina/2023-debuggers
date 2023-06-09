@@ -5,25 +5,19 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-OverloadCard >> applyAll [
-
-	^ false.
-]
-
-{ #category : #'as yet unclassified' }
 OverloadCard >> effect [
 
 	^ -2.
 ]
 
 { #category : #'as yet unclassified' }
-OverloadCard >> playableOnAnyTurn [
+OverloadCard >> equals: anotherCard [
 
-	^ false.
+	^ anotherCard isKindOf: self class.
 ]
 
 { #category : #'as yet unclassified' }
-OverloadCard >> use: aGame to: targetShip [.
+OverloadCard >> playableOnAnyTurn [
 
-	aGame addToPermanentPile: (CardEffect with: self to: targetShip).
+	^ false.
 ]

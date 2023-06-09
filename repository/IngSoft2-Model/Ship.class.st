@@ -28,6 +28,12 @@ Ship class >> with: aName and: aStartingHand [
 ]
 
 { #category : #comparing }
+Ship >> emptyHand [
+	
+	^ hand isEmpty.
+]
+
+{ #category : #comparing }
 Ship >> equals: anotherShip [
 
 	^ (name = (anotherShip name)).
@@ -92,6 +98,15 @@ Ship >> parsecMove: parsecSteps [
 { #category : #accessing }
 Ship >> position [
 	^ position.
+]
+
+{ #category : #removing }
+Ship >> removeFromHand: aCard [
+
+	| cardToRemove |
+	
+	cardToRemove := hand detect: [ :aHandCard | aHandCard equals: aCard ].
+	hand remove: cardToRemove.
 ]
 
 { #category : #accessing }

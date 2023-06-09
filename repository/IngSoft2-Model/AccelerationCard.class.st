@@ -5,25 +5,19 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-AccelerationCard >> applyAll [
-
-	^ true.
-]
-
-{ #category : #'as yet unclassified' }
 AccelerationCard >> effect [
 
 	^ 1.
 ]
 
 { #category : #'as yet unclassified' }
-AccelerationCard >> playableOnAnyTurn [
+AccelerationCard >> equals: anotherCard [
 
-	^ false.
+	^ anotherCard isKindOf: self class.
 ]
 
 { #category : #'as yet unclassified' }
-AccelerationCard >> use: aGame to: targetShip [
+AccelerationCard >> playableOnAnyTurn [
 
-	aGame addToPermanentPile: (CardEffect with: self to: targetShip).
+	^ false.
 ]

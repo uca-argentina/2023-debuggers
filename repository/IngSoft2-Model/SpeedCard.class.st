@@ -5,26 +5,19 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-SpeedCard >> applyAll [
-
-	^ false.
-]
-
-{ #category : #'as yet unclassified' }
 SpeedCard >> effect [
 
 	^ 1.
 ]
 
 { #category : #'as yet unclassified' }
-SpeedCard >> playableOnAnyTurn [
+SpeedCard >> equals: anotherCard [
 
-	^ false.
+	^ anotherCard isKindOf: SpeedCard.
 ]
 
 { #category : #'as yet unclassified' }
-SpeedCard >> use: aGame to: targetShip [
+SpeedCard >> playableOnAnyTurn [
 
-	aGame addToPermanentPile: (CardEffect with: self to: targetShip).
-	
+	^ false.
 ]
