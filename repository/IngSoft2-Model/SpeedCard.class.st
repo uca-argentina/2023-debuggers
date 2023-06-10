@@ -17,9 +17,9 @@ SpeedCard >> equals: anotherCard [
 ]
 
 { #category : #'playing card' }
-SpeedCard >> playIn: aGame from: aCardOwner to: aTargetShip [
+SpeedCard >> playIn: aCardManager from: aCardOwner to: aTargetShip [
 	
-	self checkPlayedBy: aCardOwner matches: aGame currentTurn.
-	aGame add: self to: aTargetShip.
+	self checkPlayedBy: aCardOwner matches: aCardManager currentTurn.
+	aCardManager addPermanent: self to: aTargetShip.
 	
 ]

@@ -17,8 +17,8 @@ AccelerationCard >> equals: anotherCard [
 ]
 
 { #category : #'as yet unclassified' }
-AccelerationCard >> playIn: aGame from: aCardOwner to: aTarget [
+AccelerationCard >> playIn: aCardManager from: aCardOwner to: aTarget [
 	
-	self checkPlayedBy: aCardOwner matches: aGame currentTurn.
-	aGame addToAllPermanentPiles: self.
+	self checkPlayedBy: aCardOwner matches: aCardManager currentTurn. 
+	aCardManager addToAllPermanentPiles: self.
 ]

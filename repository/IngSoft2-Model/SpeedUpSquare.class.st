@@ -7,5 +7,5 @@ Class {
 { #category : #'as yet unclassified' }
 SpeedUpSquare >> effectTo: aTargetShip in: aGame [
 
-	^ aGame updatePosition: 4 to: aTargetShip.
+	aGame updatePosition: 4 to: aTargetShip.
 ]

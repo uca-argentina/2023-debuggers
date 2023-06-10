@@ -965,13 +965,32 @@ GalaxyCircuitGameTest >> test045AGameCannotPlayARedoCardIfNoCardsWhereUsed [
 ]
 
 { #category : #tests }
-GalaxyCircuitGameTest >> test046AGameCanPlayARepearCardUsingALoadedDeckAndABoardWithOnlySpeedUpSquaresThenTheSquareEffectIsRepeated [
+GalaxyCircuitGameTest >> test046AGameCanPlayARepeatCardUsingALoadedDeckAndABoardWithOnlySpeedUpSquaresThenTheSquareEffectIsRepeated [
 
 	| aGame amountOfSquares anAmountOfParsecs aCardOwner aTargetShip cards aRepeatCard |
 	
 	amountOfSquares := 30.
 	anAmountOfParsecs := 30.
 	aCardOwner := 1.
+	aTargetShip := 1.
+	aRepeatCard := RepeatCard new.
+	cards := OrderedCollection with: aRepeatCard.
+	aGame := self aGameWith: amountOfSquares of: SpeedUpSquare new and: anAmountOfParsecs using: cards.
+	
+	aGame playTurn.
+	aGame playRepeatFrom: aCardOwner to: aTargetShip.
+
+	self assert: ((aGame shipPositions) at: 1) equals: 23.
+]
+
+{ #category : #tests }
+GalaxyCircuitGameTest >> test047AGameCanPlayARepeatInstantCardEvenWhenTheOwnerIsNotTheCurrentTurnShip [
+
+	| aGame amountOfSquares anAmountOfParsecs aCardOwner aTargetShip cards aRepeatCard |
+	
+	amountOfSquares := 30.
+	anAmountOfParsecs := 30.
+	aCardOwner := 2.
 	aTargetShip := 1.
 	aRepeatCard := RepeatCard new.
 	cards := OrderedCollection with: aRepeatCard.

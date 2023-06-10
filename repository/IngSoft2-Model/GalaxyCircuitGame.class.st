@@ -9,12 +9,12 @@ Class {
 		'shipLaps',
 		'laps',
 		'parsecSize',
-		'hyperJumpValues',
 		'board',
 		'turnOrder',
 		'deck',
 		'permanentCards',
-		'lastCardPlayed'
+		'lastCardPlayed',
+		'cardManager'
 	],
 	#classInstVars : [
 		'ships',
@@ -45,18 +45,6 @@ GalaxyCircuitGame class >> with: somePlayersName and: aBoard and: anAmountOfLaps
 	^((self new) initializeWith: somePlayersName and: aBoard and: anAmountOfLaps uses: aDiceCup uses: aDeck).
 ]
 
-{ #category : #'card effects' }
-GalaxyCircuitGame >> add: aPermanentCard to: aTargetShip [
-
-	(permanentCards at: aTargetShip) add: aPermanentCard.
-]
-
-{ #category : #'card effects' }
-GalaxyCircuitGame >> addToAllPermanentPiles: aPermanentCard [
-
-	permanentCards do: [ :aPermanentCardPile | aPermanentCardPile add: aPermanentCard ].
-]
-
 { #category : #'applying effects' }
 GalaxyCircuitGame >> applyAtomicBomb [
 
@@ -73,55 +61,12 @@ GalaxyCircuitGame >> applyEffectTo: aTargetShip [
 ]
 
 { #category : #'applying effects' }
-GalaxyCircuitGame >> applyMoonwalk: steps [
-
-	ships withIndexDo: [ :aShip :aShipTurnOrder | 
-		aShipTurnOrder = currentTurn ifFalse: [ 
-			aShip move: steps. 
-			self updateLapTo: aShip ] ].
-]
-
-{ #category : #'applying effects' }
 GalaxyCircuitGame >> applyMoonwalk: steps to: aTargetShip [
 
 	ships withIndexDo: [ :aShip :aShipTurnOrder | 
 		aShipTurnOrder = aTargetShip ifFalse: [ 
 			aShip move: steps. 
 			self updateLapTo: aShip ] ].
-]
-
-{ #category : #'as yet unclassified' }
-GalaxyCircuitGame >> checkCancel: aPermanentCardToCancel to: targetShip [
-
-	((permanentCards at: targetShip) anySatisfy: [ :aCard | 
-		 aCard equals: aPermanentCardToCancel ]) ifFalse: [ 
-		Error signal: 'Unable to cancel the permanent card because there is no such card in effect' ]
-]
-
-{ #category : #'as yet unclassified' }
-GalaxyCircuitGame >> checkHandFrom: aCardOwner [
-	
-	| cardOwner |
-	
-	cardOwner := ships at: aCardOwner.
-	
-	(cardOwner emptyHand) ifTrue: [ Error signal: 'Unable to play card when the player has no cards' ]
-]
-
-{ #category : #'as yet unclassified' }
-GalaxyCircuitGame >> checkPlayed: aCard from: aCardOwner [
-
-	(aCardOwner = currentTurn or: aCard playableOnAnyTurn) ifFalse: [ Error signal: 'Unable to play permanent card when its not your turn' ]
-]
-
-{ #category : #'as yet unclassified' }
-GalaxyCircuitGame >> checkThat: aCardOwner has: aCard [
-	
-	| cardOwner |
-	
-	cardOwner := ships at: aCardOwner.
-	
-	(cardOwner has: aCard) ifFalse: [ Error signal: 'Unable to play card when the player does not own the card' ]
 ]
 
 { #category : #validation }
@@ -150,6 +95,7 @@ GalaxyCircuitGame >> initializeWith: somePlayersNames and: aBoard and: anAmountO
 	lastCardPlayed := NonPlayableCard new.
 	permanentCards := OrderedCollection new.
 	somePlayersNames size timesRepeat: [ permanentCards add: OrderedCollection new. ].
+	cardManager := CardManager with: somePlayersNames using: aDeck.
 	ships := somePlayersNames collect: [ :aName | 
 		         | aStartingHand |
 		         aStartingHand := OrderedCollection new.
@@ -169,11 +115,6 @@ GalaxyCircuitGame >> initializeWith: somePlayersNames and: aBoard and: anAmountO
 ]
 
 { #category : #accessing }
-GalaxyCircuitGame >> lastCardPlayed [
-	^ lastCardPlayed.
-]
-
-{ #category : #accessing }
 GalaxyCircuitGame >> lastSquareLanded [
 
 	^ board lastSquareLanded.
@@ -185,9 +126,10 @@ GalaxyCircuitGame >> playAccelerationFrom: aCardOwner to: aTargetShip [
 	| anAccelerationCard |
 	
 	anAccelerationCard := AccelerationCard new.
-	self checkThat: aCardOwner has: anAccelerationCard.
-	anAccelerationCard playIn: self from: aCardOwner to: aTargetShip.
-	lastCardPlayed := (self remove: anAccelerationCard from: aCardOwner).
+	cardManager checkThat: aCardOwner has: anAccelerationCard.
+	anAccelerationCard playIn: cardManager from: aCardOwner to: aTargetShip.
+	cardManager remove: anAccelerationCard from: aCardOwner.
+	cardManager updateLastCardPlayed: anAccelerationCard.
 ]
 
 { #category : #playing }
@@ -196,9 +138,9 @@ GalaxyCircuitGame >> playCancellationFrom: aCardOwner to: aTargetPlayedPermanent
 	| aCancellationCard |
 	
 	aCancellationCard := CancellationCard new.
-	self checkThat: aCardOwner has: aCancellationCard.
-	aCancellationCard playIn: self from: aCardOwner to: aTargetPlayedPermanent.
-	lastCardPlayed := self remove: aCancellationCard from: aCardOwner.
+	aCancellationCard playIn: cardManager from: aCardOwner to: aTargetPlayedPermanent.
+	cardManager remove: aCancellationCard from: aCardOwner.
+	cardManager updateLastCardPlayed: aCancellationCard.
 ]
 
 { #category : #playing }
@@ -207,9 +149,10 @@ GalaxyCircuitGame >> playOverloadFrom: aCardOwner to: aTargetShip [
 	| anOverloadCard |
 	
 	anOverloadCard := OverloadCard new.
-	self checkThat: aCardOwner has: anOverloadCard.
-	anOverloadCard playIn: self from: aCardOwner to: aTargetShip.
-	lastCardPlayed := self remove: anOverloadCard from: aCardOwner.
+	cardManager checkThat: aCardOwner has: anOverloadCard.
+	anOverloadCard playIn: cardManager from: aCardOwner to: aTargetShip.
+	cardManager remove: anOverloadCard from: aCardOwner.
+	cardManager updateLastCardPlayed: anOverloadCard.
 ]
 
 { #category : #playing }
@@ -218,9 +161,9 @@ GalaxyCircuitGame >> playRedoFrom: aCardOwner to: aTarget [
 	| aRedoCard |
 	
 	aRedoCard := RedoCard new.
-	self checkThat: aCardOwner has: aRedoCard.
-	aRedoCard playIn: self from: aCardOwner to: aTarget.
-	self remove: aRedoCard from: aCardOwner.
+	cardManager checkThat: aCardOwner has: aRedoCard.
+	aRedoCard playIn: cardManager from: aCardOwner to: aTarget.
+	cardManager remove: aRedoCard from: aCardOwner.
 ]
 
 { #category : #playing }
@@ -229,9 +172,10 @@ GalaxyCircuitGame >> playRepeatFrom: aCardOwner to: aTarget [
 	| aRepeatCard |
 	
 	aRepeatCard := RepeatCard new.
-	self checkThat: aCardOwner has: aRepeatCard.
+	cardManager checkThat: aCardOwner has: aRepeatCard.
 	aRepeatCard playIn: self from: aCardOwner to: aTarget.
-	self remove: aRepeatCard from: aCardOwner.
+	cardManager remove: aRepeatCard from: aCardOwner.
+	cardManager updateLastCardPlayed: aRepeatCard.
 ]
 
 { #category : #playing }
@@ -240,37 +184,20 @@ GalaxyCircuitGame >> playSpeedFrom: aCardOwner to: aTargetShip [
 	| aSpeedCard |
 	
 	aSpeedCard := SpeedCard new.
-	self checkThat: aCardOwner has: aSpeedCard.
-	aSpeedCard playIn: self from: aCardOwner to: aTargetShip.
-	lastCardPlayed := (self remove: aSpeedCard from: aCardOwner).
+	aSpeedCard checkPlayedBy: aCardOwner matches: currentTurn. 
+	cardManager checkThat: aCardOwner has: aSpeedCard.
+	aSpeedCard playIn: cardManager from: aCardOwner to: aTargetShip.
+	cardManager remove: aSpeedCard from: aCardOwner.
+	cardManager updateLastCardPlayed: aSpeedCard.
 ]
 
 { #category : #playing }
 GalaxyCircuitGame >> playTurn [
 
 	self checkThereIsNoWinner.
-	self updatePosition: (diceCup throw + (self usePermanentCards)) to: currentTurn.
+	self updatePosition: (diceCup throw + (cardManager usePermanentCardsFrom: currentTurn)) to: currentTurn.
 	self applyEffectTo: currentTurn.
 	self updateTurn
-]
-
-{ #category : #removing }
-GalaxyCircuitGame >> remove: aCard from: aCardOwner [
-
-	^ (ships at: aCardOwner) removeFromHand: aCard.
-]
-
-{ #category : #'card effects' }
-GalaxyCircuitGame >> remove: aPermanentCardToCancel to: aTargetShip [
-	
-	| targetShipPile cardToRemove |
-	
-	"cardToRemove := hand detect: [ :aHandCard | aHandCard equals: aCard ].
-	hand remove: cardToRemove."
-	
-	targetShipPile := permanentCards at: aTargetShip.
-	cardToRemove := targetShipPile detect: [ :aCard | aCard equals: aPermanentCardToCancel ].
-	targetShipPile remove: cardToRemove.
 ]
 
 { #category : #accessing }
@@ -307,20 +234,6 @@ GalaxyCircuitGame >> updateLapTo: aShip [
 ]
 
 { #category : #playing }
-GalaxyCircuitGame >> updateParsecs: parsecSteps [
-
-	| turnShip steps |
-	turnShip := ships at: currentTurn.
-	steps := board parsecMovementToSquare: ((parsecSteps + turnShip parsec) - 1).
-	steps := steps > 0
-		         ifTrue: [ steps truncated ]
-		         ifFalse: [ steps floor ].
-	turnShip move: steps.
-	turnShip parsecMove: (board checkParsecLandedWith: parsecSteps).
-	self updateLapTo: turnShip
-]
-
-{ #category : #playing }
 GalaxyCircuitGame >> updateParsecs: parsecSteps to: aTargetShip [
 
 	| turnShip steps |
@@ -332,16 +245,6 @@ GalaxyCircuitGame >> updateParsecs: parsecSteps to: aTargetShip [
 	turnShip move: steps.
 	turnShip parsecMove: (board checkParsecLandedWith: parsecSteps).
 	self updateLapTo: turnShip
-]
-
-{ #category : #playing }
-GalaxyCircuitGame >> updatePosition: steps [
-
-	| turnShip |
-	
-	turnShip := ships at: currentTurn.
-	turnShip move: steps.
-	self updateLapTo: turnShip.
 ]
 
 { #category : #playing }
@@ -358,12 +261,7 @@ GalaxyCircuitGame >> updatePosition: steps to: aTargetShip [
 GalaxyCircuitGame >> updateTurn [
 
 	currentTurn := turnOrder next.
-]
-
-{ #category : #'card effects' }
-GalaxyCircuitGame >> usePermanentCards [
-	
-	^ (permanentCards at: currentTurn) sumNumbers: [ :aPermanentCard | aPermanentCard effect ]
+	cardManager updateTurn: currentTurn.
 ]
 
 { #category : #'game status' }

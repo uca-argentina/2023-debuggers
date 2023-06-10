@@ -40,7 +40,7 @@ Ship >> equals: anotherShip [
 ]
 
 { #category : #accessing }
-Ship >> has: aCard [
+Ship >> hasInHand: aCard [
 
 	^ hand anySatisfy: [ :aHandCard | aHandCard isKindOf: aCard class].
 ]
