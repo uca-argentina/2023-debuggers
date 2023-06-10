@@ -1,6 +1,6 @@
 Class {
 	#name : #OverloadCard,
-	#superclass : #Object,
+	#superclass : #PermanentCard,
 	#category : #'IngSoft2-Model'
 }
 
@@ -16,8 +16,9 @@ OverloadCard >> equals: anotherCard [
 	^ anotherCard isKindOf: self class.
 ]
 
-{ #category : #'as yet unclassified' }
-OverloadCard >> playableOnAnyTurn [
-
-	^ false.
+{ #category : #'playing card' }
+OverloadCard >> playIn: aGame from: aCardOwner to: aTargetShip [
+	
+	self checkPlayedBy: aCardOwner matches: aGame currentTurn.
+	aGame add: self to: aTargetShip.
 ]

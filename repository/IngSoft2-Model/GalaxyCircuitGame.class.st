@@ -14,7 +14,7 @@ Class {
 		'turnOrder',
 		'deck',
 		'permanentCards',
-		'lastCardplayed'
+		'lastCardPlayed'
 	],
 	#classInstVars : [
 		'ships',
@@ -138,7 +138,7 @@ GalaxyCircuitGame >> initializeWith: somePlayersNames and: aBoard and: anAmountO
 	| counter turns |
 	
 	deck := aDeck.
-	lastCardplayed := nil.
+	lastCardPlayed := NonPlayableCard new.
 	permanentCards := OrderedCollection new.
 	somePlayersNames size timesRepeat: [ permanentCards add: OrderedCollection new. ].
 	ships := somePlayersNames collect: [ :aName | 
@@ -159,14 +159,81 @@ GalaxyCircuitGame >> initializeWith: somePlayersNames and: aBoard and: anAmountO
 	currentTurn := turnOrder next
 ]
 
+{ #category : #accessing }
+GalaxyCircuitGame >> lastCardPlayed [
+	^ lastCardPlayed.
+]
+
+{ #category : #accessing }
+GalaxyCircuitGame >> lastSquareLanded [
+
+	^ board lastSquareLanded.
+]
+
 { #category : #playing }
-GalaxyCircuitGame >> play: aCardPlay from: aCardOwner [ 
+GalaxyCircuitGame >> playAccelerationFrom: aCardOwner to: aTargetShip [ 
 	
-	self checkHandFrom: aCardOwner.
-	self checkThat: aCardOwner has: aCardPlay card.
-	self checkPlayed: aCardPlay card from: aCardOwner.
-	aCardPlay playIn: self.
-	self remove: (aCardPlay card) from: aCardOwner.
+	| anAccelerationCard |
+	
+	anAccelerationCard := AccelerationCard new.
+	self checkThat: aCardOwner has: anAccelerationCard.
+	anAccelerationCard playIn: self from: aCardOwner to: aTargetShip.
+	lastCardPlayed := (self remove: anAccelerationCard from: aCardOwner).
+]
+
+{ #category : #playing }
+GalaxyCircuitGame >> playCancellationFrom: aCardOwner to: aTargetPlayedPermanent [ 
+	
+	| aCancellationCard |
+	
+	aCancellationCard := CancellationCard new.
+	self checkThat: aCardOwner has: aCancellationCard.
+	aCancellationCard playIn: self from: aCardOwner to: aTargetPlayedPermanent.
+	lastCardPlayed := self remove: aCancellationCard from: aCardOwner.
+]
+
+{ #category : #playing }
+GalaxyCircuitGame >> playOverloadFrom: aCardOwner to: aTargetShip [ 
+	
+	| anOverloadCard |
+	
+	anOverloadCard := OverloadCard new.
+	self checkThat: aCardOwner has: anOverloadCard.
+	anOverloadCard playIn: self from: aCardOwner to: aTargetShip.
+	lastCardPlayed := self remove: anOverloadCard from: aCardOwner.
+]
+
+{ #category : #playing }
+GalaxyCircuitGame >> playRedoFrom: aCardOwner to: aTarget [ 
+	
+	| aRedoCard |
+	
+	aRedoCard := RedoCard new.
+	self checkThat: aCardOwner has: aRedoCard.
+	aRedoCard playIn: self from: aCardOwner to: aTarget.
+	self remove: aRedoCard from: aCardOwner.
+]
+
+{ #category : #playing }
+GalaxyCircuitGame >> playRepeatFrom: aCardOwner to: aTarget [ 
+	
+	| aRepeatCard |
+	
+	aRepeatCard := RepeatCard new.
+	self checkThat: aCardOwner has: aRepeatCard.
+	aRepeatCard playIn: self from: aCardOwner to: aTarget.
+	self remove: aRepeatCard from: aCardOwner.
+]
+
+{ #category : #playing }
+GalaxyCircuitGame >> playSpeedFrom: aCardOwner to: aTargetShip [ 
+	
+	| aSpeedCard |
+	
+	aSpeedCard := SpeedCard new.
+	self checkThat: aCardOwner has: aSpeedCard.
+	aSpeedCard playIn: self from: aCardOwner to: aTargetShip.
+	lastCardPlayed := (self remove: aSpeedCard from: aCardOwner).
 ]
 
 { #category : #playing }
@@ -181,7 +248,7 @@ GalaxyCircuitGame >> playTurn [
 { #category : #removing }
 GalaxyCircuitGame >> remove: aCard from: aCardOwner [
 
-	(ships at: aCardOwner) removeFromHand: aCard.
+	^ (ships at: aCardOwner) removeFromHand: aCard.
 ]
 
 { #category : #'card effects' }
@@ -252,6 +319,16 @@ GalaxyCircuitGame >> updatePosition: steps [
 	turnShip := ships at: currentTurn.
 	turnShip move: steps.
 	self updateLapTo: turnShip.
+]
+
+{ #category : #playing }
+GalaxyCircuitGame >> updatePosition: steps to: aTargetShip [
+
+	| targetShip |
+	
+	targetShip := ships at: aTargetShip.
+	targetShip move: steps.
+	self updateLapTo: targetShip.
 ]
 
 { #category : #playing }

@@ -11,7 +11,21 @@ CancellationCard >> equals: anotherCard [
 ]
 
 { #category : #'as yet unclassified' }
-CancellationCard >> playableOnAnyTurn [
+CancellationCard >> playIn: aGame from: aCardOwner cancels: aCard to: aTargetShip [
+	
+	aGame checkCancel: aCard to: aTargetShip.
+	aGame checkThat: aCardOwner has: self.
+	aGame remove: aCard to: aTargetShip.
+	aGame remove: self from: aCardOwner.
+]
 
-	^ true.
+{ #category : #'as yet unclassified' }
+CancellationCard >> playIn: aGame from: aCardOwner to: aTargetPlayedPermanentCard [
+	
+	| targetCard targetShip |
+	
+	targetCard := aTargetPlayedPermanentCard card.
+	targetShip := aTargetPlayedPermanentCard target.
+	aGame checkCancel: targetCard to: targetShip.
+	aGame remove: targetCard to: targetShip.
 ]

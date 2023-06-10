@@ -106,7 +106,7 @@ Ship >> removeFromHand: aCard [
 	| cardToRemove |
 	
 	cardToRemove := hand detect: [ :aHandCard | aHandCard equals: aCard ].
-	hand remove: cardToRemove.
+	^ hand remove: cardToRemove.
 ]
 
 { #category : #accessing }

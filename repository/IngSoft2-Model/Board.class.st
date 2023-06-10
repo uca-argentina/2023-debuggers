@@ -2,6 +2,7 @@ Class {
 	#name : #Board,
 	#superclass : #Object,
 	#instVars : [
+		'lastSquareLanded',
 		'squares',
 		'parsecs'
 	],
@@ -43,15 +44,24 @@ Board >> checkParsecLandedWith: parsecSteps [
 
 { #category : #initialization }
 Board >> effectTo: aGame at: aSquareIndex [
-
-	(squares at: aSquareIndex) effect: aGame.
+	
+	lastSquareLanded := squares at: aSquareIndex.
+	lastSquareLanded effect: aGame.
+	
 ]
 
 { #category : #initialization }
 Board >> initializeWith: someSquares and: anAmountOfParsecs [
 
 	squares := someSquares.
+	lastSquareLanded := NoEffectSquare new.
 	parsecs := anAmountOfParsecs.
+]
+
+{ #category : #accessing }
+Board >> lastSquareLanded [
+	
+	^ lastSquareLanded.
 ]
 
 { #category : #'boundary check' }

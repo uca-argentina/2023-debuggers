@@ -1,6 +1,6 @@
 Class {
 	#name : #SpeedCard,
-	#superclass : #Object,
+	#superclass : #PermanentCard,
 	#category : #'IngSoft2-Model'
 }
 
@@ -16,8 +16,10 @@ SpeedCard >> equals: anotherCard [
 	^ anotherCard isKindOf: SpeedCard.
 ]
 
-{ #category : #'as yet unclassified' }
-SpeedCard >> playableOnAnyTurn [
-
-	^ false.
+{ #category : #'playing card' }
+SpeedCard >> playIn: aGame from: aCardOwner to: aTargetShip [
+	
+	self checkPlayedBy: aCardOwner matches: aGame currentTurn.
+	aGame add: self to: aTargetShip.
+	
 ]

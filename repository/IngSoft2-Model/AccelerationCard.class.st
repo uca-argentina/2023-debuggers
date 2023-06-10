@@ -1,6 +1,6 @@
 Class {
 	#name : #AccelerationCard,
-	#superclass : #Object,
+	#superclass : #PermanentCard,
 	#category : #'IngSoft2-Model'
 }
 
@@ -17,7 +17,8 @@ AccelerationCard >> equals: anotherCard [
 ]
 
 { #category : #'as yet unclassified' }
-AccelerationCard >> playableOnAnyTurn [
-
-	^ false.
+AccelerationCard >> playIn: aGame from: aCardOwner to: aTarget [
+	
+	self checkPlayedBy: aCardOwner matches: aGame currentTurn.
+	aGame addToAllPermanentPiles: self.
 ]

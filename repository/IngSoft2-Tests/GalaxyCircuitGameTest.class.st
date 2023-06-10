@@ -602,7 +602,7 @@ GalaxyCircuitGameTest >> test028AGameShipCanLandOnTheLastSquareWhenMovingLaps [
 { #category : #tests }
 GalaxyCircuitGameTest >> test029AGameCanPlayASpeedPermanentCardUsingADeckWithOnlySpeedCardsThenTheTargetShipMovesAnExtraSquareWhenItMoves [
 
-	| aGame amountOfSquares anAmountOfParsecs aSpeedCard aCardOwner aTargetShip aSpeedCardPlay cards |
+	| aGame amountOfSquares anAmountOfParsecs aSpeedCard aCardOwner aTargetShip cards |
 	
 	amountOfSquares := 30.
 	anAmountOfParsecs := 30.
@@ -610,10 +610,9 @@ GalaxyCircuitGameTest >> test029AGameCanPlayASpeedPermanentCardUsingADeckWithOnl
 	aTargetShip := 1.
 	aSpeedCard := SpeedCard new.
 	cards := OrderedCollection with: aSpeedCard.
-	aSpeedCardPlay := SpeedCardPlay with: aTargetShip.
 	aGame := self aGameWith: amountOfSquares of: NoEffectSquare new and: anAmountOfParsecs using: cards.
 	
-	aGame play: aSpeedCardPlay from: aCardOwner.
+	aGame playSpeedFrom: aCardOwner to: aTargetShip.
 	aGame playTurn.
 
 	self assert: ((aGame shipPositions) at: 1) equals: 16.
@@ -622,7 +621,7 @@ GalaxyCircuitGameTest >> test029AGameCanPlayASpeedPermanentCardUsingADeckWithOnl
 { #category : #tests }
 GalaxyCircuitGameTest >> test030AGameCanPlayManySpeedPermanentCardAndItsEffectStacks [
 
-	| aGame amountOfSquares anAmountOfParsecs aSpeedCard aCardOwner aTargetShip aSpeedCardPlay cards |
+	| aGame amountOfSquares anAmountOfParsecs aSpeedCard aCardOwner aTargetShip cards |
 	
 	amountOfSquares := 30.
 	anAmountOfParsecs := 30.
@@ -630,11 +629,10 @@ GalaxyCircuitGameTest >> test030AGameCanPlayManySpeedPermanentCardAndItsEffectSt
 	aTargetShip := 1.
 	aSpeedCard := SpeedCard new.
 	cards := OrderedCollection with: aSpeedCard.
-	aSpeedCardPlay := SpeedCardPlay with: aTargetShip.
 	aGame := self aGameWith: amountOfSquares of: NoEffectSquare new and: anAmountOfParsecs using: cards.
 	
-	aGame play: aSpeedCardPlay from: aCardOwner.
-	aGame play: aSpeedCardPlay from: aCardOwner.
+	aGame playSpeedFrom: aCardOwner to: aTargetShip.
+	aGame playSpeedFrom: aCardOwner to: aTargetShip.
 	aGame playTurn.
 
 	self assert: ((aGame shipPositions) at: 1) equals: 17.
@@ -643,7 +641,7 @@ GalaxyCircuitGameTest >> test030AGameCanPlayManySpeedPermanentCardAndItsEffectSt
 { #category : #tests }
 GalaxyCircuitGameTest >> test031AGameCanPlayAnOverloadPermanentCardUsingADeckWithOnlyPermanentCardsThenTheTargetShipMovesTwoSquaresLessWhenItMoves [
 
-	| aGame amountOfSquares anAmountOfParsecs anOverloadCard aCardOwner aTargetShip anOverloadCardPlay cards |
+	| aGame amountOfSquares anAmountOfParsecs anOverloadCard aCardOwner aTargetShip cards |
 	
 	amountOfSquares := 30.
 	anAmountOfParsecs := 30.
@@ -651,10 +649,9 @@ GalaxyCircuitGameTest >> test031AGameCanPlayAnOverloadPermanentCardUsingADeckWit
 	aTargetShip := 1.
 	anOverloadCard := OverloadCard new.
 	cards := OrderedCollection with: anOverloadCard.
-	anOverloadCardPlay := OverloadCardPlay with: aTargetShip.
 	aGame := self aGameWith: amountOfSquares of: NoEffectSquare new and: anAmountOfParsecs using: cards.
 	
-	aGame play: anOverloadCardPlay from: aCardOwner.
+	aGame playOverloadFrom: aCardOwner to: aTargetShip.
 	aGame playTurn.
 
 	self assert: ((aGame shipPositions) at: 1) equals: 13.
@@ -663,7 +660,7 @@ GalaxyCircuitGameTest >> test031AGameCanPlayAnOverloadPermanentCardUsingADeckWit
 { #category : #tests }
 GalaxyCircuitGameTest >> test032AGameCanPlayManyOverLoadPermanentCardAndItsEffectStacks [
 
-	| aGame amountOfSquares anAmountOfParsecs anOverloadCard aCardOwner aTargetShip anOverloadCardPlay cards |
+	| aGame amountOfSquares anAmountOfParsecs anOverloadCard aCardOwner aTargetShip cards |
 	
 	amountOfSquares := 30.
 	anAmountOfParsecs := 30.
@@ -671,11 +668,10 @@ GalaxyCircuitGameTest >> test032AGameCanPlayManyOverLoadPermanentCardAndItsEffec
 	aTargetShip := 1.
 	anOverloadCard := OverloadCard new.
 	cards := OrderedCollection with: anOverloadCard.
-	anOverloadCardPlay := OverloadCardPlay with: aTargetShip.
 	aGame := self aGameWith: amountOfSquares of: NoEffectSquare new and: anAmountOfParsecs using: cards.
 	
-	aGame play: anOverloadCardPlay from: aCardOwner.
-	aGame play: anOverloadCardPlay from: aCardOwner.
+	aGame playOverloadFrom: aCardOwner to: aTargetShip.
+	aGame playOverloadFrom: aCardOwner to: aTargetShip.
 	aGame playTurn.
 
 	self assert: ((aGame shipPositions) at: 1) equals: 11.
@@ -684,7 +680,7 @@ GalaxyCircuitGameTest >> test032AGameCanPlayManyOverLoadPermanentCardAndItsEffec
 { #category : #tests }
 GalaxyCircuitGameTest >> test033AGameCanPlayAnAccelerationPermanentCardUsingADeckWithOnlyPermanentCardsThenAllShipsMoveAnExtraSquareWhenTheyMove [
 
-	| aGame amountOfSquares anAmountOfParsecs anAccelerationCard aCardOwner aTargetShip anAccelerationCardPlay cards |
+	| aGame amountOfSquares anAmountOfParsecs anAccelerationCard aCardOwner aTargetShip cards |
 	
 	amountOfSquares := 30.
 	anAmountOfParsecs := 30.
@@ -692,10 +688,9 @@ GalaxyCircuitGameTest >> test033AGameCanPlayAnAccelerationPermanentCardUsingADec
 	aTargetShip := 1.
 	anAccelerationCard := AccelerationCard new.
 	cards := OrderedCollection with: anAccelerationCard.
-	anAccelerationCardPlay := AccelerationCardPlay new.
 	aGame := self aGameWith: amountOfSquares of: NoEffectSquare new and: anAmountOfParsecs using: cards.
 	
-	aGame play: anAccelerationCardPlay from: aCardOwner.
+	aGame playAccelerationFrom: aCardOwner to: aTargetShip.
 	aGame playTurn.
 	aGame playTurn.
 	aGame playTurn.
@@ -708,7 +703,7 @@ GalaxyCircuitGameTest >> test033AGameCanPlayAnAccelerationPermanentCardUsingADec
 { #category : #tests }
 GalaxyCircuitGameTest >> test034AGameCanPlayManyAccelerationPermanentCardsAndItsEffectStacks [
 
-	| aGame amountOfSquares anAmountOfParsecs anAccelerationCard aCardOwner aTargetShip anAccelerationCardPlay cards |
+	| aGame amountOfSquares anAmountOfParsecs anAccelerationCard aCardOwner aTargetShip cards |
 	
 	amountOfSquares := 30.
 	anAmountOfParsecs := 30.
@@ -716,11 +711,10 @@ GalaxyCircuitGameTest >> test034AGameCanPlayManyAccelerationPermanentCardsAndIts
 	aTargetShip := 1.
 	anAccelerationCard := AccelerationCard new.
 	cards := OrderedCollection with: anAccelerationCard.
-	anAccelerationCardPlay := AccelerationCardPlay new.
 	aGame := self aGameWith: amountOfSquares of: NoEffectSquare new and: anAmountOfParsecs using: cards.
 	
-	aGame play: anAccelerationCardPlay from: aCardOwner.
-	aGame play: anAccelerationCardPlay from: aCardOwner.
+	aGame playAccelerationFrom: aCardOwner to: aTargetShip.
+	aGame playAccelerationFrom: aCardOwner to: aTargetShip.
 	aGame playTurn.
 	aGame playTurn.
 	aGame playTurn.
@@ -733,18 +727,18 @@ GalaxyCircuitGameTest >> test034AGameCanPlayManyAccelerationPermanentCardsAndIts
 { #category : #tests }
 GalaxyCircuitGameTest >> test035AGameCannotPlayAPermanentCardIfTheOneUsingItIsNotTheCurrentTurnShip [
 
-	| aGame amountOfSquares anAmountOfParsecs anAccelerationCard anAccelerationCardPlay aCardOwner cards |
+	| aGame amountOfSquares anAmountOfParsecs anAccelerationCard aCardOwner cards aTargetShip |
 	
 	amountOfSquares := 30.
 	anAmountOfParsecs := 30.
 	aCardOwner := 2.
+	aTargetShip := 1.
 	anAccelerationCard := AccelerationCard new.
 	cards := OrderedCollection with: anAccelerationCard.
-	anAccelerationCardPlay := AccelerationCardPlay new.
 	aGame := self aGameWith: amountOfSquares of: NoEffectSquare new and: anAmountOfParsecs using: cards.
 	
 	self
-		should: [ aGame play: anAccelerationCardPlay from: 2 ]
+		should: [ aGame playAccelerationFrom: aCardOwner to: aTargetShip. ]
 		raise: Error
 		withMessage: 'Unable to play permanent card when its not your turn'
 ]
@@ -752,7 +746,7 @@ GalaxyCircuitGameTest >> test035AGameCannotPlayAPermanentCardIfTheOneUsingItIsNo
 { #category : #tests }
 GalaxyCircuitGameTest >> test036AGameCannotPlayAPermanentCardIfTheOneTryingToUseItDoesNotHaveTheCardInHand [
 
-	| aGame amountOfSquares anAmountOfParsecs anAccelerationCard aSpeedCardPlay aTargetShip aCardOwner cards |
+	| aGame amountOfSquares anAmountOfParsecs anAccelerationCard aTargetShip aCardOwner cards aSpeedCard |
 	
 	amountOfSquares := 30.
 	anAmountOfParsecs := 30.
@@ -760,11 +754,11 @@ GalaxyCircuitGameTest >> test036AGameCannotPlayAPermanentCardIfTheOneTryingToUse
 	aTargetShip := 1.
 	anAccelerationCard := AccelerationCard new.
 	cards := OrderedCollection with: anAccelerationCard.
-	aSpeedCardPlay := SpeedCardPlay with: aTargetShip.
+	aSpeedCard := SpeedCard new.
 	aGame := self aGameWith: amountOfSquares of: NoEffectSquare new and: anAmountOfParsecs using: cards.
 	
 	self
-		should: [ aGame play: aSpeedCardPlay from: aCardOwner. ]
+		should: [ aGame playSpeedFrom: aCardOwner to: aTargetShip. ]
 		raise: Error
 		withMessage: 'Unable to play card when the player does not own the card'
 ]
@@ -772,7 +766,7 @@ GalaxyCircuitGameTest >> test036AGameCannotPlayAPermanentCardIfTheOneTryingToUse
 { #category : #tests }
 GalaxyCircuitGameTest >> test037AGameInWhichPlayersStartWithTwoCardsRemovesThemFromTheirHandWhenPlayedAndTheyCantPlayCardsWithAnEmptyHand [
 
-	| aGame amountOfSquares anAmountOfParsecs aSpeedCardPlay aTargetShip aCardOwner aSpeedCard cards |
+	| aGame amountOfSquares anAmountOfParsecs aTargetShip aCardOwner aSpeedCard cards |
 	
 	amountOfSquares := 30.
 	anAmountOfParsecs := 30.
@@ -780,22 +774,21 @@ GalaxyCircuitGameTest >> test037AGameInWhichPlayersStartWithTwoCardsRemovesThemF
 	aTargetShip := 1.
 	aSpeedCard := SpeedCard new.
 	cards := OrderedCollection with: aSpeedCard.
-	aSpeedCardPlay := SpeedCardPlay with: aTargetShip.
 	aGame := self aGameWith: amountOfSquares of: NoEffectSquare new and: anAmountOfParsecs using: cards.
 	
-	aGame play: aSpeedCardPlay from: aCardOwner.
-	aGame play: aSpeedCardPlay from: aCardOwner.
+	aGame playSpeedFrom: aCardOwner to: aTargetShip.
+	aGame playSpeedFrom: aCardOwner to: aTargetShip.
 	
 	self
-		should: [ aGame play: aSpeedCardPlay from: aCardOwner. ]
+		should: [ aGame playSpeedFrom: aCardOwner to: aTargetShip.]
 		raise: Error
-		withMessage: 'Unable to play card when the player has no cards'
+		withMessage: 'Unable to play card when the player does not own the card'
 ]
 
 { #category : #tests }
 GalaxyCircuitGameTest >> test038AGameCanPlayACancellationInstantCardUsingALoadedDeckThenTheTargetCardIsRemoved [
 
-	| aGame amountOfSquares anAmountOfParsecs aSpeedCard aCancellationCard aCardOwner aTargetShip aSpeedCardPlay cards aCancellationCardPlay |
+	| aGame amountOfSquares anAmountOfParsecs aSpeedCard aCancellationCard aCardOwner aTargetShip cards aTargetPlayedPermanent |
 	
 	amountOfSquares := 30.
 	anAmountOfParsecs := 30.
@@ -803,13 +796,12 @@ GalaxyCircuitGameTest >> test038AGameCanPlayACancellationInstantCardUsingALoaded
 	aTargetShip := 1.
 	aSpeedCard := SpeedCard new.
 	aCancellationCard := CancellationCard new.
+	aTargetPlayedPermanent := PlayedPermanent with: aSpeedCard to: aTargetShip.
 	cards := OrderedCollection with: aSpeedCard with: aCancellationCard.
-	aSpeedCardPlay := SpeedCardPlay with: aTargetShip.
-	aCancellationCardPlay := CancellationCardPlay to: aSpeedCard affecting: aTargetShip.
 	aGame := self aGameWith: amountOfSquares of: NoEffectSquare new and: anAmountOfParsecs using: cards.
 	
-	aGame play: aSpeedCardPlay from: aCardOwner.
-	aGame play: aCancellationCardPlay from: aCardOwner.
+	aGame playSpeedFrom: aCardOwner to: aTargetShip.
+	aGame playCancellationFrom: aCardOwner to: aTargetPlayedPermanent.
 	aGame playTurn.
 
 	self assert: ((aGame shipPositions) at: 1) equals: 15.
@@ -818,7 +810,7 @@ GalaxyCircuitGameTest >> test038AGameCanPlayACancellationInstantCardUsingALoaded
 { #category : #tests }
 GalaxyCircuitGameTest >> test039AGameCanPlayACancellationInstantCardEvenWhenTheOwnerIsNotTheCurrentTurnShip [
 
-	| aGame amountOfSquares anAmountOfParsecs aSpeedCard aCancellationCard aCardOwner aTargetShip aSpeedCardPlay cards aCancellationCardPlay anotherCardOwner |
+	| aGame amountOfSquares anAmountOfParsecs aSpeedCard aCancellationCard aCardOwner aTargetShip cards anotherCardOwner aTargetPlayedPermanent |
 	
 	amountOfSquares := 30.
 	anAmountOfParsecs := 30.
@@ -827,13 +819,12 @@ GalaxyCircuitGameTest >> test039AGameCanPlayACancellationInstantCardEvenWhenTheO
 	aTargetShip := 1.
 	aSpeedCard := SpeedCard new.
 	aCancellationCard := CancellationCard new.
+	aTargetPlayedPermanent := PlayedPermanent with: aSpeedCard to: aTargetShip.
 	cards := OrderedCollection with: aSpeedCard with: aCancellationCard.
-	aSpeedCardPlay := SpeedCardPlay with: aTargetShip.
-	aCancellationCardPlay := CancellationCardPlay to: aSpeedCard affecting: aTargetShip.
 	aGame := self aGameWith: amountOfSquares of: NoEffectSquare new and: anAmountOfParsecs using: cards.
 	
-	aGame play: aSpeedCardPlay from: aCardOwner.
-	aGame play: aCancellationCardPlay from: anotherCardOwner.
+	aGame playSpeedFrom: aCardOwner to: aTargetShip.
+	aGame playCancellationFrom: anotherCardOwner to: aTargetPlayedPermanent.
 	aGame playTurn.
 
 	self assert: ((aGame shipPositions) at: 1) equals: 15.
@@ -842,7 +833,7 @@ GalaxyCircuitGameTest >> test039AGameCanPlayACancellationInstantCardEvenWhenTheO
 { #category : #tests }
 GalaxyCircuitGameTest >> test040AGameCannotPlayACancellationInstantCardWhenTheTargetCardIsNotInEffect [
 
-	| aGame amountOfSquares anAmountOfParsecs aSpeedCard aCancellationCard aCardOwner aTargetShip aSpeedCardPlay cards aCancellationCardPlay |
+	| aGame amountOfSquares anAmountOfParsecs aSpeedCard aCancellationCard aCardOwner aTargetShip cards aTargetPlayedPermanent |
 	
 	amountOfSquares := 30.
 	anAmountOfParsecs := 30.
@@ -850,13 +841,144 @@ GalaxyCircuitGameTest >> test040AGameCannotPlayACancellationInstantCardWhenTheTa
 	aTargetShip := 1.
 	aSpeedCard := SpeedCard new.
 	aCancellationCard := CancellationCard new.
+	aTargetPlayedPermanent := PlayedPermanent with: aSpeedCard to: aTargetShip.
 	cards := OrderedCollection with: aSpeedCard with: aCancellationCard.
-	aSpeedCardPlay := SpeedCardPlay with: aTargetShip.
-	aCancellationCardPlay := CancellationCardPlay to: aSpeedCard affecting: aTargetShip.
 	aGame := self aGameWith: amountOfSquares of: NoEffectSquare new and: anAmountOfParsecs using: cards.
 	
 	self
-		should: [ aGame play: aCancellationCardPlay from: aCardOwner. ]
+		should: [ aGame playCancellationFrom: aCardOwner to: aTargetPlayedPermanent. ]
 		raise: Error
 		withMessage: 'Unable to cancel the permanent card because there is no such card in effect'
+]
+
+{ #category : #tests }
+GalaxyCircuitGameTest >> test041AGameCanPlayARedoCardUsingALoadedDeckThenTheLastPermanentCardPlayedIsUsed [
+
+	| aGame amountOfSquares anAmountOfParsecs aSpeedCard aRedoCard aCardOwner aTargetShip cards |
+	
+	amountOfSquares := 30.
+	anAmountOfParsecs := 30.
+	aCardOwner := 1.
+	aTargetShip := 1.
+	aSpeedCard := SpeedCard new.
+	aRedoCard := RedoCard new.
+	cards := OrderedCollection with: aSpeedCard with: aRedoCard.
+	aGame := self aGameWith: amountOfSquares of: NoEffectSquare new and: anAmountOfParsecs using: cards.
+	
+	aGame playSpeedFrom: aCardOwner to: aTargetShip.
+	aGame playRedoFrom: aCardOwner to: aTargetShip.
+	aGame playTurn.
+
+	self assert: ((aGame shipPositions) at: 1) equals: 17.
+]
+
+{ #category : #tests }
+GalaxyCircuitGameTest >> test042AGameCanPlayARedoCardUsingALoadedDeckThenTheLastPermanentCardPlayedIsUsedAndCanTargetADifferentShip [
+
+	| aGame amountOfSquares anAmountOfParsecs aSpeedCard aRedoCard aCardOwner aTargetShip cards anotherTargetShip |
+	
+	amountOfSquares := 30.
+	anAmountOfParsecs := 30.
+	aCardOwner := 1.
+	aTargetShip := 1.
+	anotherTargetShip := 2.
+	aSpeedCard := SpeedCard new.
+	aRedoCard := RedoCard new.
+	cards := OrderedCollection with: aSpeedCard with: aRedoCard.
+	aGame := self aGameWith: amountOfSquares of: NoEffectSquare new and: anAmountOfParsecs using: cards.
+	
+	aGame playSpeedFrom: aCardOwner to: aTargetShip.
+	aGame playRedoFrom: aCardOwner to: anotherTargetShip.
+	aGame playTurn.
+	aGame playTurn.
+	
+	self assert: ((aGame shipPositions) at: 1) equals: 16.
+	self assert: ((aGame shipPositions) at: 2) equals: 13.	
+]
+
+{ #category : #tests }
+GalaxyCircuitGameTest >> test043AGameCannotPlayARedoCardIfItRepeatsAPermanentCardOnTheWrongTurn [
+
+	| aGame amountOfSquares anAmountOfParsecs aSpeedCard aRedoCard aCardOwner aTargetShip cards anotherCardOwner |
+	
+	amountOfSquares := 30.
+	anAmountOfParsecs := 30.
+	aCardOwner := 1.
+	anotherCardOwner := 2.
+	aTargetShip := 1.
+	aSpeedCard := SpeedCard new.
+	aRedoCard := RedoCard new.
+	cards := OrderedCollection with: aSpeedCard with: aRedoCard.
+	aGame := self aGameWith: amountOfSquares of: NoEffectSquare new and: anAmountOfParsecs using: cards.
+	
+	aGame playSpeedFrom: aCardOwner to: aTargetShip.
+	self
+		should: [ aGame playRedoFrom: anotherCardOwner to: aTargetShip. ]
+		raise: Error
+		withMessage: 'Unable to play permanent card when its not your turn'
+]
+
+{ #category : #tests }
+GalaxyCircuitGameTest >> test044AGameCanPlayARedoCardUsingALoadedDeckThenTheLastInstantCardPlayedIsUsed [
+
+	| aGame amountOfSquares anAmountOfParsecs aSpeedCard aRedoCard aCardOwner aTargetShip cards aCancellationCard anotherCardOwner aTargetPlayedPermanent |
+	
+	amountOfSquares := 30.
+	anAmountOfParsecs := 30.
+	aCardOwner := 1.
+	anotherCardOwner := 2.
+	aTargetShip := 1.
+	aSpeedCard := SpeedCard new.
+	aCancellationCard := CancellationCard new.
+	aRedoCard := RedoCard new.
+	aTargetPlayedPermanent := PlayedPermanent with: aSpeedCard to: aTargetShip.
+	cards := OrderedCollection with: aSpeedCard with: aSpeedCard with: aRedoCard with: aCancellationCard.
+	aGame := self aGameWith: amountOfSquares of: NoEffectSquare new and: anAmountOfParsecs using: cards.
+	
+	aGame playSpeedFrom: aCardOwner to: aTargetShip.
+	aGame playSpeedFrom: aCardOwner to: aTargetShip.
+	aGame playCancellationFrom: anotherCardOwner to: aTargetPlayedPermanent.
+	aGame playRedoFrom: anotherCardOwner to: aTargetPlayedPermanent.
+	
+	aGame playTurn.
+
+	self assert: ((aGame shipPositions) at: 1) equals: 15.
+]
+
+{ #category : #tests }
+GalaxyCircuitGameTest >> test045AGameCannotPlayARedoCardIfNoCardsWhereUsed [
+
+	| aGame amountOfSquares anAmountOfParsecs aRedoCard aCardOwner aTargetShip cards |
+	
+	amountOfSquares := 30.
+	anAmountOfParsecs := 30.
+	aCardOwner := 1.
+	aTargetShip := 1.
+	aRedoCard := RedoCard new.
+	cards := OrderedCollection with: aRedoCard.
+	aGame := self aGameWith: amountOfSquares of: NoEffectSquare new and: anAmountOfParsecs using: cards.
+	
+	self
+		should: [ aGame playRedoFrom: aCardOwner to: aTargetShip. ]
+		raise: Error
+		withMessage: 'Cannot Redo Card, no card has been played yet'
+]
+
+{ #category : #tests }
+GalaxyCircuitGameTest >> test046AGameCanPlayARepearCardUsingALoadedDeckAndABoardWithOnlySpeedUpSquaresThenTheSquareEffectIsRepeated [
+
+	| aGame amountOfSquares anAmountOfParsecs aCardOwner aTargetShip cards aRepeatCard |
+	
+	amountOfSquares := 30.
+	anAmountOfParsecs := 30.
+	aCardOwner := 1.
+	aTargetShip := 1.
+	aRepeatCard := RepeatCard new.
+	cards := OrderedCollection with: aRepeatCard.
+	aGame := self aGameWith: amountOfSquares of: SpeedUpSquare new and: anAmountOfParsecs using: cards.
+	
+	aGame playTurn.
+	aGame playRepeatFrom: aCardOwner to: aTargetShip.
+
+	self assert: ((aGame shipPositions) at: 1) equals: 23.
 ]
