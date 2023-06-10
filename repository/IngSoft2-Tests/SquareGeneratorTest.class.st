@@ -56,7 +56,7 @@ SquareGeneratorTest >> test002ASquareGeneratorCanGenerateSquaresBasedOnAGivenAmo
 		                         of: squaresToUse
 		                         using: distribution.
 	
-	self assert: (((randomSquareGenerator generateSquares) size) = 100). 
+	self assert: ((randomSquareGenerator generateSquares) size) equals: 100. 
 	
 	
 	
@@ -151,10 +151,10 @@ SquareGeneratorTest >> test006ASquareGeneratorCanFollowADistributionGiven [
 		                         with: 100
 		                         of: squaresToUse
 		                         using: distribution.
-	randomSquares := randomSquareGenerator generateSquaresNew.
+	randomSquares := randomSquareGenerator generateSquares.
 	found := OrderedCollection new.
 	1000 timesRepeat: [ 
-		randomSquares := randomSquareGenerator generateSquaresNew.
+		randomSquares := randomSquareGenerator generateSquares.
 		found addAll:
 			(randomSquares select: [ :aSquare | 
 				 aSquare isKindOf: HyperJumpSquare ]) ].

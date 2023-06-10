@@ -64,12 +64,12 @@ GalaxyCircuitGame >> applyAtomicBomb [
 ]
 
 { #category : #'applying effects' }
-GalaxyCircuitGame >> applyEffect [
+GalaxyCircuitGame >> applyEffectTo: aTargetShip [
 	
 	| landedSquare |
 	
-	landedSquare := ((ships at: currentTurn) position).
-	board effectTo: self at: landedSquare.
+	landedSquare := (ships at: aTargetShip) position.
+	board effectTo: aTargetShip at: landedSquare in: self.
 ]
 
 { #category : #'applying effects' }
@@ -77,6 +77,15 @@ GalaxyCircuitGame >> applyMoonwalk: steps [
 
 	ships withIndexDo: [ :aShip :aShipTurnOrder | 
 		aShipTurnOrder = currentTurn ifFalse: [ 
+			aShip move: steps. 
+			self updateLapTo: aShip ] ].
+]
+
+{ #category : #'applying effects' }
+GalaxyCircuitGame >> applyMoonwalk: steps to: aTargetShip [
+
+	ships withIndexDo: [ :aShip :aShipTurnOrder | 
+		aShipTurnOrder = aTargetShip ifFalse: [ 
 			aShip move: steps. 
 			self updateLapTo: aShip ] ].
 ]
@@ -240,8 +249,8 @@ GalaxyCircuitGame >> playSpeedFrom: aCardOwner to: aTargetShip [
 GalaxyCircuitGame >> playTurn [
 
 	self checkThereIsNoWinner.
-	self updatePosition: (diceCup throw + (self usePermanentCards)).
-	self applyEffect.
+	self updatePosition: (diceCup throw + (self usePermanentCards)) to: currentTurn.
+	self applyEffectTo: currentTurn.
 	self updateTurn
 ]
 
@@ -302,6 +311,20 @@ GalaxyCircuitGame >> updateParsecs: parsecSteps [
 
 	| turnShip steps |
 	turnShip := ships at: currentTurn.
+	steps := board parsecMovementToSquare: ((parsecSteps + turnShip parsec) - 1).
+	steps := steps > 0
+		         ifTrue: [ steps truncated ]
+		         ifFalse: [ steps floor ].
+	turnShip move: steps.
+	turnShip parsecMove: (board checkParsecLandedWith: parsecSteps).
+	self updateLapTo: turnShip
+]
+
+{ #category : #playing }
+GalaxyCircuitGame >> updateParsecs: parsecSteps to: aTargetShip [
+
+	| turnShip steps |
+	turnShip := ships at: aTargetShip.
 	steps := board parsecMovementToSquare: ((parsecSteps + turnShip parsec) - 1).
 	steps := steps > 0
 		         ifTrue: [ steps truncated ]

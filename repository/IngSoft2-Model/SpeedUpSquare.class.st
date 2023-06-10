@@ -4,11 +4,6 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #effect }
-SpeedUpSquare >> effect: aGame [
-	^ aGame updatePosition: 4.
-]
-
 { #category : #'as yet unclassified' }
 SpeedUpSquare >> effectTo: aTargetShip in: aGame [
 

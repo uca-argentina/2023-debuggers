@@ -20,9 +20,9 @@ MoonwalkSquare class >> with: anAmountOfSteps [
 ]
 
 { #category : #effect }
-MoonwalkSquare >> effect: aGame [
+MoonwalkSquare >> effectTo: aTargetShip in: aGame [
 
-	aGame applyMoonwalk: (steps negated).
+	aGame applyMoonwalk: (steps negated) to: aTargetShip.
 ]
 
 { #category : #initialization }

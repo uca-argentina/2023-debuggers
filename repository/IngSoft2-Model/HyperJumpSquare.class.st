@@ -31,12 +31,12 @@ HyperJumpSquare class >> with: someValues [
 ]
 
 { #category : #accessing }
-HyperJumpSquare >> effect: aGame [
+HyperJumpSquare >> effectTo: aTargetShip in: aGame [
 	
 	| parsecSteps |
 	
 	parsecSteps := (sequence next).
-	aGame updateParsecs: parsecSteps.
+	aGame updateParsecs: parsecSteps to: aTargetShip.
 	
 ]
 
