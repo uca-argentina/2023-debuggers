@@ -12,6 +12,12 @@ SequenceHandler class >> with: aCollectionOfValues [
 	^ ((self new) initializeWith: aCollectionOfValues).
 ]
 
+{ #category : #accessing }
+SequenceHandler >> current [
+
+	^ sequence first.
+]
+
 { #category : #initialization }
 SequenceHandler >> initializeWith: aCollectionOfValues [ 
 	sequence := aCollectionOfValues.

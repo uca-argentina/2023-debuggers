@@ -8,10 +8,6 @@ Class {
 		'parsec',
 		'hand'
 	],
-	#classInstVars : [
-		'position',
-		'nameList'
-	],
 	#category : #'IngSoft2-Model'
 }
 
@@ -37,12 +33,6 @@ Ship >> emptyHand [
 Ship >> equals: anotherShip [
 
 	^ (name = (anotherShip name)).
-]
-
-{ #category : #accessing }
-Ship >> hasInHand: aCard [
-
-	^ hand anySatisfy: [ :aHandCard | aHandCard isKindOf: aCard class].
 ]
 
 { #category : #initialize }
@@ -98,15 +88,6 @@ Ship >> parsecMove: parsecSteps [
 { #category : #accessing }
 Ship >> position [
 	^ position.
-]
-
-{ #category : #removing }
-Ship >> removeFromHand: aCard [
-
-	| cardToRemove |
-	
-	cardToRemove := hand detect: [ :aHandCard | aHandCard equals: aCard ].
-	^ hand remove: cardToRemove.
 ]
 
 { #category : #accessing }

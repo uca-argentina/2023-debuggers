@@ -5,5 +5,5 @@ Class {
 }
 
 { #category : #effect }
-NoEffectSquare >> effectTo: aTargetShip in: aGame [
+NoEffectSquare >> effectTo: aTargetShip in: aMovementManager [
 ]

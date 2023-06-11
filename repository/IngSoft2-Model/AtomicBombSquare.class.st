@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #effect }
-AtomicBombSquare >> effectTo: aTargetShip in: aGame [
+AtomicBombSquare >> effectTo: aTargetShip in: aMovementManager [
 
-	aGame applyAtomicBomb.
+	aMovementManager applyAtomicBomb.
 ]

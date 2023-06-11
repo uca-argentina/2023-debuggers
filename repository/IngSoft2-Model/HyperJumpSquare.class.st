@@ -4,10 +4,6 @@ Class {
 	#instVars : [
 		'sequence'
 	],
-	#classInstVars : [
-		'parsecs',
-		'collectionSquares'
-	],
 	#category : #'IngSoft2-Model'
 }
 
@@ -31,12 +27,12 @@ HyperJumpSquare class >> with: someValues [
 ]
 
 { #category : #accessing }
-HyperJumpSquare >> effectTo: aTargetShip in: aGame [
+HyperJumpSquare >> effectTo: aTargetShip in: aMovementManager [
 	
 	| parsecSteps |
 	
 	parsecSteps := (sequence next).
-	aGame updateParsecs: parsecSteps to: aTargetShip.
+	aMovementManager updateParsecs: parsecSteps to: aTargetShip.
 	
 ]
 
