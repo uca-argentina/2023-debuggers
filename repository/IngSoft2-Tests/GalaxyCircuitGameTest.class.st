@@ -503,7 +503,7 @@ GalaxyCircuitGameTest >> test022AGameWithOnlyHyperJumpSquaresMovesShipsAnAmountO
 	| aGame amountOfSquares aHyperJumpSquare anAmountOfParsecs aSpeedCard cards |
 	
 	amountOfSquares := 30.
-	aHyperJumpSquare := HyperJumpSquare with: (#(20 10) asOrderedCollection).
+	aHyperJumpSquare := HyperJumpSquare with: (#(21 10) asOrderedCollection).
 	anAmountOfParsecs := 60.
 	aSpeedCard := SpeedCard new.
 	cards := OrderedCollection with: aSpeedCard.
@@ -511,7 +511,7 @@ GalaxyCircuitGameTest >> test022AGameWithOnlyHyperJumpSquaresMovesShipsAnAmountO
 	
 	aGame playTurn.
 
-	self assert: ((aGame shipPositions) at: 1) equals: 25.
+	self assert: ((aGame shipPositions) at: 1) equals: 25.5.
 ]
 
 { #category : #tests }
@@ -537,7 +537,7 @@ GalaxyCircuitGameTest >> test024AGameWithOnlyHyperJumpSquaresMovesShipsAnAmountO
 	| aGame amountOfSquares aHyperJumpSquare anAmountOfParsecs aSpeedCard cards |
 	
 	amountOfSquares := 10.
-	aHyperJumpSquare := HyperJumpSquare with: (#(-20) asOrderedCollection).
+	aHyperJumpSquare := HyperJumpSquare with: (#(-21) asOrderedCollection).
 	anAmountOfParsecs := 20.
 	aSpeedCard := SpeedCard new.
 	cards := OrderedCollection with: aSpeedCard.
@@ -545,7 +545,8 @@ GalaxyCircuitGameTest >> test024AGameWithOnlyHyperJumpSquaresMovesShipsAnAmountO
 
 	aGame playTurn.
 
-	self assert: (aGame shipLaps at: 1) equals: 1
+	self assert: (aGame shipLaps at: 1) equals: 1.
+	self assert: ((aGame shipPositions) at: 1) equals: 4.5.
 ]
 
 { #category : #tests }

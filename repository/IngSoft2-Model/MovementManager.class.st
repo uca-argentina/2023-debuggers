@@ -26,8 +26,8 @@ MovementManager >> applyEffectTo: aTargetShip [
 	
 	| landedSquare |
 	
-	landedSquare := (ships at: aTargetShip) position.
-	board effectTo: aTargetShip at: landedSquare in: self.
+	landedSquare := ((ships at: aTargetShip) position).
+	board effectTo: aTargetShip at: landedSquare truncated in: self .
 ]
 
 { #category : #'applying effects' }
@@ -89,15 +89,18 @@ MovementManager >> shipRanking [
 { #category : #playing }
 MovementManager >> updateLapTo: aShip [
 
-	| lapAdded newPosition |
+	| lapAdded newPosition landedSquare|
 	
-	(board outOfBoardBounds: aShip position) ifFalse: [ ^ self ].
-	lapAdded := (aShip position / board size) floor.
+	landedSquare := (aShip position) truncated.
+	(board outOfBoardBounds: landedSquare) ifFalse: [ ^ self ].
+	lapAdded := (landedSquare / board size) floor.
 	newPosition := aShip position % board size.
-	newPosition = 0 ifTrue: [ 
-		newPosition := board size.
+	(newPosition >= 0 and: newPosition < 1) ifTrue: [ 
+		newPosition := board size + newPosition .
 		lapAdded := lapAdded - 1 ].
+	
 	aShip moveLaps: lapAdded and: newPosition
+
 ]
 
 { #category : #playing }
@@ -105,12 +108,9 @@ MovementManager >> updateParsecs: parsecSteps to: aTargetShip [
 
 	| turnShip steps |
 	turnShip := ships at: aTargetShip.
-	steps := board parsecMovementToSquare: ((parsecSteps + turnShip parsec) - 1).
-	steps := steps > 0
-		         ifTrue: [ steps truncated ]
-		         ifFalse: [ steps floor ].
+	steps := board parsecMovementToSquare: parsecSteps.
 	turnShip move: steps.
-	turnShip parsecMove: (board checkParsecLandedWith: parsecSteps).
+	
 	self updateLapTo: turnShip
 ]
 

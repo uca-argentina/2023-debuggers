@@ -43,10 +43,10 @@ Board >> checkParsecLandedWith: parsecSteps [
 ]
 
 { #category : #initialization }
-Board >> effectTo: aTargetShip at: aSquareIndex in: aGame [
+Board >> effectTo: aTargetShip at: aSquareIndex in: aMovementManager [
 	
 	lastSquareLanded := squares at: aSquareIndex.
-	lastSquareLanded effectTo: aTargetShip in: aGame.
+	lastSquareLanded effectTo: aTargetShip in: aMovementManager.
 	
 ]
 
