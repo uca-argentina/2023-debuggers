@@ -17,11 +17,14 @@ SquareGeneratorTest >> should: anErrorBlock raise: anExceptionClass withMessage:
 { #category : #tests }
 SquareGeneratorTest >> test001ASquareGeneratorCanGenerateANumberBetween1And100 [
 
-	| randomSquareGenerator anAmountOfSquares squaresToUse distribution |
+	| randomSquareGenerator anAmountOfSquares squaresToUse distribution values aValue1 |
 	anAmountOfSquares := 100.
+	values := OrderedCollection new.
+	aValue1 := ParsecMovement with: 4.
+	values add: aValue1.
 	squaresToUse := OrderedCollection new.
 	squaresToUse add: AtomicBombSquare new.
-	squaresToUse add: (HyperJumpSquare with: #( 4 1 ) asOrderedCollection).
+	squaresToUse add: (HyperJumpSquare with: values).
 	squaresToUse add: (MoonwalkSquare with: 3).
 	squaresToUse add: SpeedUpSquare new.
 	squaresToUse add: WormholeSquare new.
@@ -41,11 +44,14 @@ SquareGeneratorTest >> test001ASquareGeneratorCanGenerateANumberBetween1And100 [
 { #category : #tests }
 SquareGeneratorTest >> test002ASquareGeneratorCanGenerateSquaresBasedOnAGivenAmountOfSquares [
 
-	| randomSquareGenerator anAmountOfSquares squaresToUse distribution |
+	| randomSquareGenerator anAmountOfSquares squaresToUse distribution values aValue1 |
 	anAmountOfSquares := 100.
+	values := OrderedCollection new.
+	aValue1 := ParsecMovement with: 4.
+	values add: aValue1.
 	squaresToUse := OrderedCollection new.
 	squaresToUse add: AtomicBombSquare new.
-	squaresToUse add: (HyperJumpSquare with: #( 4 1 ) asOrderedCollection).
+	squaresToUse add: (HyperJumpSquare with: values).
 	squaresToUse add: (MoonwalkSquare with: 3).
 	squaresToUse add: SpeedUpSquare new.
 	squaresToUse add: WormholeSquare new.
@@ -65,11 +71,14 @@ SquareGeneratorTest >> test002ASquareGeneratorCanGenerateSquaresBasedOnAGivenAmo
 { #category : #tests }
 SquareGeneratorTest >> test003ASquareGeneratorCannotGenerateZeroOrLowerAmountOfSquares [
 	
-	| randomSquareGenerator anAmountOfSquares squaresToUse distribution |
+	| randomSquareGenerator anAmountOfSquares squaresToUse distribution values aValue1 |
 	anAmountOfSquares := -5.
+	values := OrderedCollection new.
+	aValue1 := ParsecMovement with: 4.
+	values add: aValue1.
 	squaresToUse := OrderedCollection new.
 	squaresToUse add: AtomicBombSquare new.
-	squaresToUse add: (HyperJumpSquare with: #( 4 1 ) asOrderedCollection).
+	squaresToUse add: (HyperJumpSquare with: values).
 	squaresToUse add: (MoonwalkSquare with: 3).
 	squaresToUse add: SpeedUpSquare new.
 	squaresToUse add: WormholeSquare new.
@@ -91,11 +100,14 @@ SquareGeneratorTest >> test003ASquareGeneratorCannotGenerateZeroOrLowerAmountOfS
 { #category : #tests }
 SquareGeneratorTest >> test004ASquareGeneratorCannotGenerateWithInvalidDistribution [
 	
-	| randomSquareGenerator anAmountOfSquares squaresToUse distribution |
+	| randomSquareGenerator anAmountOfSquares squaresToUse distribution values aValue1 |
 	anAmountOfSquares := 100.
+	values := OrderedCollection new.
+	aValue1 := ParsecMovement with: 4.
+	values add: aValue1.
 	squaresToUse := OrderedCollection new.
 	squaresToUse add: AtomicBombSquare new.
-	squaresToUse add: (HyperJumpSquare with: #( 4 1 ) asOrderedCollection).
+	squaresToUse add: (HyperJumpSquare with: values).
 	squaresToUse add: (MoonwalkSquare with: 3).
 	squaresToUse add: SpeedUpSquare new.
 	squaresToUse add: WormholeSquare new.
@@ -137,11 +149,14 @@ SquareGeneratorTest >> test005ASquareGeneratorCannotGenerateWithoutAnyTypeOfSqua
 { #category : #tests }
 SquareGeneratorTest >> test006ASquareGeneratorCanFollowADistributionGiven [
 
-	| randomSquareGenerator anAmountOfSquares randomSquares found squaresToUse distribution |
+	| randomSquareGenerator anAmountOfSquares randomSquares found squaresToUse distribution values aValue1 |
 	anAmountOfSquares := 100.
+	values := OrderedCollection new.
+	aValue1 := ParsecMovement with: 4.
+	values add: aValue1.
 	squaresToUse := OrderedCollection new.
 	squaresToUse add: AtomicBombSquare new.
-	squaresToUse add: (HyperJumpSquare with: #( 4 1 ) asOrderedCollection).
+	squaresToUse add: (HyperJumpSquare with: values).
 	squaresToUse add: (MoonwalkSquare with: 3).
 	squaresToUse add: SpeedUpSquare new.
 	squaresToUse add: WormholeSquare new.

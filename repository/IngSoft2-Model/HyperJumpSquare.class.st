@@ -8,9 +8,9 @@ Class {
 }
 
 { #category : #validation }
-HyperJumpSquare class >> checkValuesAreInDescendingOrder: someValues [
+HyperJumpSquare class >> checkValuesAreInDescendingOrder: someMovements [
 
-	(someValues isSortedBy: [:a :b | a >= b ]) ifFalse: [ Error signal: 'The list of values must be in descending order' ].
+	(someMovements isSortedBy: [:aMovement :anotherMovement | aMovement convertToParsec >= anotherMovement convertToParsec]) ifFalse: [ Error signal: 'The list of values must be in descending order' ].
 ]
 
 { #category : #validation }

@@ -39,9 +39,47 @@ self
 { #category : #tests }
 SquaresTest >> test003AHyperJumpSquareCannotHaveAListOfValueThatIsNotInDescendinOrder [
 
-	| values |
+	| values aValue1 aValue2 |
 	
-	values := #( 1 2 3) asOrderedCollection.
+	values := OrderedCollection new.
+	aValue1 := ParsecMovement with: 1.
+	aValue2 := ParsecMovement with: 2.
+	values add: aValue1.
+	values add: aValue2.
+
+self
+		should: [ HyperJumpSquare with: values ]
+		raise: Error
+		withMessage: 'The list of values must be in descending order'
+]
+
+{ #category : #tests }
+SquaresTest >> test004AHyperJumpSquareCannotHaveAListOfValueThatIsNotInDescendinOrder [
+
+	| values aValue1 aValue2 |
+	
+	values := OrderedCollection new.
+	aValue1 := ParsecMovement with: 1.
+	aValue2 := ParsecMovement with: 2.
+	values add: aValue1.
+	values add: aValue2.
+
+self
+		should: [ HyperJumpSquare with: values ]
+		raise: Error
+		withMessage: 'The list of values must be in descending order'
+]
+
+{ #category : #tests }
+SquaresTest >> test004AHyperJumpSquareCannotHaveAListOfValueThatIsNotInDescendinOrderAndValuesAreCompareByValueInParsecs [
+
+	| values aValue1 aValue2 |
+	
+	values := OrderedCollection new.
+	aValue1 := LightYearMovement with: 1.
+	aValue2 := ParsecMovement with: 1.
+	values add: aValue1.
+	values add: aValue2.
 
 self
 		should: [ HyperJumpSquare with: values ]

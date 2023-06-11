@@ -40,7 +40,7 @@ GalaxyCircuitGameTest >> aGameWith: anAmountOfSquares of: square and: anAmountOf
 { #category : #'set up' }
 GalaxyCircuitGameTest >> aGameWithRandomSquares [
 
-	| aGame aCollectionOfShips dice aDiceCup squares anAmountOfParsecs aBoard randomSquareGenerator anAmountOfSquares squaresToUse distribution aSpeedCard anOverloadCard cards aDeck |
+	| aGame aCollectionOfShips dice aDiceCup squares anAmountOfParsecs aBoard randomSquareGenerator anAmountOfSquares squaresToUse distribution aSpeedCard anOverloadCard cards aDeck values aValue1 |
 	
 	aCollectionOfShips := OrderedCollection
 		                      with: aPlayerName1
@@ -50,9 +50,12 @@ GalaxyCircuitGameTest >> aGameWithRandomSquares [
 	aDiceCup := DiceCup with: dice.
 	anAmountOfSquares := 30.
 	anAmountOfParsecs := 30.
+	values := OrderedCollection new.
+	aValue1 := ParsecMovement with: 4.
+	values add: aValue1.
 	squaresToUse := OrderedCollection new.
 	squaresToUse add: AtomicBombSquare new.
-	squaresToUse add: (HyperJumpSquare with: #( 4 1 ) asOrderedCollection).
+	squaresToUse add: (HyperJumpSquare with: values).
 	squaresToUse add: (MoonwalkSquare with: 3).
 	squaresToUse add: SpeedUpSquare new.
 	squaresToUse add: WormholeSquare new.
@@ -500,10 +503,13 @@ GalaxyCircuitGameTest >> test021AGameWithOnlyMoonwalkSquaresMovesAllOtherShipsBa
 { #category : #tests }
 GalaxyCircuitGameTest >> test022AGameWithOnlyHyperJumpSquaresMovesShipsAnAmountOfParsecsFowardWhenTheyLandOnThoseSquares [
 
-	| aGame amountOfSquares aHyperJumpSquare anAmountOfParsecs aSpeedCard cards |
+	| aGame amountOfSquares aHyperJumpSquare anAmountOfParsecs aSpeedCard cards values aValue1 |
 	
 	amountOfSquares := 30.
-	aHyperJumpSquare := HyperJumpSquare with: (#(21 10) asOrderedCollection).
+	values := OrderedCollection new.
+	aValue1 := ParsecMovement with: 21.
+	values add: aValue1.
+	aHyperJumpSquare := HyperJumpSquare with: values.
 	anAmountOfParsecs := 60.
 	aSpeedCard := SpeedCard new.
 	cards := OrderedCollection with: aSpeedCard.
@@ -517,10 +523,13 @@ GalaxyCircuitGameTest >> test022AGameWithOnlyHyperJumpSquaresMovesShipsAnAmountO
 { #category : #tests }
 GalaxyCircuitGameTest >> test023AGameWithOnlyHyperJumpSquaresMovesShipsAnAmountOfParsecsFowardWhenTheyLandOnThoseSquaresCanAdvanceLapsWithTheEffect [
 
-	| aGame amountOfSquares aHyperJumpSquare anAmountOfParsecs aSpeedCard cards |
+	| aGame amountOfSquares aHyperJumpSquare anAmountOfParsecs aSpeedCard cards values aValue1 |
 	
 	amountOfSquares := 30.
-	aHyperJumpSquare := HyperJumpSquare with: (#(40 5) asOrderedCollection).
+	values := OrderedCollection new.
+	aValue1 := ParsecMovement with: 40.
+	values add: aValue1.
+	aHyperJumpSquare := HyperJumpSquare with: values.
 	anAmountOfParsecs := 60.
 	aSpeedCard := SpeedCard new.
 	cards := OrderedCollection with: aSpeedCard.
@@ -534,10 +543,13 @@ GalaxyCircuitGameTest >> test023AGameWithOnlyHyperJumpSquaresMovesShipsAnAmountO
 { #category : #tests }
 GalaxyCircuitGameTest >> test024AGameWithOnlyHyperJumpSquaresMovesShipsAnAmountOfParsecsBackwardsWhenTheyLandOnThoseSquaresCanGoBackLapsWithTheEffect [
 
-	| aGame amountOfSquares aHyperJumpSquare anAmountOfParsecs aSpeedCard cards |
+	| aGame amountOfSquares aHyperJumpSquare anAmountOfParsecs aSpeedCard cards values aValue1 |
 	
 	amountOfSquares := 10.
-	aHyperJumpSquare := HyperJumpSquare with: (#(-21) asOrderedCollection).
+	values := OrderedCollection new.
+	aValue1 := ParsecMovement with: -21.
+	values add: aValue1.
+	aHyperJumpSquare := HyperJumpSquare with: values.
 	anAmountOfParsecs := 20.
 	aSpeedCard := SpeedCard new.
 	cards := OrderedCollection with: aSpeedCard.
@@ -1001,4 +1013,47 @@ GalaxyCircuitGameTest >> test047AGameCanPlayARepeatInstantCardEvenWhenTheOwnerIs
 	aGame playRepeatFrom: aCardOwner to: aTargetShip.
 
 	self assert: ((aGame shipPositions) at: 1) equals: 23.
+]
+
+{ #category : #tests }
+GalaxyCircuitGameTest >> test050AGameWithOnlyHyperJumpSquaresMovesShipsAnAmountOfLightYearsFowardWhenTheyLandOnThoseSquares [
+	| aGame amountOfSquares aHyperJumpSquare anAmountOfParsecs aSpeedCard cards values aValue1 |
+	
+	amountOfSquares := 30.
+	values := OrderedCollection new.
+	aValue1 := LightYearMovement with: 20.
+	values add: aValue1.
+	aHyperJumpSquare := HyperJumpSquare with: values.
+	anAmountOfParsecs := 60.
+	aSpeedCard := SpeedCard new.
+	cards := OrderedCollection with: aSpeedCard.
+	aGame := self aGameWith: amountOfSquares of: aHyperJumpSquare and: anAmountOfParsecs using: cards.
+
+	aGame playTurn.
+
+	self assert: (aGame shipLaps at: 1) equals: 1.
+	self assert: ((aGame shipPositions) at: 1) equals: (55/3).
+]
+
+{ #category : #tests }
+GalaxyCircuitGameTest >> test051AGameWithOnlyHyperJumpSquaresMovesShipsAnAmountOfLightYearsOrParsecsFowardWhenTheyLandOnThoseSquares [
+	| aGame amountOfSquares aHyperJumpSquare anAmountOfParsecs aSpeedCard cards values aValue1 aValue2 |
+	
+	amountOfSquares := 30.
+	values := OrderedCollection new.
+	aValue1 := LightYearMovement with: 20.
+	aValue2 := ParsecMovement with: 5.
+	values add: aValue1.
+	values add: aValue2.
+	aHyperJumpSquare := HyperJumpSquare with: values.
+	anAmountOfParsecs := 60.
+	aSpeedCard := SpeedCard new.
+	cards := OrderedCollection with: aSpeedCard.
+	aGame := self aGameWith: amountOfSquares of: aHyperJumpSquare and: anAmountOfParsecs using: cards.
+
+	aGame playTurn.
+	aGame playTurn.
+	
+	self assert: ((aGame shipPositions) at: 1) equals: (55/3).
+	self assert: ((aGame shipPositions) at: 2) equals: 14.5.
 ]

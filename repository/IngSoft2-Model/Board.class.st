@@ -72,7 +72,7 @@ Board >> outOfBoardBounds: aPosition [
 { #category : #actions }
 Board >> parsecMovementToSquare: aParsecMovement [
 
-	^ (aParsecMovement / self parsecsPerSquare).
+	^ ((aParsecMovement convertToParsec) / self parsecsPerSquare).
 ]
 
 { #category : #actions }
