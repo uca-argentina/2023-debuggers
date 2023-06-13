@@ -997,7 +997,28 @@ GalaxyCircuitGameTest >> test046AGameCanPlayARepeatCardUsingALoadedDeckAndABoard
 ]
 
 { #category : #tests }
-GalaxyCircuitGameTest >> test047AGameCanPlayARepeatInstantCardEvenWhenTheOwnerIsNotTheCurrentTurnShip [
+GalaxyCircuitGameTest >> test047AGameCanPlayARepeatCardUsingALoadedDeckAndABoardWithOnlyMoonwalkSquaresThenTheSquareEffectIsRepeatedAndCenteredOnTargetShip [
+
+	| aGame amountOfSquares anAmountOfParsecs aCardOwner aTargetShip cards aRepeatCard |
+	
+	amountOfSquares := 30.
+	anAmountOfParsecs := 30.
+	aCardOwner := 1.
+	aTargetShip := 1.
+	aRepeatCard := RepeatCard new.
+	cards := OrderedCollection with: aRepeatCard.
+	aGame := self aGameWith: amountOfSquares of: (MoonwalkSquare with: 4) and: anAmountOfParsecs using: cards.
+	
+	aGame playTurn.
+	aGame playTurn.
+	aGame playRepeatFrom: aCardOwner to: aTargetShip.
+
+	self assert: ((aGame shipPositions) at: 1) equals: 11.
+	self assert: ((aGame shipPositions) at: 2) equals: 4.
+]
+
+{ #category : #tests }
+GalaxyCircuitGameTest >> test048AGameCanPlayARepeatInstantCardEvenWhenTheOwnerIsNotTheCurrentTurnShip [
 
 	| aGame amountOfSquares anAmountOfParsecs aCardOwner aTargetShip cards aRepeatCard |
 	
@@ -1016,7 +1037,49 @@ GalaxyCircuitGameTest >> test047AGameCanPlayARepeatInstantCardEvenWhenTheOwnerIs
 ]
 
 { #category : #tests }
-GalaxyCircuitGameTest >> test050AGameWithOnlyHyperJumpSquaresMovesShipsAnAmountOfLightYearsFowardWhenTheyLandOnThoseSquares [
+GalaxyCircuitGameTest >> test049AGameCanPlayARepeatInstantCardEvenWhenNoOneHasPlayedThenRepeatsANoEffectSquare [
+
+	| aGame amountOfSquares anAmountOfParsecs aCardOwner aTargetShip cards aRepeatCard |
+	
+	amountOfSquares := 30.
+	anAmountOfParsecs := 30.
+	aCardOwner := 2.
+	aTargetShip := 1.
+	aRepeatCard := RepeatCard new.
+	cards := OrderedCollection with: aRepeatCard.
+	aGame := self aGameWith: amountOfSquares of: NoEffectSquare new and: anAmountOfParsecs using: cards.
+	
+	aGame playRepeatFrom: aCardOwner to: aTargetShip.
+	aGame playTurn.
+
+	self assert: ((aGame shipPositions) at: 1) equals: 15.
+]
+
+{ #category : #tests }
+GalaxyCircuitGameTest >> test050AGameWithOnlyDrawCardSquaresGivesPlayersAnotherCardThenTheyCanPlayAnExtraCardBesidesTheirTwoStartingCards [
+	| aGame amountOfSquares anAmountOfParsecs aSpeedCard cards aCardOwner aTargetShip |
+	
+	amountOfSquares := 30.
+	anAmountOfParsecs := 60.
+	aCardOwner := 1.
+	aTargetShip := 1.
+	aSpeedCard := SpeedCard new.
+	cards := OrderedCollection with: aSpeedCard.
+	aGame := self aGameWith: amountOfSquares of: CardSquare new and: anAmountOfParsecs using: cards.
+
+	aGame playTurn.
+	aGame playTurn.
+	aGame playTurn.
+	aGame playSpeedFrom: aCardOwner to: aTargetShip.
+	aGame playSpeedFrom: aCardOwner to: aTargetShip.
+	aGame playSpeedFrom: aCardOwner to: aTargetShip.
+	aGame playTurn.
+
+	self assert: ((aGame shipPositions) at: 1) equals: 2.
+]
+
+{ #category : #tests }
+GalaxyCircuitGameTest >> test051AGameWithOnlyHyperJumpSquaresMovesShipsAnAmountOfLightYearsFowardWhenTheyLandOnThoseSquares [
 	| aGame amountOfSquares aHyperJumpSquare anAmountOfParsecs aSpeedCard cards values aValue1 |
 	
 	amountOfSquares := 30.
@@ -1036,7 +1099,7 @@ GalaxyCircuitGameTest >> test050AGameWithOnlyHyperJumpSquaresMovesShipsAnAmountO
 ]
 
 { #category : #tests }
-GalaxyCircuitGameTest >> test051AGameWithOnlyHyperJumpSquaresMovesShipsAnAmountOfLightYearsOrParsecsFowardWhenTheyLandOnThoseSquares [
+GalaxyCircuitGameTest >> test052AGameWithOnlyHyperJumpSquaresMovesShipsAnAmountOfLightYearsOrParsecsFowardWhenTheyLandOnThoseSquares [
 	| aGame amountOfSquares aHyperJumpSquare anAmountOfParsecs aSpeedCard cards values aValue1 aValue2 |
 	
 	amountOfSquares := 30.

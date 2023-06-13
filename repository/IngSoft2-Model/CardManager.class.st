@@ -55,6 +55,12 @@ CardManager >> currentTurn [
 	^ currentTurn.
 ]
 
+{ #category : #'as yet unclassified' }
+CardManager >> drawCardTo: aTargetHand [
+	
+	(playerCards at: aTargetHand) addCard: deck draw.
+]
+
 { #category : #initialization }
 CardManager >> initializeWith: somePlayersNames using: aDeck [
 	

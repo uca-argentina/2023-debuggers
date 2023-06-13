@@ -20,9 +20,9 @@ MoonwalkSquare class >> with: anAmountOfSteps [
 ]
 
 { #category : #effect }
-MoonwalkSquare >> effectTo: aTargetShip in: aMovementManager [
+MoonwalkSquare >> effectTo: aTargetShip in: aGameEventManager [
 
-	aMovementManager applyMoonwalk: (steps negated) to: aTargetShip.
+	aGameEventManager movementManager applyMoonwalk: (steps negated) to: aTargetShip.
 ]
 
 { #category : #initialization }

@@ -11,8 +11,8 @@ RedoCard >> equals: anotherCard [
 ]
 
 { #category : #'playing card' }
-RedoCard >> playIn: aCardManager from: aCardOwner to: aTargetShip [
+RedoCard >> playIn: aGameEventManager from: aCardOwner to: aTargetShip [
 	
-	(aCardManager lastCardPlayed) playIn: aCardManager from: aCardOwner to: aTargetShip.
+	(aGameEventManager cardManager) lastCardPlayed playIn: aGameEventManager from: aCardOwner to: aTargetShip.
 	
 ]

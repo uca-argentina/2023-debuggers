@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-SpeedUpSquare >> effectTo: aTargetShip in: aMovementManager [
+SpeedUpSquare >> effectTo: aTargetShip in: aGameEventManager [
 
-	aMovementManager updatePosition: 4 to: aTargetShip.
+	aGameEventManager movementManager updatePosition: 4 to: aTargetShip.
 ]

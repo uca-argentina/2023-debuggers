@@ -31,6 +31,15 @@ MovementManager >> applyEffectTo: aTargetShip [
 ]
 
 { #category : #'applying effects' }
+MovementManager >> applyEffectTo: aTargetShip in: aGameEventManager [
+	
+	| landedSquare |
+	
+	landedSquare := ((ships at: aTargetShip) position).
+	board effectTo: aTargetShip at: landedSquare truncated in: aGameEventManager.
+]
+
+{ #category : #'applying effects' }
 MovementManager >> applyMoonwalk: steps to: aTargetShip [
 
 	ships withIndexDo: [ :aShip :aShipTurnOrder | 

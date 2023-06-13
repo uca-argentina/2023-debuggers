@@ -5,7 +5,8 @@ Class {
 		'diceCup',
 		'turnOrder',
 		'cardManager',
-		'movementManager'
+		'movementManager',
+		'gameEventManager'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -35,7 +36,7 @@ GalaxyCircuitGame class >> with: somePlayersName and: aBoard and: anAmountOfLaps
 { #category : #accessing }
 GalaxyCircuitGame >> currentTurn [
 
-	^ turnOrder current.
+	^ gameEventManager currentTurn.
 ]
 
 { #category : #initialization }
@@ -52,6 +53,7 @@ GalaxyCircuitGame >> initializeWith: somePlayersNames and: aBoard and: anAmountO
 		turns add: counter.
 		counter := counter + 1 ].
 	turnOrder := SequenceHandler with: turns.
+	gameEventManager := GameEventManager with: cardManager and: movementManager and: turnOrder.
 ]
 
 { #category : #playing }
@@ -61,7 +63,7 @@ GalaxyCircuitGame >> playAccelerationFrom: aCardOwner to: aTargetShip [
 	
 	anAccelerationCard := AccelerationCard new.
 	cardManager checkThat: aCardOwner has: anAccelerationCard.
-	anAccelerationCard playIn: cardManager from: aCardOwner to: aTargetShip.
+	anAccelerationCard playIn: gameEventManager from: aCardOwner to: aTargetShip.
 	cardManager remove: anAccelerationCard from: aCardOwner.
 	cardManager updateLastCardPlayed: anAccelerationCard.
 ]
@@ -72,7 +74,8 @@ GalaxyCircuitGame >> playCancellationFrom: aCardOwner to: aTargetPlayedPermanent
 	| aCancellationCard |
 	
 	aCancellationCard := CancellationCard new.
-	aCancellationCard playIn: cardManager from: aCardOwner to: aTargetPlayedPermanent.
+	cardManager checkThat: aCardOwner has: aCancellationCard.
+	aCancellationCard playIn: gameEventManager from: aCardOwner to: aTargetPlayedPermanent.
 	cardManager remove: aCancellationCard from: aCardOwner.
 	cardManager updateLastCardPlayed: aCancellationCard.
 ]
@@ -84,7 +87,7 @@ GalaxyCircuitGame >> playOverloadFrom: aCardOwner to: aTargetShip [
 	
 	anOverloadCard := OverloadCard new.
 	cardManager checkThat: aCardOwner has: anOverloadCard.
-	anOverloadCard playIn: cardManager from: aCardOwner to: aTargetShip.
+	anOverloadCard playIn: gameEventManager from: aCardOwner to: aTargetShip.
 	cardManager remove: anOverloadCard from: aCardOwner.
 	cardManager updateLastCardPlayed: anOverloadCard.
 ]
@@ -96,8 +99,9 @@ GalaxyCircuitGame >> playRedoFrom: aCardOwner to: aTarget [
 	
 	aRedoCard := RedoCard new.
 	cardManager checkThat: aCardOwner has: aRedoCard.
-	aRedoCard playIn: cardManager from: aCardOwner to: aTarget.
+	aRedoCard playIn: gameEventManager from: aCardOwner to: aTarget.
 	cardManager remove: aRedoCard from: aCardOwner.
+	cardManager updateLastCardPlayed: aRedoCard.
 ]
 
 { #category : #playing }
@@ -107,7 +111,7 @@ GalaxyCircuitGame >> playRepeatFrom: aCardOwner to: aTarget [
 	
 	aRepeatCard := RepeatCard new.
 	cardManager checkThat: aCardOwner has: aRepeatCard.
-	aRepeatCard playIn: movementManager from: aCardOwner to: aTarget.
+	aRepeatCard playIn: gameEventManager from: aCardOwner to: aTarget.
 	cardManager remove: aRepeatCard from: aCardOwner.
 	cardManager updateLastCardPlayed: aRepeatCard.
 ]
@@ -119,7 +123,7 @@ GalaxyCircuitGame >> playSpeedFrom: aCardOwner to: aTargetShip [
 	
 	aSpeedCard := SpeedCard new.
 	cardManager checkThat: aCardOwner has: aSpeedCard.
-	aSpeedCard playIn: cardManager from: aCardOwner to: aTargetShip.
+	aSpeedCard playIn: gameEventManager from: aCardOwner to: aTargetShip.
 	cardManager remove: aSpeedCard from: aCardOwner.
 	cardManager updateLastCardPlayed: aSpeedCard.
 ]
@@ -127,13 +131,10 @@ GalaxyCircuitGame >> playSpeedFrom: aCardOwner to: aTargetShip [
 { #category : #playing }
 GalaxyCircuitGame >> playTurn [
 
-	| currentTurn |
-	
-	movementManager checkThereIsNoWinner.
-	currentTurn := self currentTurn.
-	movementManager updatePosition: (diceCup throw + ( cardManager usePermanentCardsFrom: currentTurn )) to: currentTurn.
-	movementManager applyEffectTo: currentTurn.
-	cardManager updateTurn: turnOrder next.
+	gameEventManager checkThereIsNoWinner.
+	gameEventManager moveCurrentTurnPlayer: diceCup throw.
+	gameEventManager applyEffectToCurrentTurnPlayer.
+	gameEventManager updateTurn.
 ]
 
 { #category : #accessing }

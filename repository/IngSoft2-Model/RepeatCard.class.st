@@ -11,7 +11,7 @@ RepeatCard >> equals: anotherCard [
 ]
 
 { #category : #'playing card' }
-RepeatCard >> playIn: aMovementManager from: aCardOwner to: aTargetShip [
+RepeatCard >> playIn: aGameEventManager from: aCardOwner to: aTargetShip [
 	
-	(aMovementManager lastSquareLanded) effectTo: aTargetShip in: aMovementManager.
+	(aGameEventManager movementManager) lastSquareLanded effectTo: aTargetShip in: aGameEventManager.
 ]

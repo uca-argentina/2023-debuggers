@@ -11,10 +11,11 @@ CancellationCard >> equals: anotherCard [
 ]
 
 { #category : #'as yet unclassified' }
-CancellationCard >> playIn: aCardManager from: aCardOwner to: aTargetPlayedPermanentCard [
+CancellationCard >> playIn: aGameEventManager from: aCardOwner to: aTargetPlayedPermanentCard [
 	
-	| targetCard targetShip |
+	| targetCard targetShip aCardManager |
 	
+	aCardManager := aGameEventManager cardManager.
 	targetCard := aTargetPlayedPermanentCard card.
 	targetShip := aTargetPlayedPermanentCard target.
 	aCardManager checkCancel: targetCard to: targetShip.
