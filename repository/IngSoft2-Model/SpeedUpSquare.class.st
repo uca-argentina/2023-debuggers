@@ -5,6 +5,7 @@ Class {
 }
 
 { #category : #effect }
-SpeedUpSquare >> effect: aGame [
-	^ aGame updatePosition: 4.
+SpeedUpSquare >> effectTo: aTargetShip in: aGameEventManager [
+
+	aGameEventManager movementManager updatePosition: 4 to: aTargetShip.
 ]

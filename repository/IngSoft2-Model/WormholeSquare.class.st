@@ -5,6 +5,7 @@ Class {
 }
 
 { #category : #effect }
-WormholeSquare >> effect: aGame [
-	aGame updatePosition: -4.
+WormholeSquare >> effectTo: aTargetShip in: aGameEventManager [
+
+	aGameEventManager movementManager updatePosition: -4 to: aTargetShip.
 ]

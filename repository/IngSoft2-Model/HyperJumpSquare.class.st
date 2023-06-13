@@ -4,17 +4,13 @@ Class {
 	#instVars : [
 		'sequence'
 	],
-	#classInstVars : [
-		'parsecs',
-		'collectionSquares'
-	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #validation }
-HyperJumpSquare class >> checkValuesAreInDescendingOrder: someValues [
+HyperJumpSquare class >> checkValuesAreInDescendingOrder: someMovements [
 
-	(someValues isSortedBy: [:a :b | a >= b ]) ifFalse: [ Error signal: 'The list of values must be in descending order' ].
+	(someMovements isSortedBy: [:aMovement :anotherMovement | aMovement convertToParsec >= anotherMovement convertToParsec]) ifFalse: [ Error signal: 'The list of values must be in descending order' ].
 ]
 
 { #category : #validation }
@@ -31,12 +27,12 @@ HyperJumpSquare class >> with: someValues [
 ]
 
 { #category : #accessing }
-HyperJumpSquare >> effect: aGame [
+HyperJumpSquare >> effectTo: aTargetShip in: aGameEventManager [
 	
 	| parsecSteps |
 	
 	parsecSteps := (sequence next).
-	aGame updateParsecs: parsecSteps.
+	aGameEventManager movementManager updateParsecs: parsecSteps to: aTargetShip.
 	
 ]
 

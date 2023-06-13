@@ -4,12 +4,7 @@ Class {
 	#instVars : [
 		'name',
 		'position',
-		'lap',
-		'parsec'
-	],
-	#classInstVars : [
-		'position',
-		'nameList'
+		'lap'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -31,7 +26,6 @@ Ship >> intializeWith: aName [
 	name := aName.
 	lap := 1.
 	position := 1.
-	parsec := 1.
 ]
 
 { #category : #accessing }
@@ -54,17 +48,6 @@ Ship >> moveLaps: someLaps and: aNewPosition [
 { #category : #accessing }
 Ship >> name [
 	^ name.
-]
-
-{ #category : #accessing }
-Ship >> parsec [
-	^ parsec.
-]
-
-{ #category : #accessing }
-Ship >> parsecMove: parsecSteps [
-
-	parsec := parsecSteps. 
 ]
 
 { #category : #accessing }

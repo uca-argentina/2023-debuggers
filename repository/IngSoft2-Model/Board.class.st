@@ -2,6 +2,7 @@ Class {
 	#name : #Board,
 	#superclass : #Object,
 	#instVars : [
+		'lastSquareLanded',
 		'squares',
 		'parsecs'
 	],
@@ -35,34 +36,38 @@ Board class >> with: someSquares and: anAmountOfParsecs [
 	^ self new initializeWith: someSquares and: anAmountOfParsecs.
 ]
 
-{ #category : #actions }
-Board >> checkParsecLandedWith: parsecSteps [
-
-	^ ((parsecSteps % self parsecsPerSquare) + 1).
-]
-
 { #category : #initialization }
-Board >> effectTo: aGame at: aSquareIndex [
-
-	(squares at: aSquareIndex) effect: aGame.
+Board >> effectTo: aTargetShip at: aSquareIndex in: aGameEventManager [
+	
+	lastSquareLanded := squares at: aSquareIndex.
+	lastSquareLanded effectTo: aTargetShip in: aGameEventManager.
+	
 ]
 
 { #category : #initialization }
 Board >> initializeWith: someSquares and: anAmountOfParsecs [
 
 	squares := someSquares.
+	lastSquareLanded := NoEffectSquare new.
 	parsecs := anAmountOfParsecs.
+]
+
+{ #category : #accessing }
+Board >> lastSquareLanded [
+	
+	^ lastSquareLanded.
+]
+
+{ #category : #actions }
+Board >> nonSquareMovementToSquareMovement: aNonSquareMovement [
+
+	^ ((aNonSquareMovement convertToParsec) / self parsecsPerSquare).
 ]
 
 { #category : #'boundary check' }
 Board >> outOfBoardBounds: aPosition [ 
+
 	^ aPosition > (squares size) or: aPosition < 1
-]
-
-{ #category : #actions }
-Board >> parsecMovementToSquare: aParsecMovement [
-
-	^ (aParsecMovement / self parsecsPerSquare).
 ]
 
 { #category : #actions }
