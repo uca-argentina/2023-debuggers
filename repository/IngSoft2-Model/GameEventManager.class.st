@@ -11,18 +11,12 @@ Class {
 }
 
 { #category : #'instance creation' }
-GameEventManager class >> with: aCardManager and: aMovementManager [
-
-	^ (self new) initializeWith: aCardManager and: aMovementManager.
-]
-
-{ #category : #'instance creation' }
 GameEventManager class >> with: aCardManager and: aMovementManager and: aTurnOrder [
 
 	^ (self new) initializeWith: aCardManager and: aMovementManager and: aTurnOrder.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #playing }
 GameEventManager >> applyEffectToCurrentTurnPlayer [
 
 	movementManager applyEffectTo: currentTurn in: self.
@@ -33,7 +27,7 @@ GameEventManager >> cardManager [
 	^ cardManager
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #validation }
 GameEventManager >> checkThat: aCardOwner has: aCard [ 
 	
 	(cardManager checkThat: aCardOwner has: aCard) ifFalse: [ Error signal: 'Unable to play card when the player does not own the card' ]
@@ -52,13 +46,6 @@ GameEventManager >> currentTurn [
 ]
 
 { #category : #initialization }
-GameEventManager >> initializeWith: aCardManager and: aMovementManager [
-
-	cardManager := aCardManager.
-	movementManager := aMovementManager.
-]
-
-{ #category : #initialization }
 GameEventManager >> initializeWith: aCardManager and: aMovementManager and: aTurnOrder [
 
 	cardManager := aCardManager.
@@ -67,7 +54,7 @@ GameEventManager >> initializeWith: aCardManager and: aMovementManager and: aTur
 	currentTurn := aTurnOrder next.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #playing }
 GameEventManager >> moveCurrentTurnPlayer: aDiceResult [
 	
 	| permanentCardsModifiers |
@@ -105,7 +92,7 @@ GameEventManager >> shipRanking [
 	^ movementManager shipRanking.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #playing }
 GameEventManager >> updateLastCardPlayed: aCard [
 
 	cardManager updateLastCardPlayed: aCard.

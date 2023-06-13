@@ -8,7 +8,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 PlayedPermanent class >> with: aPermanentCard to: aTargetShip [
 
 	^ (self new) initializeWith: aPermanentCard to: aTargetShip.

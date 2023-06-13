@@ -13,7 +13,7 @@ LightYearMovement class >> with: aValue [
 	^ self new initializeWith: aValue
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'unit conversion' }
 LightYearMovement >> convertToParsec [
 
 	^ value / 3

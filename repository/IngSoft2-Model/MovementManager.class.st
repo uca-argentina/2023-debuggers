@@ -9,7 +9,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #'instance creation' }
 MovementManager class >> with: somePlayersNames and: anAmountOfLaps using: aBoard [
 
 	^ (self new) initializeWith: somePlayersNames and: anAmountOfLaps using: aBoard.

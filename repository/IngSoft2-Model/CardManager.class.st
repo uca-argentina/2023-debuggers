@@ -4,8 +4,7 @@ Class {
 	#instVars : [
 		'deck',
 		'lastCardPlayed',
-		'playerCards',
-		'currentTurn'
+		'playerCards'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -18,19 +17,19 @@ CardManager class >> with: somePlayersNames using: aDeck [.
 	
 ]
 
-{ #category : #'card effects' }
+{ #category : #'adding Cards' }
 CardManager >> addPermanent: aPermanentCard to: aTargetShip [
 
 	( playerCards at: aTargetShip) addToPermanentPile: aPermanentCard.
 ]
 
-{ #category : #'card effects' }
+{ #category : #'adding Cards' }
 CardManager >> addToAllPermanentPiles: aPermanentCard [
 	
 	playerCards do: [ :aPlayerCards | aPlayerCards addToPermanentPile: aPermanentCard ].
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'card playability' }
 CardManager >> checkCancel: aPermanentCardToCancel to: targetShip [
 
 	(((playerCards at: targetShip) permanents) anySatisfy: [ :aCard | 
@@ -38,7 +37,7 @@ CardManager >> checkCancel: aPermanentCardToCancel to: targetShip [
 		Error signal: 'Unable to cancel the permanent card because there is no such card in effect' ]
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'card playability' }
 CardManager >> checkThat: aCardOwner has: aCard [
 	
 	| aPlayerCards |
@@ -49,13 +48,7 @@ CardManager >> checkThat: aCardOwner has: aCard [
 	
 ]
 
-{ #category : #accessing }
-CardManager >> currentTurn [
-
-	^ currentTurn.
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #'adding Cards' }
 CardManager >> drawCardTo: aTargetHand [
 	
 	(playerCards at: aTargetHand) addCard: deck draw.
@@ -64,7 +57,6 @@ CardManager >> drawCardTo: aTargetHand [
 { #category : #initialization }
 CardManager >> initializeWith: somePlayersNames using: aDeck [
 	
-	currentTurn := 1.
 	deck := aDeck.
 	lastCardPlayed := NonPlayableCard new.
 	playerCards := OrderedCollection new.
@@ -81,13 +73,13 @@ CardManager >> lastCardPlayed [
 	^ lastCardPlayed.
 ]
 
-{ #category : #removing }
+{ #category : #'removing cards' }
 CardManager >> remove: aCard from: aCardOwner [
 
 	(playerCards at: aCardOwner) removeFromHand: aCard.
 ]
 
-{ #category : #removing }
+{ #category : #'removing cards' }
 CardManager >> remove: aPermanentCardToCancel to: aTargetShip [
 	
 	| targetHand |
@@ -97,19 +89,13 @@ CardManager >> remove: aPermanentCardToCancel to: aTargetShip [
 	targetHand removePermanent: aPermanentCardToCancel.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'card effects' }
 CardManager >> updateLastCardPlayed: aCard [
 			
 	lastCardPlayed := aCard.
 ]
 
-{ #category : #'as yet unclassified' }
-CardManager >> updateTurn: aTurnNumber [
-
-	currentTurn := aTurnNumber.
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #'card effects' }
 CardManager >> usePermanentCardsFrom: aPlayer [
 
 	^ (playerCards at: aPlayer) usePermanents.

@@ -38,7 +38,7 @@ GalaxyCircuitGameTest >> aGameWith: anAmountOfSquares of: square and: anAmountOf
 ]
 
 { #category : #'set up' }
-GalaxyCircuitGameTest >> aGameWithRandomSquares [
+GalaxyCircuitGameTest >> aGameWithRandomSquaresAndRandomCards [
 
 	| aGame aCollectionOfShips dice aDiceCup squares anAmountOfParsecs aBoard randomSquareGenerator anAmountOfSquares squaresToUse distribution aSpeedCard anOverloadCard cards aDeck values aValue1 |
 	
@@ -71,7 +71,7 @@ GalaxyCircuitGameTest >> aGameWithRandomSquares [
 	cards := OrderedCollection new.
 	cards add: aSpeedCard.
 	cards add: anOverloadCard.
-	aDeck := Deck with:cards.
+	aDeck := Deck with: cards.
 	aBoard := Board with: squares and: anAmountOfParsecs.
 	aGame := GalaxyCircuitGame
 		         with: aCollectionOfShips
@@ -586,7 +586,7 @@ GalaxyCircuitGameTest >> test026AGameCanPlayUsingABoardThatHasRandomSquares [
 
 	| aGame |
 	
-	aGame := self aGameWithRandomSquares.
+	aGame := self aGameWithRandomSquaresAndRandomCards.
 	
 	aGame playTurn.
 	aGame playTurn.

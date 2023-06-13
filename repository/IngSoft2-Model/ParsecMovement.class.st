@@ -13,7 +13,7 @@ ParsecMovement class >> with: aValue [
 	^ self new initializeWith: aValue
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'unit conversion' }
 ParsecMovement >> convertToParsec [
 
 	^ value
@@ -22,5 +22,6 @@ ParsecMovement >> convertToParsec [
 
 { #category : #initialization }
 ParsecMovement >> initializeWith: aValue [
+
 	value := aValue
 ]

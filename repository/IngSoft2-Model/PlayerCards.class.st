@@ -27,7 +27,7 @@ PlayerCards >> addToPermanentPile: aPermanentCard [
 	permanents add: aPermanentCard.
 ]
 
-{ #category : #testing }
+{ #category : #checking }
 PlayerCards >> hasInHand: aCard [
 
 	^ hand anySatisfy: [ :aHandCard | aHandCard equals: aCard ].
@@ -41,7 +41,7 @@ PlayerCards >> initializeFrom: aPlayerName [
 	permanents := OrderedCollection new.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #accessing }
 PlayerCards >> permanents [
 
 	^ permanents.
@@ -56,7 +56,7 @@ PlayerCards >> removeFromHand: aCard [
 	hand remove: cardToRemove.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #removing }
 PlayerCards >> removePermanent: aPermanentCardToCancel [
 
 	| aCardToRemove |
@@ -65,7 +65,7 @@ PlayerCards >> removePermanent: aPermanentCardToCancel [
 	permanents remove: aCardToRemove.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #using }
 PlayerCards >> usePermanents [
 
 	^ permanents sumNumbers: [ :aPermanentCard | aPermanentCard effect ]

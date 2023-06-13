@@ -4,7 +4,7 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
+{ #category : #effect }
 SpeedUpSquare >> effectTo: aTargetShip in: aGameEventManager [
 
 	aGameEventManager movementManager updatePosition: 4 to: aTargetShip.

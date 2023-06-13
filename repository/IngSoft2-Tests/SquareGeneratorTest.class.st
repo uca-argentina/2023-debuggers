@@ -175,3 +175,34 @@ SquareGeneratorTest >> test006ASquareGeneratorCanFollowADistributionGiven [
 				 aSquare isKindOf: HyperJumpSquare ]) ].
 	self assert: (((found size) / 1000) between: 7 and: 9).
 ]
+
+{ #category : #tests }
+SquareGeneratorTest >> test007ASquareGeneratorCanFollowADifferentDistributionGiven [
+
+	| randomSquareGenerator anAmountOfSquares randomSquares found squaresToUse distribution values aValue1 |
+	anAmountOfSquares := 100.
+	values := OrderedCollection new.
+	aValue1 := ParsecMovement with: 4.
+	values add: aValue1.
+	squaresToUse := OrderedCollection new.
+	squaresToUse add: AtomicBombSquare new.
+	squaresToUse add: (HyperJumpSquare with: values).
+	squaresToUse add: (MoonwalkSquare with: 3).
+	squaresToUse add: SpeedUpSquare new.
+	squaresToUse add: WormholeSquare new.
+	squaresToUse add: NoEffectSquare new.
+	squaresToUse add: CardSquare new.
+	distribution := #( 2 8 10 20 20 30 10 ) asOrderedCollection.
+	randomSquareGenerator := SquareGenerator
+		                         with: 100
+		                         of: squaresToUse
+		                         using: distribution.
+	randomSquares := randomSquareGenerator generateSquares.
+	found := OrderedCollection new.
+	1000 timesRepeat: [ 
+		randomSquares := randomSquareGenerator generateSquares.
+		found addAll:
+			(randomSquares select: [ :aSquare | 
+				 aSquare isKindOf: HyperJumpSquare ]) ].
+	self assert: (((found size) / 1000) between: 7 and: 9).
+]

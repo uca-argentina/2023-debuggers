@@ -3,9 +3,6 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'diceCup',
-		'turnOrder',
-		'cardManager',
-		'movementManager',
 		'gameEventManager'
 	],
 	#category : #'IngSoft2-Model'
@@ -42,18 +39,18 @@ GalaxyCircuitGame >> currentTurn [
 { #category : #initialization }
 GalaxyCircuitGame >> initializeWith: somePlayersNames and: aBoard and: anAmountOfLaps uses: aDiceCup uses: aDeck [
 
-	| counter turns |
+	| aCardManager aMovementManager counter turns aTurnOrder |
 	
-	cardManager := CardManager with: somePlayersNames using: aDeck.
-	movementManager := MovementManager with: somePlayersNames and: anAmountOfLaps using: aBoard.
+	aCardManager := CardManager with: somePlayersNames using: aDeck.
+	aMovementManager := MovementManager with: somePlayersNames and: anAmountOfLaps using: aBoard.
 	diceCup := aDiceCup.
 	counter := 1.
 	turns := OrderedCollection new.
 	somePlayersNames size timesRepeat: [ 
 		turns add: counter.
 		counter := counter + 1 ].
-	turnOrder := SequenceHandler with: turns.
-	gameEventManager := GameEventManager with: cardManager and: movementManager and: turnOrder.
+	aTurnOrder := SequenceHandler with: turns.
+	gameEventManager := GameEventManager with: aCardManager and: aMovementManager and: aTurnOrder.
 ]
 
 { #category : #playing }
