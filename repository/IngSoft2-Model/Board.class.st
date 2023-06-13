@@ -10,9 +10,9 @@ Class {
 }
 
 { #category : #validation }
-Board class >> checkParsecs: anAmountOfParsecs [
+Board class >> checkParsecs: anAmountOfAUnit [
 	
-	(anAmountOfParsecs < 1) ifTrue: [ Error signal: 'Amount of parsecs cannot be 0 or lower' ]
+	(anAmountOfAUnit convertToParsec < 1) ifTrue: [ Error signal: 'Amount of parsecs cannot be 0 or lower' ]
 ]
 
 { #category : #validation }
@@ -22,18 +22,18 @@ Board class >> checkSquares: someSquares [
 ]
 
 { #category : #validation }
-Board class >> checkSquares: someSquares and: anAmountOfParsecs [
+Board class >> checkSquares: someSquares and: anAmountOfAUnit [
 	
-	((anAmountOfParsecs % someSquares size) = 0) ifFalse: [ Error signal: 'Amount of parsecs must be divisible by the amount of squares' ]
+	((anAmountOfAUnit convertToParsec % someSquares size) = 0) ifFalse: [ Error signal: 'Amount of parsecs must be divisible by the amount of squares' ]
 ]
 
 { #category : #'instance creation' }
-Board class >> with: someSquares and: anAmountOfParsecs [
+Board class >> with: someSquares and: anAmountOfAUnit [
 
 	self checkSquares: someSquares.
-	self checkParsecs: anAmountOfParsecs.
-	self checkSquares: someSquares and: anAmountOfParsecs.
-	^ self new initializeWith: someSquares and: anAmountOfParsecs.
+	self checkParsecs: anAmountOfAUnit.
+	self checkSquares: someSquares and: anAmountOfAUnit.
+	^ self new initializeWith: someSquares and: anAmountOfAUnit.
 ]
 
 { #category : #initialization }
@@ -45,11 +45,11 @@ Board >> effectTo: aTargetShip at: aSquareIndex in: aGameEventManager [
 ]
 
 { #category : #initialization }
-Board >> initializeWith: someSquares and: anAmountOfParsecs [
+Board >> initializeWith: someSquares and: anAmountOfAUnit [
 
 	squares := someSquares.
 	lastSquareLanded := NoEffectSquare new.
-	parsecs := anAmountOfParsecs.
+	parsecs := anAmountOfAUnit convertToParsec.
 ]
 
 { #category : #accessing }
@@ -68,6 +68,11 @@ Board >> nonSquareMovementToSquareMovement: aNonSquareMovement [
 Board >> outOfBoardBounds: aPosition [ 
 
 	^ aPosition > (squares size) or: aPosition < 1
+]
+
+{ #category : #accessing }
+Board >> parsecs [
+	^ parsecs
 ]
 
 { #category : #actions }

@@ -1,5 +1,5 @@
 Class {
-	#name : #LightYearMovement,
+	#name : #Parsec,
 	#superclass : #Object,
 	#instVars : [
 		'value'
@@ -8,18 +8,20 @@ Class {
 }
 
 { #category : #'instance creation' }
-LightYearMovement class >> with: aValue [
+Parsec class >> with: aValue [
 
 	^ self new initializeWith: aValue
 ]
 
 { #category : #'unit conversion' }
-LightYearMovement >> convertToParsec [
+Parsec >> convertToParsec [
 
-	^ value / 3
+	^ value
+
 ]
 
 { #category : #initialization }
-LightYearMovement >> initializeWith: aValue [
+Parsec >> initializeWith: aValue [
+
 	value := aValue
 ]

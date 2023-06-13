@@ -20,7 +20,7 @@ BoardTest >> test001ABoardCanTellMeItsSize [
 	| aSquare squares aBoard anAmountOfParsecs |
 	aSquare := NoEffectSquare new.
 	squares := OrderedCollection with: aSquare.
-	anAmountOfParsecs := 1.
+	anAmountOfParsecs := Parsec with: 1.
 	aBoard := Board with: squares and: anAmountOfParsecs.
 	
 	self assert: (aBoard size) equals: 1.
@@ -46,7 +46,7 @@ BoardTest >> test003ABoardCannotHaveZeroAmountOfParsecsOrLower [
 	
 	aSquare := NoEffectSquare new.
 	squares := OrderedCollection with: aSquare.
-	anInvalidAmountOfParsecs := -1.
+	anInvalidAmountOfParsecs := Parsec with: -1.
 	
 	self
 		should: [ Board with: squares and: anInvalidAmountOfParsecs ]
@@ -63,10 +63,44 @@ BoardTest >> test004ABoardsAmountOfParsecsMustBeDivisibleByTheAmountOfSquares [
 	aSquare2 := NoEffectSquare new.
 	squares := OrderedCollection with: aSquare1. 
 	squares add: aSquare2.
-	anInvalidAmountOfParsecs := 1.
+	anInvalidAmountOfParsecs := Parsec with: 1.
 	
 	self
 		should: [ Board with: squares and: anInvalidAmountOfParsecs ]
 		raise: Error
 		withMessage: 'Amount of parsecs must be divisible by the amount of squares'
+]
+
+{ #category : #tests }
+BoardTest >> test005ABoardCanTellMeTheAmountOfParsecs [
+	
+	| anAmountOfParsecs aSquare1 aSquare2 squares aBoard |
+	
+	aSquare1 := NoEffectSquare new.
+	aSquare2 := NoEffectSquare new.
+	squares := OrderedCollection with: aSquare1. 
+	squares add: aSquare2.
+	anAmountOfParsecs := Parsec with: 4.
+	aBoard := Board with: squares and: anAmountOfParsecs.
+	
+	self assert: aBoard parsecs equals: 4.
+	
+
+]
+
+{ #category : #tests }
+BoardTest >> test006ABoardCanTellMeTheAmountOfParsecsEvenIfItWasCreatedWithLightYears [
+	
+	| anAmountOfLightYears aSquare1 aSquare2 squares aBoard |
+	
+	aSquare1 := NoEffectSquare new.
+	aSquare2 := NoEffectSquare new.
+	squares := OrderedCollection with: aSquare1. 
+	squares add: aSquare2.
+	anAmountOfLightYears := LightYear with: 12.
+	aBoard := Board with: squares and: anAmountOfLightYears.
+	
+	self assert: aBoard parsecs equals: 4.
+	
+
 ]
