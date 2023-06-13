@@ -36,17 +36,11 @@ Board class >> with: someSquares and: anAmountOfParsecs [
 	^ self new initializeWith: someSquares and: anAmountOfParsecs.
 ]
 
-{ #category : #actions }
-Board >> checkParsecLandedWith: parsecSteps [
-
-	^ ((parsecSteps % self parsecsPerSquare) + 1).
-]
-
 { #category : #initialization }
-Board >> effectTo: aTargetShip at: aSquareIndex in: aMovementManager [
+Board >> effectTo: aTargetShip at: aSquareIndex in: aGameEventManager [
 	
 	lastSquareLanded := squares at: aSquareIndex.
-	lastSquareLanded effectTo: aTargetShip in: aMovementManager.
+	lastSquareLanded effectTo: aTargetShip in: aGameEventManager.
 	
 ]
 
@@ -64,15 +58,16 @@ Board >> lastSquareLanded [
 	^ lastSquareLanded.
 ]
 
-{ #category : #'boundary check' }
-Board >> outOfBoardBounds: aPosition [ 
-	^ aPosition > (squares size) or: aPosition < 1
+{ #category : #actions }
+Board >> nonSquareMovementToSquareMovement: aNonSquareMovement [
+
+	^ ((aNonSquareMovement convertToParsec) / self parsecsPerSquare).
 ]
 
-{ #category : #actions }
-Board >> parsecMovementToSquare: aParsecMovement [
+{ #category : #'boundary check' }
+Board >> outOfBoardBounds: aPosition [ 
 
-	^ ((aParsecMovement convertToParsec) / self parsecsPerSquare).
+	^ aPosition > (squares size) or: aPosition < 1
 ]
 
 { #category : #actions }

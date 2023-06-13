@@ -98,11 +98,11 @@ MovementManager >> updateLapTo: aShip [
 ]
 
 { #category : #playing }
-MovementManager >> updateParsecs: parsecSteps to: aTargetShip [
+MovementManager >> updateParsecs: nonSquareMovement to: aTargetShip [
 
 	| turnShip steps |
 	turnShip := ships at: aTargetShip.
-	steps := board parsecMovementToSquare: parsecSteps.
+	steps := board nonSquareMovementToSquareMovement: nonSquareMovement.
 	turnShip move: steps.
 	
 	self updateLapTo: turnShip
