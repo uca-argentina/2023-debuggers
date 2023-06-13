@@ -98,11 +98,10 @@ GameEventManager >> updateLastCardPlayed: aCard [
 	cardManager updateLastCardPlayed: aCard.
 ]
 
-{ #category : #'as yet unclassified' }
-GameEventManager >> updateTurn [.
+{ #category : #playing }
+GameEventManager >> updateTurn [
 
 	currentTurn := turnOrder next.
-	cardManager updateTurn: currentTurn.
 ]
 
 { #category : #'game status' }

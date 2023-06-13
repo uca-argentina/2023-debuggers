@@ -9,8 +9,8 @@ Class {
 	#category : #'IngSoft2-Model'
 }
 
-{ #category : #'as yet unclassified' }
-CardManager class >> with: somePlayersNames using: aDeck [.
+{ #category : #'instance creation' }
+CardManager class >> with: somePlayersNames using: aDeck [
 
 	^ (self new) initializeWith: somePlayersNames using: aDeck.
 
