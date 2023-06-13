@@ -1,6 +1,6 @@
 Class {
 	#name : #NonPlayableCard,
-	#superclass : #Object,
+	#superclass : #Card,
 	#category : #'IngSoft2-Model'
 }
 

@@ -33,6 +33,12 @@ GameEventManager >> cardManager [
 	^ cardManager
 ]
 
+{ #category : #'as yet unclassified' }
+GameEventManager >> checkThat: aCardOwner has: aCard [ 
+	
+	(cardManager checkThat: aCardOwner has: aCard) ifFalse: [ Error signal: 'Unable to play card when the player does not own the card' ]
+]
+
 { #category : #validation }
 GameEventManager >> checkThereIsNoWinner [
 
@@ -75,9 +81,45 @@ GameEventManager >> movementManager [
 	^ movementManager
 ]
 
+{ #category : #removing }
+GameEventManager >> remove: aCard from: aCardOwner [
+	
+	cardManager remove: aCard from: aCardOwner.
+]
+
+{ #category : #accessing }
+GameEventManager >> shipLaps [
+
+	^ movementManager shipLaps.
+]
+
+{ #category : #accessing }
+GameEventManager >> shipPositions [
+	
+	^ movementManager shipPositions.
+]
+
+{ #category : #'game status' }
+GameEventManager >> shipRanking [
+
+	^ movementManager shipRanking.
+]
+
+{ #category : #'as yet unclassified' }
+GameEventManager >> updateLastCardPlayed: aCard [
+
+	cardManager updateLastCardPlayed: aCard.
+]
+
 { #category : #'as yet unclassified' }
 GameEventManager >> updateTurn [.
 
 	currentTurn := turnOrder next.
 	cardManager updateTurn: currentTurn.
+]
+
+{ #category : #'game status' }
+GameEventManager >> winner [
+
+	^ movementManager winner.
 ]

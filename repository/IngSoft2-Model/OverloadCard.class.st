@@ -10,12 +10,6 @@ OverloadCard >> effect [
 	^ -2.
 ]
 
-{ #category : #'as yet unclassified' }
-OverloadCard >> equals: anotherCard [
-
-	^ anotherCard isKindOf: self class.
-]
-
 { #category : #'playing card' }
 OverloadCard >> playIn: aGameEventManager from: aCardOwner to: aTargetShip [
 

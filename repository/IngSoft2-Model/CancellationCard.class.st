@@ -1,14 +1,8 @@
 Class {
 	#name : #CancellationCard,
-	#superclass : #Object,
+	#superclass : #Card,
 	#category : #'IngSoft2-Model'
 }
-
-{ #category : #comparing }
-CancellationCard >> equals: anotherCard [
-
-	^ anotherCard isKindOf: self class.
-]
 
 { #category : #'as yet unclassified' }
 CancellationCard >> playIn: aGameEventManager from: aCardOwner to: aTargetPlayedPermanentCard [

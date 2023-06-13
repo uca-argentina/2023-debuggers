@@ -1,14 +1,8 @@
 Class {
 	#name : #RedoCard,
-	#superclass : #Object,
+	#superclass : #Card,
 	#category : #'IngSoft2-Model'
 }
-
-{ #category : #comparing }
-RedoCard >> equals: anotherCard [
-
-	^ anotherCard isKindOf: self class.
-]
 
 { #category : #'playing card' }
 RedoCard >> playIn: aGameEventManager from: aCardOwner to: aTargetShip [

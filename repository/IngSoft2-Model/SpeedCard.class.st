@@ -10,12 +10,6 @@ SpeedCard >> effect [
 	^ 1.
 ]
 
-{ #category : #'as yet unclassified' }
-SpeedCard >> equals: anotherCard [
-
-	^ anotherCard isKindOf: SpeedCard.
-]
-
 { #category : #'playing card' }
 SpeedCard >> playIn: aGameEventManager from: aCardOwner to: aTargetShip [
 

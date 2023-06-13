@@ -22,15 +22,6 @@ MovementManager >> applyAtomicBomb [
 ]
 
 { #category : #'applying effects' }
-MovementManager >> applyEffectTo: aTargetShip [
-	
-	| landedSquare |
-	
-	landedSquare := ((ships at: aTargetShip) position).
-	board effectTo: aTargetShip at: landedSquare truncated in: self .
-]
-
-{ #category : #'applying effects' }
 MovementManager >> applyEffectTo: aTargetShip in: aGameEventManager [
 	
 	| landedSquare |
@@ -46,12 +37,6 @@ MovementManager >> applyMoonwalk: steps to: aTargetShip [
 		aShipTurnOrder = aTargetShip ifFalse: [ 
 			aShip move: steps. 
 			self updateLapTo: aShip ] ].
-]
-
-{ #category : #validation }
-MovementManager >> checkThereIsNoWinner [
-
-	self hasAWinner ifTrue: [ Error signal: 'Unable to play, Game has already finished' ]
 ]
 
 { #category : #testing }

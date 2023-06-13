@@ -57,75 +57,12 @@ GalaxyCircuitGame >> initializeWith: somePlayersNames and: aBoard and: anAmountO
 ]
 
 { #category : #playing }
-GalaxyCircuitGame >> playAccelerationFrom: aCardOwner to: aTargetShip [ 
+GalaxyCircuitGame >> play: aCard From: aCardOwner to: aTargetShip [ 
 	
-	| anAccelerationCard |
-	
-	anAccelerationCard := AccelerationCard new.
-	cardManager checkThat: aCardOwner has: anAccelerationCard.
-	anAccelerationCard playIn: gameEventManager from: aCardOwner to: aTargetShip.
-	cardManager remove: anAccelerationCard from: aCardOwner.
-	cardManager updateLastCardPlayed: anAccelerationCard.
-]
-
-{ #category : #playing }
-GalaxyCircuitGame >> playCancellationFrom: aCardOwner to: aTargetPlayedPermanent [ 
-	
-	| aCancellationCard |
-	
-	aCancellationCard := CancellationCard new.
-	cardManager checkThat: aCardOwner has: aCancellationCard.
-	aCancellationCard playIn: gameEventManager from: aCardOwner to: aTargetPlayedPermanent.
-	cardManager remove: aCancellationCard from: aCardOwner.
-	cardManager updateLastCardPlayed: aCancellationCard.
-]
-
-{ #category : #playing }
-GalaxyCircuitGame >> playOverloadFrom: aCardOwner to: aTargetShip [ 
-	
-	| anOverloadCard |
-	
-	anOverloadCard := OverloadCard new.
-	cardManager checkThat: aCardOwner has: anOverloadCard.
-	anOverloadCard playIn: gameEventManager from: aCardOwner to: aTargetShip.
-	cardManager remove: anOverloadCard from: aCardOwner.
-	cardManager updateLastCardPlayed: anOverloadCard.
-]
-
-{ #category : #playing }
-GalaxyCircuitGame >> playRedoFrom: aCardOwner to: aTarget [ 
-	
-	| aRedoCard |
-	
-	aRedoCard := RedoCard new.
-	cardManager checkThat: aCardOwner has: aRedoCard.
-	aRedoCard playIn: gameEventManager from: aCardOwner to: aTarget.
-	cardManager remove: aRedoCard from: aCardOwner.
-	cardManager updateLastCardPlayed: aRedoCard.
-]
-
-{ #category : #playing }
-GalaxyCircuitGame >> playRepeatFrom: aCardOwner to: aTarget [ 
-	
-	| aRepeatCard |
-	
-	aRepeatCard := RepeatCard new.
-	cardManager checkThat: aCardOwner has: aRepeatCard.
-	aRepeatCard playIn: gameEventManager from: aCardOwner to: aTarget.
-	cardManager remove: aRepeatCard from: aCardOwner.
-	cardManager updateLastCardPlayed: aRepeatCard.
-]
-
-{ #category : #playing }
-GalaxyCircuitGame >> playSpeedFrom: aCardOwner to: aTargetShip [ 
-	
-	| aSpeedCard |
-	
-	aSpeedCard := SpeedCard new.
-	cardManager checkThat: aCardOwner has: aSpeedCard.
-	aSpeedCard playIn: gameEventManager from: aCardOwner to: aTargetShip.
-	cardManager remove: aSpeedCard from: aCardOwner.
-	cardManager updateLastCardPlayed: aSpeedCard.
+	gameEventManager checkThat: aCardOwner has: aCard.
+	aCard playIn: gameEventManager from: aCardOwner to: aTargetShip.
+	gameEventManager remove: aCard from: aCardOwner.
+	gameEventManager updateLastCardPlayed: aCard.
 ]
 
 { #category : #playing }
@@ -140,23 +77,23 @@ GalaxyCircuitGame >> playTurn [
 { #category : #accessing }
 GalaxyCircuitGame >> shipLaps [
 
-	^ movementManager shipLaps
+	^ gameEventManager shipLaps.
 ]
 
 { #category : #accessing }
 GalaxyCircuitGame >> shipPositions [
 
-	^ movementManager shipPositions.
+	^ gameEventManager shipPositions.
 ]
 
 { #category : #'game status' }
 GalaxyCircuitGame >> shipRanking [
 
-	^ movementManager shipRanking.
+	^ gameEventManager shipRanking.
 ]
 
 { #category : #'game status' }
 GalaxyCircuitGame >> winner [
 
-	^ movementManager winner.
+	^ gameEventManager winner.
 ]

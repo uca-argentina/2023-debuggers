@@ -45,7 +45,7 @@ CardManager >> checkThat: aCardOwner has: aCard [
 	
 	aPlayerCards := playerCards at: aCardOwner.
 	
-	(aPlayerCards hasInHand: aCard) ifFalse: [ Error signal: 'Unable to play card when the player does not own the card' ]
+	^ (aPlayerCards hasInHand: aCard) .
 	
 ]
 
