@@ -42,8 +42,8 @@ SquaresTest >> test003AHyperJumpSquareCannotHaveAListOfValueThatIsNotInDescendin
 	| values aValue1 aValue2 |
 	
 	values := OrderedCollection new.
-	aValue1 := ParsecMovement with: 1.
-	aValue2 := ParsecMovement with: 2.
+	aValue1 := Parsec with: 1.
+	aValue2 := Parsec with: 2.
 	values add: aValue1.
 	values add: aValue2.
 
@@ -59,8 +59,8 @@ SquaresTest >> test004AHyperJumpSquareCannotHaveAListOfValueThatIsNotInDescendin
 	| values aValue1 aValue2 |
 	
 	values := OrderedCollection new.
-	aValue1 := ParsecMovement with: 1.
-	aValue2 := ParsecMovement with: 2.
+	aValue1 := Parsec with: 1.
+	aValue2 := Parsec with: 2.
 	values add: aValue1.
 	values add: aValue2.
 
@@ -76,8 +76,8 @@ SquaresTest >> test004AHyperJumpSquareCannotHaveAListOfValueThatIsNotInDescendin
 	| values aValue1 aValue2 |
 	
 	values := OrderedCollection new.
-	aValue1 := LightYearMovement with: 1.
-	aValue2 := ParsecMovement with: 1.
+	aValue1 := LightYear with: 1.
+	aValue2 := Parsec with: 1.
 	values add: aValue1.
 	values add: aValue2.
 

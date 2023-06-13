@@ -20,7 +20,7 @@ SquareGeneratorTest >> test001ASquareGeneratorCanGenerateANumberBetween1And100 [
 	| randomSquareGenerator anAmountOfSquares squaresToUse distribution values aValue1 |
 	anAmountOfSquares := 100.
 	values := OrderedCollection new.
-	aValue1 := ParsecMovement with: 4.
+	aValue1 := Parsec with: 4.
 	values add: aValue1.
 	squaresToUse := OrderedCollection new.
 	squaresToUse add: AtomicBombSquare new.
@@ -47,7 +47,7 @@ SquareGeneratorTest >> test002ASquareGeneratorCanGenerateSquaresBasedOnAGivenAmo
 	| randomSquareGenerator anAmountOfSquares squaresToUse distribution values aValue1 |
 	anAmountOfSquares := 100.
 	values := OrderedCollection new.
-	aValue1 := ParsecMovement with: 4.
+	aValue1 := Parsec with: 4.
 	values add: aValue1.
 	squaresToUse := OrderedCollection new.
 	squaresToUse add: AtomicBombSquare new.
@@ -74,7 +74,7 @@ SquareGeneratorTest >> test003ASquareGeneratorCannotGenerateZeroOrLowerAmountOfS
 	| randomSquareGenerator anAmountOfSquares squaresToUse distribution values aValue1 |
 	anAmountOfSquares := -5.
 	values := OrderedCollection new.
-	aValue1 := ParsecMovement with: 4.
+	aValue1 := Parsec with: 4.
 	values add: aValue1.
 	squaresToUse := OrderedCollection new.
 	squaresToUse add: AtomicBombSquare new.
@@ -103,7 +103,7 @@ SquareGeneratorTest >> test004ASquareGeneratorCannotGenerateWithInvalidDistribut
 	| randomSquareGenerator anAmountOfSquares squaresToUse distribution values aValue1 |
 	anAmountOfSquares := 100.
 	values := OrderedCollection new.
-	aValue1 := ParsecMovement with: 4.
+	aValue1 := Parsec with: 4.
 	values add: aValue1.
 	squaresToUse := OrderedCollection new.
 	squaresToUse add: AtomicBombSquare new.
@@ -152,7 +152,7 @@ SquareGeneratorTest >> test006ASquareGeneratorCanFollowADistributionGiven [
 	| randomSquareGenerator anAmountOfSquares randomSquares found squaresToUse distribution values aValue1 |
 	anAmountOfSquares := 100.
 	values := OrderedCollection new.
-	aValue1 := ParsecMovement with: 4.
+	aValue1 := Parsec with: 4.
 	values add: aValue1.
 	squaresToUse := OrderedCollection new.
 	squaresToUse add: AtomicBombSquare new.
@@ -182,7 +182,7 @@ SquareGeneratorTest >> test007ASquareGeneratorCanFollowADifferentDistributionGiv
 	| randomSquareGenerator anAmountOfSquares randomSquares found squaresToUse distribution values aValue1 |
 	anAmountOfSquares := 100.
 	values := OrderedCollection new.
-	aValue1 := ParsecMovement with: 4.
+	aValue1 := Parsec with: 4.
 	values add: aValue1.
 	squaresToUse := OrderedCollection new.
 	squaresToUse add: AtomicBombSquare new.
