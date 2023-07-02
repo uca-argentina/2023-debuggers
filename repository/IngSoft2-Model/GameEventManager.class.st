@@ -4,33 +4,59 @@ Class {
 	#instVars : [
 		'cardManager',
 		'movementManager',
-		'currentTurn',
-		'turnOrder'
+		'turnOrder',
+		'diceCup'
 	],
 	#category : #'IngSoft2-Model'
 }
 
 { #category : #'instance creation' }
-GameEventManager class >> with: aCardManager and: aMovementManager and: aTurnOrder [
+GameEventManager class >> with: aCardManager and: aMovementManager and: aTurnOrder using: aDiceCup [
 
-	^ (self new) initializeWith: aCardManager and: aMovementManager and: aTurnOrder.
+	^ (self new) initializeWith: aCardManager and: aMovementManager and: aTurnOrder using: aDiceCup.
+]
+
+{ #category : #adding }
+GameEventManager >> addPermanent: aPermanentCard to: aPlayerCards [ 
+
+	cardManager addPermanent: aPermanentCard to: aPlayerCards.
+]
+
+{ #category : #adding }
+GameEventManager >> addToAllPermanentPiles: aPermanentCard [
+
+	cardManager addToAllPermanentPiles: aPermanentCard.
+]
+
+{ #category : #'applying effects' }
+GameEventManager >> applyAtomicBomb [
+
+	movementManager applyAtomicBomb.
 ]
 
 { #category : #playing }
 GameEventManager >> applyEffectToCurrentTurnPlayer [
 
-	movementManager applyEffectTo: (Ship with: currentTurn) in: self.
+	movementManager applyEffectTo: (Ship with: turnOrder current) in: self.
 ]
 
-{ #category : #accessing }
-GameEventManager >> cardManager [
-	^ cardManager
+{ #category : #'applying effects' }
+GameEventManager >> applyMoonwalk: steps to: aTargetShip [
+
+	movementManager applyMoonwalk: steps to: aTargetShip.
+]
+
+{ #category : #'applying effects' }
+GameEventManager >> cancel: aTargetCard to: aTargetPlayerCards [
+
+	cardManager checkCancel: aTargetCard to: aTargetPlayerCards.	
+	cardManager remove: aTargetCard to: aTargetPlayerCards.
 ]
 
 { #category : #validation }
-GameEventManager >> checkThat: aCardOwner has: aCard [ 
+GameEventManager >> checkThat: anOwner has: aCard [ 
 	
-	(cardManager checkThat: aCardOwner has: aCard) ifFalse: [ Error signal: 'Unable to play card when the player does not own the card' ]
+	(cardManager a: anOwner has: aCard) ifFalse: [ Error signal: 'Unable to play card when the player does not own the card' ]
 ]
 
 { #category : #validation }
@@ -42,16 +68,22 @@ GameEventManager >> checkThereIsNoWinner [
 { #category : #accessing }
 GameEventManager >> currentTurn [ 
 	
-	^ currentTurn.
+	^ turnOrder current.
+]
+
+{ #category : #'adding Cards' }
+GameEventManager >> drawCardTo: aTargetHand [
+
+	cardManager drawCardTo: aTargetHand.
 ]
 
 { #category : #initialization }
-GameEventManager >> initializeWith: aCardManager and: aMovementManager and: aTurnOrder [
+GameEventManager >> initializeWith: aCardManager and: aMovementManager and: aTurnOrder using: aDiceCup [
 
 	cardManager := aCardManager.
 	movementManager := aMovementManager.
 	turnOrder := aTurnOrder.
-	currentTurn := aTurnOrder next.
+	diceCup := aDiceCup.
 ]
 
 { #category : #playing }
@@ -59,19 +91,47 @@ GameEventManager >> moveCurrentTurnPlayer: aDiceResult [
 	
 	| permanentCardsModifiers |
 	
-	permanentCardsModifiers := cardManager usePermanentCardsFrom: (PlayerCards from: currentTurn).
-	movementManager updatePosition: (aDiceResult + permanentCardsModifiers) to: (Ship with: currentTurn).
+	permanentCardsModifiers := cardManager usePermanentCardsFrom: (PlayerCards from: turnOrder current).
+	movementManager updatePosition: (aDiceResult + permanentCardsModifiers) to: (Ship with: turnOrder current).
 ]
 
-{ #category : #accessing }
-GameEventManager >> movementManager [
-	^ movementManager
+{ #category : #playing }
+GameEventManager >> play: aCard from: aCardOwner to: aTargetPlayer [ 
+	
+	| owner |
+	
+	owner := (PlayerCards from: aCardOwner).
+	self checkThat: owner has: aCard.
+	aCard playIn: self from: owner to: aTargetPlayer.
+	self remove: aCard from: owner.
+	self updateLastCardPlayed: aCard.
+]
+
+{ #category : #playing }
+GameEventManager >> playTurn [
+
+	self checkThereIsNoWinner.
+	self moveCurrentTurnPlayer: diceCup throw.
+	self applyEffectToCurrentTurnPlayer.
+	self updateTurn.
+]
+
+{ #category : #'applying effects' }
+GameEventManager >> redoLastCardPlayedFrom: aPlayerCards to: aTargetPlayer [
+
+	(cardManager lastCardPlayed) playIn: self from: aPlayerCards to: aTargetPlayer.
 ]
 
 { #category : #removing }
-GameEventManager >> remove: aCard from: aCardOwner [
+GameEventManager >> remove: aCard from: aPlayersCards [
 	
-	cardManager remove: aCard from: aCardOwner.
+	cardManager remove: aCard from: aPlayersCards.
+]
+
+{ #category : #'applying effects' }
+GameEventManager >> repeatLastSquareLandedTo: aTargetShip [
+
+	(movementManager lastSquareLanded) effectTo: aTargetShip in: self.
 ]
 
 { #category : #accessing }
@@ -99,9 +159,21 @@ GameEventManager >> updateLastCardPlayed: aCard [
 ]
 
 { #category : #playing }
+GameEventManager >> updateParsecs: parsecSteps to: aTargetShip [
+
+	movementManager updateParsecs: parsecSteps to: aTargetShip.
+]
+
+{ #category : #playing }
+GameEventManager >> updatePosition: steps to: aTargetShip [
+
+	movementManager updatePosition: steps to: aTargetShip.
+]
+
+{ #category : #playing }
 GameEventManager >> updateTurn [
 
-	currentTurn := turnOrder next.
+	turnOrder next.
 ]
 
 { #category : #'game status' }

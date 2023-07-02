@@ -17,10 +17,23 @@ CardManager class >> with: somePlayersNames using: aDeck [
 	
 ]
 
+{ #category : #'card playability' }
+CardManager >> a: aCardOwner has: aCard [
+	
+	| ownerHand |
+	
+	ownerHand := (playerCards detect: [:aPlayerCards | aPlayerCards equals: aCardOwner]).
+	^ ownerHand hasInHand: aCard.
+	
+]
+
 { #category : #'adding Cards' }
 CardManager >> addPermanent: aPermanentCard to: aTargetPlayerCards [
 
-	( playerCards detect: [:aPlayerCards | aPlayerCards equals: aTargetPlayerCards]) addToPermanentPile: aPermanentCard.
+	| targetCards |
+	
+	targetCards := playerCards detect: [:aPlayerCards | aPlayerCards equals: aTargetPlayerCards].
+	targetCards addToPermanentPile: aPermanentCard.
 ]
 
 { #category : #'adding Cards' }
@@ -37,17 +50,13 @@ CardManager >> checkCancel: aPermanentCardToCancel to: aTargetPlayerCards [
 		Error signal: 'Unable to cancel the permanent card because there is no such card in effect' ]
 ]
 
-{ #category : #'card playability' }
-CardManager >> checkThat: aCardOwner has: aCard [
-		
-	^ ((playerCards detect: [:aPlayerCards | aPlayerCards equals: aCardOwner]) hasInHand: aCard) .
-	
-]
-
 { #category : #'adding Cards' }
 CardManager >> drawCardTo: aTargetPlayerCards [
 	
-	(playerCards detect: [:aPlayerCards | aPlayerCards equals: aTargetPlayerCards]) addCard: deck draw.
+	| targetCards |
+	
+	targetCards := playerCards detect: [:aPlayerCards | aPlayerCards equals: aTargetPlayerCards].
+	targetCards addCard: deck draw.
 ]
 
 { #category : #initialization }
@@ -71,18 +80,20 @@ CardManager >> lastCardPlayed [
 
 { #category : #'removing cards' }
 CardManager >> remove: aCard from: aTargetPlayerCards [
-
-	(playerCards detect: [:aPlayerCards | aPlayerCards equals: aTargetPlayerCards]) removeFromHand: aCard.
+	
+	| targetCards |
+	
+	targetCards := playerCards detect: [:aPlayerCards | aPlayerCards equals: aTargetPlayerCards].
+	targetCards removeFromHand: aCard.
 ]
 
 { #category : #'removing cards' }
 CardManager >> remove: aPermanentCardToCancel to: aTargetPlayerCards [
 	
-	| targetHand |
+	| targetCards |
 	
-	
-	targetHand := playerCards detect: [:aPlayerCards | aPlayerCards equals: aTargetPlayerCards].
-	targetHand removePermanent: aPermanentCardToCancel.
+	targetCards := playerCards detect: [:aPlayerCards | aPlayerCards equals: aTargetPlayerCards].
+	targetCards removePermanent: aPermanentCardToCancel.
 ]
 
 { #category : #'card effects' }
@@ -92,7 +103,10 @@ CardManager >> updateLastCardPlayed: aCard [
 ]
 
 { #category : #'card effects' }
-CardManager >> usePermanentCardsFrom: aPlayer [
-
-	^ (playerCards detect: [:aPlayerCards | aPlayerCards equals: aPlayer]) usePermanents.
+CardManager >> usePermanentCardsFrom: aTargetPlayerCards [
+	
+	| targetHand |
+	
+	targetHand := playerCards detect: [:aPlayerCards | aPlayerCards equals: aTargetPlayerCards].
+	^ targetHand usePermanents.
 ]

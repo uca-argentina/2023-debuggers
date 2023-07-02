@@ -39,34 +39,25 @@ GalaxyCircuitGame >> currentTurn [
 { #category : #initialization }
 GalaxyCircuitGame >> initializeWith: somePlayersNames and: aBoard and: anAmountOfLaps uses: aDiceCup uses: aDeck [
 
-	| aCardManager aMovementManager counter turns aTurnOrder |
+	| aCardManager aMovementManager aTurnOrder |
 	
 	aCardManager := CardManager with: somePlayersNames using: aDeck.
 	aMovementManager := MovementManager with: somePlayersNames and: anAmountOfLaps using: aBoard.
-	diceCup := aDiceCup.
-	counter := 1.
-	turns := OrderedCollection new.
 	aTurnOrder := SequenceHandler with: somePlayersNames.
-	gameEventManager := GameEventManager with: aCardManager and: aMovementManager and: aTurnOrder.
+	gameEventManager := GameEventManager with: aCardManager and: aMovementManager and: aTurnOrder using: aDiceCup.
 ]
 
 { #category : #playing }
-GalaxyCircuitGame >> play: aCard From: aCardOwner to: aTargetShip [ 
-	
-	gameEventManager checkThat: (PlayerCards from: aCardOwner) has: aCard.
-	aCard playIn: gameEventManager from: (PlayerCards from: aCardOwner) to: aTargetShip.
-	gameEventManager remove: aCard from: (PlayerCards from: aCardOwner).
-	gameEventManager updateLastCardPlayed: aCard.
+GalaxyCircuitGame >> play: aCard from: aCardOwner to: aTargetShip [ 
+
+	gameEventManager play: aCard from: aCardOwner to: aTargetShip
 ]
 
 { #category : #playing }
 GalaxyCircuitGame >> playTurn [
 	
-	"gameEventManager playTurn."
-	gameEventManager checkThereIsNoWinner.
-	gameEventManager moveCurrentTurnPlayer: diceCup throw.
-	gameEventManager applyEffectToCurrentTurnPlayer.
-	gameEventManager updateTurn.
+	gameEventManager playTurn.
+	
 ]
 
 { #category : #accessing }

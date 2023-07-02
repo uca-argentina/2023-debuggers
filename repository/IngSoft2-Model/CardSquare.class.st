@@ -7,5 +7,5 @@ Class {
 { #category : #effect }
 CardSquare >> effectTo: aTargetHand in: aGameEventManager [ 
 	
-	aGameEventManager cardManager drawCardTo: aTargetHand.
+	aGameEventManager drawCardTo: aTargetHand.
 ]

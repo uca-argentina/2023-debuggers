@@ -15,17 +15,7 @@ DieTest >> should: anErrorBlock raise: anExceptionClass withMessage: anErrorMess
 ]
 
 { #category : #tests }
-DieTest >> test001ARandomDieCanTellMeItsFaces [
-
-| aDie |
-aDie:= Die with:3.
-
-self assert: aDie faces equals: 3.
-
-]
-
-{ #category : #tests }
-DieTest >> test002ARandomDieCanThrowARandomNumber [
+DieTest >> test001ARandomDieCanThrowARandomNumber [
 
 | aDie |
 aDie:= Die with:3.
@@ -35,7 +25,7 @@ self assert: ((aDie throw) between: 1 and: 3).
 ]
 
 { #category : #tests }
-DieTest >> test003ALoadedDieCanThrowAnExpectedNumber [
+DieTest >> test002ALoadedDieCanThrowAnExpectedNumber [
 
 	| aDie sequence |
 	
@@ -46,7 +36,7 @@ DieTest >> test003ALoadedDieCanThrowAnExpectedNumber [
 ]
 
 { #category : #tests }
-DieTest >> test004ALoadedDieCanThrowAnExpectedSequenceOfNumbers [
+DieTest >> test003ALoadedDieCanThrowAnExpectedSequenceOfNumbers [
 
 	| aDie sequence |
 
@@ -60,7 +50,7 @@ DieTest >> test004ALoadedDieCanThrowAnExpectedSequenceOfNumbers [
 ]
 
 { #category : #tests }
-DieTest >> test005ALoadedDieSequenceCanBeRepeated [
+DieTest >> test004ALoadedDieSequenceCanBeRepeated [
 
 	| aDie sequence |
 	sequence := #( 2 3 4 ) asOrderedCollection.
@@ -76,7 +66,7 @@ DieTest >> test005ALoadedDieSequenceCanBeRepeated [
 ]
 
 { #category : #tests }
-DieTest >> test006ARandomDieCanCannotHaveZeroFaces [
+DieTest >> test005ARandomDieCanCannotHaveZeroFaces [
 
 	| aDie |
 	
@@ -87,7 +77,7 @@ DieTest >> test006ARandomDieCanCannotHaveZeroFaces [
 ]
 
 { #category : #tests }
-DieTest >> test007ARandomDieCanCannotHaveNegativeAmountOfFaces [
+DieTest >> test006ARandomDieCanCannotHaveNegativeAmountOfFaces [
 
 	| aDie |
 	
@@ -98,7 +88,7 @@ DieTest >> test007ARandomDieCanCannotHaveNegativeAmountOfFaces [
 ]
 
 { #category : #tests }
-DieTest >> test008ALoadedDieCanCannotHaveZeroFaces [
+DieTest >> test007ALoadedDieCanCannotHaveZeroFaces [
 
 	| aDie sequence |
 	
@@ -111,7 +101,7 @@ DieTest >> test008ALoadedDieCanCannotHaveZeroFaces [
 ]
 
 { #category : #tests }
-DieTest >> test009ALoadedDieCanCannotHaveANegativeAmountOfFaces [
+DieTest >> test008ALoadedDieCanCannotHaveANegativeAmountOfFaces [
 
 	| aDie sequence |
 	
@@ -121,15 +111,4 @@ DieTest >> test009ALoadedDieCanCannotHaveANegativeAmountOfFaces [
 		should: [ aDie := LoadedDie with: sequence ]
 		raise: Error
 		withMessage: 'Unable to create dice with 0 or less faces'
-]
-
-{ #category : #tests }
-DieTest >> test010ALoadedDieCanTellMeItsFaces [
-
-	| aDie sequence |
-	
-	sequence := #( 7 8 4 ) asOrderedCollection.
-	aDie := LoadedDie with: sequence.
-
-	self assert: aDie faces equals: 8
 ]

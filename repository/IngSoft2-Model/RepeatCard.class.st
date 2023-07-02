@@ -5,7 +5,7 @@ Class {
 }
 
 { #category : #'playing card' }
-RepeatCard >> playIn: aGameEventManager from: aCardOwner to: aTargetShip [
+RepeatCard >> playIn: aGameEventManager from: aPlayerCards to: aTargetPlayer [
 	
-	(aGameEventManager movementManager) lastSquareLanded effectTo: (Ship with: aTargetShip) in: aGameEventManager.
+	aGameEventManager repeatLastSquareLandedTo: (Ship with: aTargetPlayer).
 ]

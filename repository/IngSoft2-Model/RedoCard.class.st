@@ -5,8 +5,8 @@ Class {
 }
 
 { #category : #'playing card' }
-RedoCard >> playIn: aGameEventManager from: aCardOwner to: aTargetShip [
+RedoCard >> playIn: aGameEventManager from: aPlayerCards to: aTargetPlayer [
 	
-	(aGameEventManager cardManager) lastCardPlayed playIn: aGameEventManager from: aCardOwner to: aTargetShip.
+	aGameEventManager redoLastCardPlayedFrom: aPlayerCards to: aTargetPlayer.
 	
 ]

@@ -19,11 +19,6 @@ Die class >> with: anAmountOfFaces [
 	^(self new) initalizeWith: anAmountOfFaces.
 ]
 
-{ #category : #accessing }
-Die >> faces [
-	^ faces.
-]
-
 { #category : #initialization }
 Die >> initalizeWith: anAmountOfFaces [
 	faces:=anAmountOfFaces.

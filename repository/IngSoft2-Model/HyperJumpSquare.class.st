@@ -2,7 +2,7 @@ Class {
 	#name : #HyperJumpSquare,
 	#superclass : #Object,
 	#instVars : [
-		'sequence'
+		'parsecSteps'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -29,15 +29,12 @@ HyperJumpSquare class >> with: someValues [
 { #category : #accessing }
 HyperJumpSquare >> effectTo: aTargetShip in: aGameEventManager [
 	
-	| parsecSteps |
-	
-	parsecSteps := (sequence next).
-	aGameEventManager movementManager updateParsecs: parsecSteps to: aTargetShip.
+	aGameEventManager updateParsecs: parsecSteps next to: aTargetShip.
 	
 ]
 
 { #category : #initialization }
 HyperJumpSquare >> initializeWith: someValues [
 
-	sequence := SequenceHandler with: someValues.
+	parsecSteps := SequenceHandler with: someValues.
 ]
