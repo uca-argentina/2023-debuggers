@@ -11,7 +11,7 @@ CancellationCard >> playIn: aGameEventManager from: aCardOwner to: aTargetPlayed
 	
 	aCardManager := aGameEventManager cardManager.
 	targetCard := aTargetPlayedPermanentCard card.
-	targetShip := aTargetPlayedPermanentCard target.
+	targetShip := PlayerCards from: aTargetPlayedPermanentCard target.
 	aCardManager checkCancel: targetCard to: targetShip.
 	aCardManager remove: targetCard to: targetShip.
 ]

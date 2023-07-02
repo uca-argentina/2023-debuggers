@@ -46,25 +46,23 @@ GalaxyCircuitGame >> initializeWith: somePlayersNames and: aBoard and: anAmountO
 	diceCup := aDiceCup.
 	counter := 1.
 	turns := OrderedCollection new.
-	somePlayersNames size timesRepeat: [ 
-		turns add: counter.
-		counter := counter + 1 ].
-	aTurnOrder := SequenceHandler with: turns.
+	aTurnOrder := SequenceHandler with: somePlayersNames.
 	gameEventManager := GameEventManager with: aCardManager and: aMovementManager and: aTurnOrder.
 ]
 
 { #category : #playing }
 GalaxyCircuitGame >> play: aCard From: aCardOwner to: aTargetShip [ 
 	
-	gameEventManager checkThat: aCardOwner has: aCard.
-	aCard playIn: gameEventManager from: aCardOwner to: aTargetShip.
-	gameEventManager remove: aCard from: aCardOwner.
+	gameEventManager checkThat: (PlayerCards from: aCardOwner) has: aCard.
+	aCard playIn: gameEventManager from: (PlayerCards from: aCardOwner) to: aTargetShip.
+	gameEventManager remove: aCard from: (PlayerCards from: aCardOwner).
 	gameEventManager updateLastCardPlayed: aCard.
 ]
 
 { #category : #playing }
 GalaxyCircuitGame >> playTurn [
-
+	
+	"gameEventManager playTurn."
 	gameEventManager checkThereIsNoWinner.
 	gameEventManager moveCurrentTurnPlayer: diceCup throw.
 	gameEventManager applyEffectToCurrentTurnPlayer.

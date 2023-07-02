@@ -19,7 +19,7 @@ GameEventManager class >> with: aCardManager and: aMovementManager and: aTurnOrd
 { #category : #playing }
 GameEventManager >> applyEffectToCurrentTurnPlayer [
 
-	movementManager applyEffectTo: currentTurn in: self.
+	movementManager applyEffectTo: (Ship with: currentTurn) in: self.
 ]
 
 { #category : #accessing }
@@ -59,8 +59,8 @@ GameEventManager >> moveCurrentTurnPlayer: aDiceResult [
 	
 	| permanentCardsModifiers |
 	
-	permanentCardsModifiers := cardManager usePermanentCardsFrom: currentTurn.
-	movementManager updatePosition: (aDiceResult + permanentCardsModifiers) to: currentTurn.
+	permanentCardsModifiers := cardManager usePermanentCardsFrom: (PlayerCards from: currentTurn).
+	movementManager updatePosition: (aDiceResult + permanentCardsModifiers) to: (Ship with: currentTurn).
 ]
 
 { #category : #accessing }

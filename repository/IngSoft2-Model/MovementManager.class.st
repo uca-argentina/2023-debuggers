@@ -26,17 +26,24 @@ MovementManager >> applyEffectTo: aTargetShip in: aGameEventManager [
 	
 	| landedSquare |
 	
-	landedSquare := ((ships at: aTargetShip) position).
+	landedSquare := ((ships detect: [:aShip | aShip equals: aTargetShip]) position).
 	board effectTo: aTargetShip at: landedSquare truncated in: aGameEventManager.
 ]
 
 { #category : #'applying effects' }
 MovementManager >> applyMoonwalk: steps to: aTargetShip [
 
-	ships withIndexDo: [ :aShip :aShipTurnOrder | 
+	"ships withIndexDo: [ :aShip :aShipTurnOrder | 
 		aShipTurnOrder = aTargetShip ifFalse: [ 
 			aShip move: steps. 
-			self updateLapTo: aShip ] ].
+			self updateLapTo: aShip ] ]."
+
+	| affectedShips |
+	affectedShips := ships select: [ :aShip | 
+		                 (aShip equals: aTargetShip) not ].
+	affectedShips do: [ :aShip | 
+		aShip move: steps.
+		self updateLapTo: aShip ]
 ]
 
 { #category : #testing }
@@ -101,7 +108,7 @@ MovementManager >> updateLapTo: aShip [
 MovementManager >> updateParsecs: nonSquareMovement to: aTargetShip [
 
 	| turnShip steps |
-	turnShip := ships at: aTargetShip.
+	turnShip := ships detect: [:aShip | aShip equals: aTargetShip].
 	steps := board nonSquareMovementToSquareMovement: nonSquareMovement.
 	turnShip move: steps.
 	
@@ -113,7 +120,7 @@ MovementManager >> updatePosition: steps to: aTargetShip [
 
 	| targetShip |
 	
-	targetShip := ships at: aTargetShip.
+	targetShip := ships detect: [:aShip | aShip equals: aTargetShip].
 	targetShip move: steps.
 	self updateLapTo: targetShip.
 ]

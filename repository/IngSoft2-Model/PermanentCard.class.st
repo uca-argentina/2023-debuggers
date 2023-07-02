@@ -7,5 +7,5 @@ Class {
 { #category : #'card playability' }
 PermanentCard >> checkPlayedBy: aCardOwner matches: currentTurnShip [
 
-	(aCardOwner = currentTurnShip) ifFalse: [ Error signal: 'Unable to play permanent card when its not your turn' ]
+	(aCardOwner equals: currentTurnShip) ifFalse: [ Error signal: 'Unable to play permanent card when its not your turn' ]
 ]
