@@ -613,7 +613,7 @@ GalaxyCircuitGameTest >> test027AGameShipCanLandOnTheLastSquareWhenMovingLaps [
 ]
 
 { #category : #tests }
-GalaxyCircuitGameTest >> test028AGameCanPlayASpeedPermanentCardUsingADeckWithOnlySpeedCardsThenTheTargetShipMovesAnExtraSquareWhenItMoves [
+GalaxyCircuitGameTest >> test028AGameCanPlayASpeedCardUsingADeckThenTheTargetShipMovesAnExtraSquareWhenItMoves [
 
 	| aGame amountOfSquares anAmountOfParsecs aSpeedCard aCardOwner aTargetShip cards |
 	
@@ -632,7 +632,7 @@ GalaxyCircuitGameTest >> test028AGameCanPlayASpeedPermanentCardUsingADeckWithOnl
 ]
 
 { #category : #tests }
-GalaxyCircuitGameTest >> test029AGameCanPlayManySpeedPermanentCardAndItsEffectStacks [
+GalaxyCircuitGameTest >> test029AGameCanPlayManySpeedCardAndItsEffectStacks [
 
 	| aGame amountOfSquares anAmountOfParsecs aSpeedCard aCardOwner aTargetShip cards |
 	
@@ -652,7 +652,7 @@ GalaxyCircuitGameTest >> test029AGameCanPlayManySpeedPermanentCardAndItsEffectSt
 ]
 
 { #category : #tests }
-GalaxyCircuitGameTest >> test030AGameCanPlayAnOverloadPermanentCardUsingADeckWithOnlyPermanentCardsThenTheTargetShipMovesTwoSquaresLessWhenItMoves [
+GalaxyCircuitGameTest >> test030AGameCanPlayAnOverloadCardUsingADeckThenTheTargetShipMovesTwoSquaresLessWhenItMoves [
 
 	| aGame amountOfSquares anAmountOfParsecs anOverloadCard aCardOwner aTargetShip cards |
 	
@@ -671,7 +671,7 @@ GalaxyCircuitGameTest >> test030AGameCanPlayAnOverloadPermanentCardUsingADeckWit
 ]
 
 { #category : #tests }
-GalaxyCircuitGameTest >> test031AGameCanPlayManyOverLoadPermanentCardAndItsEffectStacks [
+GalaxyCircuitGameTest >> test031AGameCanPlayManyOverLoadCardAndItsEffectStacks [
 
 	| aGame amountOfSquares anAmountOfParsecs anOverloadCard aCardOwner aTargetShip cards |
 	
@@ -691,7 +691,7 @@ GalaxyCircuitGameTest >> test031AGameCanPlayManyOverLoadPermanentCardAndItsEffec
 ]
 
 { #category : #tests }
-GalaxyCircuitGameTest >> test032AGameCanPlayAnAccelerationPermanentCardUsingADeckWithOnlyPermanentCardsThenAllShipsMoveAnExtraSquareWhenTheyMove [
+GalaxyCircuitGameTest >> test032AGameCanPlayAnAccelerationCardUsingADeckThenAllShipsMoveAnExtraSquareWhenTheyMove [
 
 	| aGame amountOfSquares anAmountOfParsecs anAccelerationCard aCardOwner aTargetShip cards |
 	
@@ -714,7 +714,7 @@ GalaxyCircuitGameTest >> test032AGameCanPlayAnAccelerationPermanentCardUsingADec
 ]
 
 { #category : #tests }
-GalaxyCircuitGameTest >> test033AGameCanPlayManyAccelerationPermanentCardsAndItsEffectStacks [
+GalaxyCircuitGameTest >> test033AGameCanPlayManyAccelerationCardsAndItsEffectStacks [
 
 	| aGame amountOfSquares anAmountOfParsecs anAccelerationCard aCardOwner aTargetShip cards |
 	
@@ -799,7 +799,7 @@ GalaxyCircuitGameTest >> test036AGameInWhichPlayersStartWithTwoCardsRemovesThemF
 ]
 
 { #category : #tests }
-GalaxyCircuitGameTest >> test037AGameCanPlayACancellationInstantCardUsingALoadedDeckThenTheTargetCardIsRemoved [
+GalaxyCircuitGameTest >> test037AGameCanPlayACancellationCardUsingADeckThenTheTargetCardIsRemoved [
 
 	| aGame amountOfSquares anAmountOfParsecs aSpeedCard aCancellationCard aCardOwner aTargetShip cards aTargetPlayedPermanent |
 	
@@ -821,7 +821,7 @@ GalaxyCircuitGameTest >> test037AGameCanPlayACancellationInstantCardUsingALoaded
 ]
 
 { #category : #tests }
-GalaxyCircuitGameTest >> test038AGameCanPlayACancellationInstantCardEvenWhenTheOwnerIsNotTheCurrentTurnShip [
+GalaxyCircuitGameTest >> test038AGameCanPlayACancellationCardEvenWhenTheOwnerIsNotTheCurrentTurnShip [
 
 	| aGame amountOfSquares anAmountOfParsecs aSpeedCard aCancellationCard aCardOwner aTargetShip cards anotherCardOwner aTargetPlayedPermanent |
 	
@@ -844,7 +844,7 @@ GalaxyCircuitGameTest >> test038AGameCanPlayACancellationInstantCardEvenWhenTheO
 ]
 
 { #category : #tests }
-GalaxyCircuitGameTest >> test039AGameCannotPlayACancellationInstantCardWhenTheTargetCardIsNotInEffect [
+GalaxyCircuitGameTest >> test039AGameCannotPlayACancellationCardWhenTheTargetCardIsNotInEffect [
 
 	| aGame amountOfSquares anAmountOfParsecs aSpeedCard aCancellationCard aCardOwner aTargetShip cards aTargetPlayedPermanent |
 	
@@ -865,7 +865,7 @@ GalaxyCircuitGameTest >> test039AGameCannotPlayACancellationInstantCardWhenTheTa
 ]
 
 { #category : #tests }
-GalaxyCircuitGameTest >> test040AGameCanPlayARedoCardUsingALoadedDeckThenTheLastPermanentCardPlayedIsUsed [
+GalaxyCircuitGameTest >> test040AGameCanPlayARedoCardUsingADeckThenTheLastPermanentCardPlayedIsUsed [
 
 	| aGame amountOfSquares anAmountOfParsecs aSpeedCard aRedoCard aCardOwner aTargetShip cards |
 	
@@ -886,7 +886,7 @@ GalaxyCircuitGameTest >> test040AGameCanPlayARedoCardUsingALoadedDeckThenTheLast
 ]
 
 { #category : #tests }
-GalaxyCircuitGameTest >> test041AGameCanPlayARedoCardUsingALoadedDeckThenTheLastPermanentCardPlayedIsUsedAndCanTargetADifferentShip [
+GalaxyCircuitGameTest >> test041AGameCanPlayARedoCardUsingADeckThenTheLastPermanentCardPlayedIsUsedAndCanTargetADifferentShip [
 
 	| aGame amountOfSquares anAmountOfParsecs aSpeedCard aRedoCard aCardOwner aTargetShip cards anotherTargetShip |
 	
@@ -933,7 +933,7 @@ GalaxyCircuitGameTest >> test042AGameCannotPlayARedoCardIfItRepeatsAPermanentCar
 ]
 
 { #category : #tests }
-GalaxyCircuitGameTest >> test043AGameCanPlayARedoCardUsingALoadedDeckThenTheLastInstantCardPlayedIsUsed [
+GalaxyCircuitGameTest >> test043AGameCanPlayARedoCardUsingADeckThenTheLastInstantCardPlayedIsUsed [
 
 	| aGame amountOfSquares anAmountOfParsecs aSpeedCard aRedoCard aCardOwner aTargetShip cards aCancellationCard anotherCardOwner aTargetPlayedPermanent |
 	
@@ -979,7 +979,7 @@ GalaxyCircuitGameTest >> test044AGameCannotPlayARedoCardIfNoCardsWhereUsed [
 ]
 
 { #category : #tests }
-GalaxyCircuitGameTest >> test045AGameCanPlayARepeatCardUsingALoadedDeckAndABoardWithOnlySpeedUpSquaresThenTheSquareEffectIsRepeated [
+GalaxyCircuitGameTest >> test045AGameCanPlayARepeatCardUsingADeckAndABoardWithOnlySpeedUpSquaresThenTheSquareEffectIsRepeated [
 
 	| aGame amountOfSquares anAmountOfParsecs aCardOwner aTargetShip cards aRepeatCard |
 	
@@ -998,7 +998,7 @@ GalaxyCircuitGameTest >> test045AGameCanPlayARepeatCardUsingALoadedDeckAndABoard
 ]
 
 { #category : #tests }
-GalaxyCircuitGameTest >> test046AGameCanPlayARepeatCardUsingALoadedDeckAndABoardWithOnlyMoonwalkSquaresThenTheSquareEffectIsRepeatedAndCenteredOnTargetShip [
+GalaxyCircuitGameTest >> test046AGameCanPlayARepeatCardUsingADeckAndABoardWithOnlyMoonwalkSquaresThenTheSquareEffectIsRepeatedAndCenteredOnTargetShip [
 
 	| aGame amountOfSquares anAmountOfParsecs aCardOwner aTargetShip cards aRepeatCard |
 	
@@ -1019,7 +1019,7 @@ GalaxyCircuitGameTest >> test046AGameCanPlayARepeatCardUsingALoadedDeckAndABoard
 ]
 
 { #category : #tests }
-GalaxyCircuitGameTest >> test047AGameCanPlayARepeatInstantCardEvenWhenTheOwnerIsNotTheCurrentTurnShip [
+GalaxyCircuitGameTest >> test047AGameCanPlayARepeatCardEvenWhenTheOwnerIsNotTheCurrentTurnShip [
 
 	| aGame amountOfSquares anAmountOfParsecs aCardOwner aTargetShip cards aRepeatCard |
 	
@@ -1038,7 +1038,7 @@ GalaxyCircuitGameTest >> test047AGameCanPlayARepeatInstantCardEvenWhenTheOwnerIs
 ]
 
 { #category : #tests }
-GalaxyCircuitGameTest >> test048AGameCanPlayARepeatInstantCardEvenWhenNoOneHasPlayedThenRepeatsANoEffectSquare [
+GalaxyCircuitGameTest >> test048AGameCanPlayARepeatCardEvenWhenNoOneHasPlayedThenRepeatsANoEffectSquare [
 
 	| aGame amountOfSquares anAmountOfParsecs aCardOwner aTargetShip cards aRepeatCard |
 	
