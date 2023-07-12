@@ -11,8 +11,8 @@ AccelerationCard >> effect [
 ]
 
 { #category : #'playing card' }
-AccelerationCard >> playIn: aGameEventManager from: aCardOwner to: aTarget [
+AccelerationCard >> playIn: aGameEventManager from: aPlayerCards to: aTargetPlayer [
 
-	self checkPlayedBy: aCardOwner matches: aGameEventManager currentTurn.
-	aGameEventManager cardManager addToAllPermanentPiles: self
+	self checkPlayedBy: aPlayerCards matches: (PlayerCards from: aGameEventManager currentTurn).
+	aGameEventManager addToAllPermanentPiles: self
 ]

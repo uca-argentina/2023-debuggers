@@ -23,11 +23,6 @@ LoadedDie class >> with: aSequenceOfRolls [
 	^ self new initializeWith: aSequenceOfRolls
 ]
 
-{ #category : #accessing }
-LoadedDie >> faces [
-	^ (sequenceHandler sequence) max.
-]
-
 { #category : #initialization }
 LoadedDie >> initializeWith: aSequenceOfRolls [
 

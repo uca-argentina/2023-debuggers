@@ -2,9 +2,9 @@ Class {
 	#name : #Ship,
 	#superclass : #Object,
 	#instVars : [
-		'name',
 		'position',
-		'lap'
+		'lap',
+		'owner'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -18,12 +18,12 @@ Ship class >> with: aName [
 { #category : #comparing }
 Ship >> equals: anotherShip [
 
-	^ (name = (anotherShip name)).
+	^ (owner = (anotherShip owner)).
 ]
 
 { #category : #initialize }
 Ship >> intializeWith: aName [ 
-	name := aName.
+	owner := aName.
 	lap := 1.
 	position := 1.
 ]
@@ -46,8 +46,9 @@ Ship >> moveLaps: someLaps and: aNewPosition [
 ]
 
 { #category : #accessing }
-Ship >> name [
-	^ name.
+Ship >> owner [
+
+	^ owner.
 ]
 
 { #category : #accessing }

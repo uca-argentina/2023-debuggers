@@ -27,6 +27,12 @@ PlayerCards >> addToPermanentPile: aPermanentCard [
 	permanents add: aPermanentCard.
 ]
 
+{ #category : #comparing }
+PlayerCards >> equals: anotherPlayerCards [
+
+	^ (owner = (anotherPlayerCards owner)).
+]
+
 { #category : #checking }
 PlayerCards >> hasInHand: aCard [
 
@@ -39,6 +45,12 @@ PlayerCards >> initializeFrom: aPlayerName [
 	owner := aPlayerName.
 	hand := OrderedCollection new. 
 	permanents := OrderedCollection new.
+]
+
+{ #category : #accessing }
+PlayerCards >> owner [
+
+	^ owner.
 ]
 
 { #category : #accessing }

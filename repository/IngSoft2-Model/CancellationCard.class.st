@@ -5,13 +5,11 @@ Class {
 }
 
 { #category : #'playing card' }
-CancellationCard >> playIn: aGameEventManager from: aCardOwner to: aTargetPlayedPermanentCard [
+CancellationCard >> playIn: aGameEventManager from: aPlayerCards to: aTargetPlayedPermanentCard [
 	
-	| targetCard targetShip aCardManager |
+	| targetCard targetPlayerCards |
 	
-	aCardManager := aGameEventManager cardManager.
 	targetCard := aTargetPlayedPermanentCard card.
-	targetShip := aTargetPlayedPermanentCard target.
-	aCardManager checkCancel: targetCard to: targetShip.
-	aCardManager remove: targetCard to: targetShip.
+	targetPlayerCards := PlayerCards from: aTargetPlayedPermanentCard target.
+	aGameEventManager cancel: targetCard to: targetPlayerCards.
 ]
